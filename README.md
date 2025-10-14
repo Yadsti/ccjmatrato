@@ -1,14 +1,14 @@
-# Astro Starter Kit: Basics
+# Kit de Inicio de Astro: Básicos
 
 ```sh
 pnpm create astro@latest -- --template basics
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> 🧑‍🚀 **¿Astronauta experimentado?** Borra este archivo. ¡Diviértete!
 
-## 🚀 Project Structure
+## 🚀 Estructura del Proyecto
 
-Inside of your Astro project, you'll see the following folders and files:
+Dentro de tu proyecto de Astro, verás las siguientes carpetas y archivos:
 
 ```text
 /
@@ -26,21 +26,78 @@ Inside of your Astro project, you'll see the following folders and files:
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Para aprender más sobre la estructura de un proyecto Astro, consulta [nuestra guía sobre la estructura del proyecto](https://docs.astro.build/en/basics/project-structure/).
 
-## 🧞 Commands
+## 🧞 Comandos
 
-All commands are run from the root of the project, from a terminal:
+Todos los comandos se ejecutan desde la raíz del proyecto, desde una terminal:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+| Comando                | Acción                                                     |
+| :--------------------- | :--------------------------------------------------------- |
+| `pnpm install`         | Instala las dependencias                                   |
+| `pnpm dev`             | Inicia el servidor de desarrollo local en `localhost:4321` |
+| `pnpm build`           | Compila tu sitio de producción en `./dist/`                |
+| `pnpm preview`         | Previsualiza tu compilación localmente, antes de desplegar |
+| `pnpm astro ...`       | Ejecuta comandos CLI como `astro add`, `astro check`       |
+| `pnpm astro -- --help` | Obtén ayuda usando la CLI de Astro                         |
 
-## 👀 Want to learn more?
+## 👀 ¿Quieres saber más?
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Consulta [nuestra documentación](https://docs.astro.build) o únete a nuestro [servidor de Discord](https://astro.build/chat).
+
+## 🔧 Guía para Contribuir y Trabajar en Local
+
+Esta sección brinda instrucciones para que el equipo colabore eficazmente en el proyecto:
+
+1. **Clonar el repositorio:**
+
+   Ejecuta el siguiente comando para clonar el repositorio en tu máquina local:
+
+   ```sh
+   git clone https://github.com/Yadsti/ccjmatrato.git
+   ```
+
+2. **Crear una rama de trabajo:**
+
+   Antes de comenzar a trabajar, crea y cámbiate a una nueva rama para desarrollar tus cambios:
+
+   ```sh
+   git checkout -b nombre-de-tu-rama
+   ```
+
+3. **Realizar cambios y confirmarlos:**
+
+   Una vez que hayas realizado cambios en el código, añade y confirma tus modificaciones:
+
+   ```sh
+   git add .
+   git commit -m "Descripción de los cambios realizados"
+   ```
+
+4. **Subir la rama al repositorio remoto:**
+
+   Envía tu rama de trabajo al repositorio remoto:
+
+   ```sh
+   git push origin nombre-de-tu-rama
+   ```
+
+5. **Crear un Pull Request (PR):**
+
+   - Ve a GitHub y abre el repositorio.
+   - Selecciona la opción para crear un nuevo Pull Request comparando tu rama con la rama principal (main).
+   - Añade una descripción detallada de los cambios y solicita la revisión por parte de un compañero.
+
+6. **Revisión y Fusión:**
+
+   - Tus compañeros revisarán el código y, si es correcto, se aprobará y fusionará en la rama principal.
+   - Es recomendable actualizar tu rama local con los últimos cambios de main para evitar conflictos:
+
+   ```sh
+   git checkout main
+   git pull origin main
+   git checkout nombre-de-tu-rama
+   git merge main
+   ```
+
+Mantén siempre una buena comunicación en el equipo y sigue las guías de estilo y las buenas prácticas definidas para el proyecto.
