@@ -6,6 +6,22 @@ pnpm create astro@latest -- --template basics
 
 > 🧑‍🚀 **¿Astronauta experimentado?** Borra este archivo. ¡Diviértete!
 
+## Tecnologías necesarias
+
+- Node.js (versión LTS recomendada)
+- pnpm (gestor de paquetes)
+- Astro (framework para construir sitios web estáticos)
+- Git (control de versiones)
+- Un editor de código (por ejemplo, VS Code)
+
+## 🔗 Enlaces directos para descarga de herramientas
+
+- **Node.js**: [Descargar Node.js LTS](https://nodejs.org/en/download/)
+- **pnpm**: [Documentación de pnpm](https://pnpm.io/)
+- **Astro**: [Documentación de Astro](https://docs.astro.build/)
+- **Git**: [Descargar Git](https://git-scm.com/downloads)
+- **VS Code**: [Descargar VS Code](https://code.visualstudio.com/)
+
 ## 🚀 Estructura del Proyecto
 
 Dentro de tu proyecto de Astro, verás las siguientes carpetas y archivos:
