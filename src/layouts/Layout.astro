@@ -1,18 +1,29 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>Concejo Municipal Medio Atrato</title>
+		<meta name="description" content="Sitio web oficial del Concejo Municipal Medio Atrato" />
+		<meta name="keywords" content="Concejo, Municipal, Medio, Atrato, Sitio, Web, Oficial, Medio Atrato" />
+		<meta name="author" content="Concejo Municipal Medio Atrato" />
+		<meta name="robots" content="index, follow" />
+		<meta property="og:title" content="Concejo Municipal Medio Atrato" />
 	</head>
 	<body>
 		<slot />
 	</body>
 </html>
 
-<style>
+<style is:global>
+	@import 'tailwindcss';
+	@plugin "@midudev/tailwind-animations";
+
+	body{
+		background: #ffffff;
+	}
+
 	html,
 	body {
 		margin: 0;
