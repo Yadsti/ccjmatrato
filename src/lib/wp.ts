@@ -1,15 +1,18 @@
-const domain = import.meta.env.WP_DOMAIN || "https://concejo-municipal-de-medio-atrato.wp.local/";
-const apiUrl = `${domain}wp-json/wp/v2/`;
+if (import.meta.env.DEV) {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+}
 
-// export const getPageInfo = async (slug: string) => {
-//     const response = await fetch(`${apiUrl}pages?slug=${slug}`);
-//     if (!response.ok) {
-//         throw new Error('Problema al obtener información de la página');
-//     }
-//     const [data] = await response.json();
-//     const { title : { rendered: title }, content: { rendered: content } } = data;
-//     return { title, content };
-// };
+const domain = import.meta.env.WP_DOMAIN
+const apiUrl = `${domain}wp-json/wp/v2`;
+
+export const getPageInfo = async (slug: string) => {
+    const response = await fetch(`${apiUrl}/pages?slug=${slug}`);
+    if (!response.ok) throw new Error('Problema al obtener información de la página');
+    
+    const [data] = await response.json();
+    const { title : { rendered: title }, content: { rendered: content } } = data;
+    return { title, content };
+};
 
 // export const getLatestNotices = async ({perPage = 3}: {perPage?: number} = {}) => {
 //     const response = await fetch(`${apiUrl}posts?per_page=${perPage}`);

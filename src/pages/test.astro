@@ -1,0 +1,19 @@
+---
+import Hero from "../sections/Hero.astro";
+import Header from "../sections/Header.astro";
+import Footer from "../sections/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+import { getPageInfo } from "../lib/wp";
+
+const { title, content } = await getPageInfo('inicio');
+---
+
+<Layout>
+  <Hero />
+  <Header />
+  <div>
+    <h1>{title}</h1>
+    <div>{content}</div>
+  </div>
+  <Footer />
+</Layout>
