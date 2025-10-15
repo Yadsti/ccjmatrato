@@ -1,33 +1,25 @@
+---
+import "../styles/global.css";
+---
+
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<title>Concejo Municipal Medio Atrato</title>
-		<meta name="description" content="Sitio web oficial del Concejo Municipal Medio Atrato" />
-		<meta name="keywords" content="Concejo, Municipal, Medio, Atrato, Sitio, Web, Oficial, Medio Atrato" />
-		<meta name="author" content="Concejo Municipal Medio Atrato" />
-		<meta name="robots" content="index, follow" />
-		<meta property="og:title" content="Concejo Municipal Medio Atrato" />
-	</head>
-	<body>
-		<slot />
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <title>Concejo Municipal Medio Atrato</title>
+        <meta name="description" content="Sitio web oficial del Concejo Municipal Medio Atrato" />
+        <meta name="keywords" content="Concejo, Municipal, Medio, Atrato, Sitio, Web, Oficial, Medio Atrato" />
+        <meta name="author" content="Concejo Municipal Medio Atrato" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Concejo Municipal Medio Atrato" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLPD7yP+WqD+FjW2K+V5j+t4mFv6a/jBv5tV8nJqGv7Kz2pGz8GqR+L6wN9l7P9z/W4v8vQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <slot />
+    </body>
 </html>
-
-<style is:global>
-	@import 'tailwindcss';
-	@plugin "@midudev/tailwind-animations";
-
-	body{
-		background: #ffffff;
-	}
-
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

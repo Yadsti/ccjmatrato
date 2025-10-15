@@ -1,12 +1,19 @@
 ---
-import Hero from '../sections/Hero.astro';
-import Header from '../sections/Header.astro';
-import Footer from '../sections/Footer.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import Noticias from "../components/Noticias.astro";
+import MisionVision from "../components/MisionVision.astro";
+import Concejales from "../components/Concejales.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <Layout>
-	<Hero />
-	<Header />
-	<Footer />
+  <Header />
+  <div class="h-16"></div> 
+  <Hero />
+  <Noticias />
+  <MisionVision />
+  <Concejales />
+  <Footer />
 </Layout>

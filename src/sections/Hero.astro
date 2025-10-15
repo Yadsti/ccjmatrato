@@ -1,3 +1,48 @@
-<main>
-    
-</main>
+<section class="relative w-full h-[60vh] overflow-hidden">
+  <div id="hero-carousel" class="absolute inset-0 transition-opacity duration-500 ease-in-out">
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/img1.png');"></div>
+    <div class="absolute inset-0 bg-cover bg-center opacity-0" style="background-image: url('/img2.jpg');"></div>
+    <div class="absolute inset-0 bg-cover bg-center opacity-0" style="background-image: url('/img3.png');"></div>
+  </div>
+  
+  <div class="absolute inset-0 flex items-center justify-center">
+    <div class="bg-black bg-opacity-50 text-white text-center p-8 md:p-12 max-w-2xl font-sans">
+      <h1 class="text-4xl md:text-5xl font-bold mb-2">Concejo Municipal del Medio Atrato</h1>
+      <p class="text-xl md:text-2xl mb-6">Transparencia, Equidad y Justicia</p>
+      
+      <div class="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 flex justify-between px-4">
+        <button id="prev-btn" class="text-white text-3xl opacity-50 hover:opacity-100 transition-opacity">&lt;</button>
+        <button id="next-btn" class="text-white text-3xl opacity-50 hover:opacity-100 transition-opacity">&gt;</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const carouselContainer = document.getElementById('hero-carousel');
+  const slides = Array.from(carouselContainer.children);
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  let currentSlide = 0;
+  
+  const showSlide = (index) => {
+    slides.forEach((slide, i) => {
+      slide.style.opacity = i === index ? '1' : '0';
+    });
+  };
+  
+  prevBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  });
+  
+  setInterval(() => {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }, 3000);
+</script>
