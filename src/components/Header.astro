@@ -1,56 +1,93 @@
-<header class="bg-white shadow-md fixed top-0 left-0 right-0 z-50">
+---
+// Capturamos la ruta actual de la página para determinar el estado activo
+const currentPath = Astro.url.pathname.replace(/\/$/, ''); // Limpiamos la ruta de barras finales (e.g., '/transparencia/' -> '/transparencia')
+
+// Lógica de marcado:
+// 1. Si el path es '/', la ruta actual debe ser exactamente '' (la raíz)
+// 2. Para otros paths, la ruta actual debe empezar con ese path.
+const isActive = (path) => {
+    if (path === '/') {
+        // Marcamos Inicio solo si la ruta es la raíz exacta (localhost:4321/)
+        return currentPath === '';
+    }
+    // Marcamos secciones (Corporación, /transparencia, /atencion) si la ruta empieza con ellas
+    return currentPath.startsWith(path);
+};
+
+const activeClass = "bg-concejo-verde-claro text-concejo-negro font-bold shadow-sm"; // Clase para el estado activo
+const baseClass = "px-3 py-2 rounded-lg hover:bg-concejo-verde-claro hover:text-concejo-negro transition-colors duration-300";
+---
+
+<header class="bg-white shadow-lg fixed top-0 left-0 right-0 z-50 border-b border-gray-100">
   <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
     <div class="flex items-center space-x-2">
-      <img src="/logo-concejo.png" alt="Logo Concejo Municipal del Medio Atrato" class="h-10 w-auto" />
-      <h1 class="text-xl font-bold text-concejo-negro font-sans">Concejo Municipal del Medio Atrato</h1>
+      <img src="/logo-concejo.png" alt="Logo Concejo Municipal del Medio Atrato" class="h-14 w-auto rounded-lg shadow-sm" />
     </div>
-    <nav class="flex space-x-6 font-medium font-sans">
-      <a href="/" class="hover:text-concejo-verde-principal">Inicio</a>
+
+    <button id="menu-toggle" class="md:hidden focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+      <svg class="w-8 h-8 text-concejo-negro" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
+    
+    <nav id="main-nav" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 font-medium font-sans absolute md:static top-full left-0 right-0 bg-white shadow-lg md:shadow-none p-4 md:p-0 w-full md:w-auto">
+      
+      <a href="/" class:list={[baseClass, isActive('/') ? activeClass : '']}>Inicio</a>
       
       <div class="relative group">
-        <button class="flex items-center hover:text-concejo-verde-principal focus:outline-none">
+        <span class:list={[baseClass, 'flex items-center cursor-pointer', isActive('/corporacion') ? activeClass : '']}>
           Corporación
           <svg class="ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:rotate-180" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
           </svg>
-        </button>
-        <div class="absolute hidden group-hover:block z-50 bg-white shadow-lg py-2 mt-1 rounded w-48">
-          <a href="/corporacion" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">¿Qué es el concejo?</a>
-          <a href="/concejales" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Nuestros Concejales</a>
-          <a href="/corporacion" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Historia del concejo</a>
-          <a href="/concejales" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Manual de identidad visual</a>
-          
+        </span>
+        <div class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-52 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
+          <a href="/corporacion/que-es-el-concejo" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">¿Qué es el Concejo?</a>
+          <a href="/corporacion/concejales" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Nuestros Concejales</a>
+          <a href="/corporacion/historia" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Historia del Concejo</a>
+          <a href="/corporacion/manual-identidad" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Manual de Identidad Visual</a>
         </div>
       </div>
       
       <div class="relative group">
-        <button class="flex items-center hover:text-concejo-verde-principal focus:outline-none">
+        <span class:list={[baseClass, 'flex items-center cursor-pointer', isActive('/transparencia') ? activeClass : '']}>
           Transparencia
           <svg class="ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:rotate-180" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
           </svg>
-        </button>
-        <div class="absolute hidden group-hover:block z-50 bg-white shadow-lg py-2 mt-1 rounded w-48">
-          <a href="/noticias" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Noticias y Eventos</a>
-          <a href="/informes" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Normativa</a>
-          <a href="/planeacion" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Planeación y presupuesto</a>
-          <a href="/informes" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Contratación</a>
-          <a href="/planeacion" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Planeación</a>
+        </span>
+        <div class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-52 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
+          <a href="/transparencia/" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Noticias y Eventos</a>
+          <a href="/transparencia/informes" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Informes de Gestión</a>
+          <a href="/transparencia/planeacion" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Planeación</a>
+          <a href="/transparencia/normativa" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Normativa</a>
+          <a href="/transparencia/participacion" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Participación</a>
+          <a href="/transparencia/contratacion" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Contratación</a>
         </div>
       </div>
       
       <div class="relative group">
-        <button class="flex items-center hover:text-concejo-verde-principal focus:outline-none">
+        <span class:list={[baseClass, 'flex items-center cursor-pointer', isActive('/atencion') ? activeClass : '']}>
           Atención al ciudadano
           <svg class="ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:rotate-180" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
           </svg>
-        </button>
-        <div class="absolute hidden group-hover:block z-50 bg-white shadow-lg py-2 mt-1 rounded w-48">
-          <a href="/pqrsd" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">PQRSD</a>
-          <a href="/contacto" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro">Contacto</a>
+        </span>
+        <div class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-52 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
+          <a href="/atencion/pqrsd" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">PQRSD</a>
+          <a href="/atencion/contacto" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Contacto</a>
         </div>
       </div>
+      
     </nav>
   </div>
 </header>
+<script>
+  // Script para manejar el menú de hamburguesa en móviles
+  const toggleButton = document.getElementById('menu-toggle');
+  const navMenu = document.getElementById('main-nav');
+
+  toggleButton.addEventListener('click', () => {
+    navMenu.classList.toggle('hidden');
+  });
+</script>

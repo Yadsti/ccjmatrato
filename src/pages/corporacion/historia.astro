@@ -1,0 +1,57 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout>
+    <Header />
+    <div class="h-16"></div>
+
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-10">Historia del Concejo</h1>
+        <p class="text-lg text-gray-700 text-center mb-12 max-w-3xl mx-auto">
+            Recorre la trayectoria y la evolución de la corporación del Concejo Municipal del Medio Atrato desde su fundación hasta la actualidad.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
+            
+            <div class="lg:col-span-2 space-y-6 text-lg text-gray-700 leading-relaxed">
+                
+                <h2 class="text-3xl font-bold text-concejo-negro border-b pb-2">Orígenes y Fundación</h2>
+                <p>
+                    [INSERTA AQUÍ EL PRIMER PÁRRAFO DE LA HISTORIA] Por ejemplo: El Concejo Municipal se estableció formalmente en el año [XX] tras la creación del municipio del Medio Atrato. Sus primeros esfuerzos se centraron en [detalles de los primeros años].
+                </p>
+
+                <h2 class="text-3xl font-bold text-concejo-negro border-b pb-2 pt-6">El Periodo de Desarrollo</h2>
+                <p>
+                    [INSERTA AQUÍ EL SEGUNDO SEGMENTO DE LA HISTORIA] Este periodo estuvo marcado por [detalles importantes, hitos, o concejales destacados].
+                </p>
+
+                <h2 class="text-3xl font-bold text-concejo-negro border-b pb-2 pt-6">El Concejo en la Actualidad</h2>
+                <p>
+                    [INSERTA AQUÍ EL ÚLTIMO SEGMENTO DE LA HISTORIA] Hoy, la corporación se enfoca en [Misión actual, temas de debate, planes a futuro].
+                </p>
+                
+            </div>
+
+            <aside class="lg:col-span-1 space-y-6">
+                
+                <div class="bg-concejo-verde-claro p-6 rounded-lg shadow-md border-l-4 border-concejo-verde-principal">
+                    <h3 class="text-xl font-bold text-concejo-negro mb-2">Hito Histórico Clave</h3>
+                    <p class="text-gray-700">En [Año], el Concejo aprobó el [Nombre del Acuerdo/Plan], un evento que cambió el rumbo del municipio.</p>
+                </div>
+
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md italic border-l-4 border-concejo-azul-principal">
+                    <p class="text-gray-800">"La historia nos enseña que el desarrollo de Medio Atrato siempre ha estado en manos de su gente."</p>
+                    <p class="text-sm font-semibold text-right mt-2">— [Nombre de la figura histórica]</p>
+                </div>
+
+                <img src="/historia/foto-antigua.jpg" alt="Foto histórica del Medio Atrato o del Concejo" class="w-full h-auto rounded-lg shadow-lg">
+
+            </aside>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>

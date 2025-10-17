@@ -15,11 +15,103 @@ import "../styles/global.css";
         <meta name="robots" content="index, follow" />
         <meta property="og:title" content="Concejo Municipal Medio Atrato" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLPD7yP+WqD+FjW2K+V5j+t4mFv6a/jBv5tV8nJqGv7Kz2pGz8GqR+L6wN9l7P9z/W4v8vQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLPD7yP+WqD+FjW2K+V5j+t4mFv6a/jBv5tV8nJqGv7Kz2pGz8GqR+L6wN9l7P9z/W4v8vQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;700&display=swap" rel="stylesheet">
     </head>
     <body>
-        <slot />
-    </body>
+        <div id="modal-backdrop" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center z-50 p-4">
+            <div id="concejal-modal" class="bg-white rounded-xl shadow-2xl overflow-y-auto max-w-4xl w-full max-h-full">
+                
+                <div id="modal-content" class="p-6 md:p-8">
+                    </div>
+                
+                <div class="text-right p-4 border-t">
+                    <button onclick="closeModal()" class="text-gray-600 hover:text-concejo-negro font-semibold">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script is:inline> 
+            // DATOS DE CONCEJALES: Clave/Valor (key/value) es el ID del concejal.
+            const concejalesData = {
+                'yeiber-asprilla': {
+                    nombre: 'Yeiber Asprilla',
+                    cargo: 'Presidente del Concejo',
+                    foto: '/concejales/concejal1.jpg',
+                    perfilAcademico: ['Licenciado en [Carrera]', 'Especialista en [Posgrado]'],
+                    perfilProfesional: ['Trabajo en la Alcaldía Municipal [Años]', 'Consultor en Gestión Pública'],
+                    twitter: '#', facebook: '#', instagram: '#'
+                },
+                'carlos-murillo': {
+                    nombre: 'Carlos Murillo Córdoba',
+                    cargo: 'Vicepresidente',
+                    foto: '/concejales/concejal2.jpg',
+                    perfilAcademico: ['Abogado - Universidad [Nombre]', 'Magister en Derecho del Estado'],
+                    perfilProfesional: ['Asesor jurídico en sector público', 'Gestor de proyectos sociales'],
+                    twitter: '#', facebook: '#', instagram: '#'
+                },
+                'concejal-3': { nombre: 'Yulieth Asprilla Palacios', cargo: 'Concejal', foto: '/concejales/concejal3.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-4': { nombre: 'Concejal Número Cuatro', cargo: 'Concejal', foto: '/concejales/concejal4.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-5': { nombre: 'Concejal Número Cinco', cargo: 'Concejal', foto: '/concejales/concejal5.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-6': { nombre: 'Concejal Número Seis', cargo: 'Concejal', foto: '/concejales/concejal6.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-7': { nombre: 'Concejal Número Siete', cargo: 'Concejal', foto: '/concejales/concejal7.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-8': { nombre: 'Concejal Número Ocho', cargo: 'Concejal', foto: '/concejales/concejal8.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-9': { nombre: 'Concejal Número Nueve', cargo: 'Concejal', foto: '/concejales/concejal9.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-10': { nombre: 'Concejal Número Diez', cargo: 'Concejal', foto: '/concejales/concejal10.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-11': { nombre: 'Concejal Número Once', cargo: 'Concejal', foto: '/concejales/concejal11.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-12': { nombre: 'Concejal Número Doce', cargo: 'Concejal', foto: '/concejales/concejal12.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+                'concejal-13': { nombre: 'Concejal Número Trece', cargo: 'Concejal', foto: '/concejales/concejal13.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
+            };
+
+            function openModal(concejalId) {
+                const data = concejalesData[concejalId];
+                const modalBackdrop = document.getElementById('modal-backdrop');
+                const modalContent = document.getElementById('modal-content');
+
+                if (!data) return;
+
+                const academicList = data.perfilAcademico.map(item => `<li class="text-gray-700">${item}</li>`).join('');
+                const professionalList = data.perfilProfesional.map(item => `<li class="text-gray-700">${item}</li>`).join('');
+
+                modalContent.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-8">
+                        <div class="md:col-span-2 text-center md:text-left">
+                            <img src="${data.foto}" alt="Foto de ${data.nombre}" class="w-40 h-40 mx-auto md:mx-0 rounded-full object-cover shadow-lg border-4 border-concejo-verde-principal mb-4">
+                            <h2 class="text-3xl font-extrabold text-concejo-negro">${data.nombre}</h2>
+                            <p class="text-lg font-semibold text-concejo-azul-principal">${data.cargo}</p>
+                            <div class="flex justify-center md:justify-start space-x-3 mt-3">
+                                <a href="${data.twitter}" class="text-concejo-azul-principal hover:text-concejo-verde-principal"><i class="fab fa-twitter"></i></a>
+                                <a href="${data.facebook}" class="text-concejo-azul-principal hover:text-concejo-verde-principal"><i class="fab fa-facebook-f"></i></a>
+                                <a href="${data.instagram}" class="text-concejo-azul-principal hover:text-concejo-verde-principal"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                        <div class="md:col-span-3 space-y-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-concejo-negro flex items-center mb-2 border-b-2 border-concejo-verde-claro pb-1">Perfil académico</h3>
+                                <ul class="list-disc list-inside space-y-1">${academicList}</ul>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-concejo-negro flex items-center mb-2 border-b-2 border-concejo-verde-claro pb-1">Perfil profesional</h3>
+                                <ul class="list-disc list-inside space-y-1">${professionalList}</ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                modalBackdrop.classList.remove('hidden');
+                modalBackdrop.classList.add('flex');
+            }
+
+            function closeModal() {
+                const modalBackdrop = document.getElementById('modal-backdrop');
+                modalBackdrop.classList.add('hidden');
+                modalBackdrop.classList.remove('flex');
+            }
+        </script>
+        
+                <slot />
+        
+    </body> 
 </html>

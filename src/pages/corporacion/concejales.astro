@@ -1,0 +1,18 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import DirectorioConcejales from "../../components/DirectorioConcejales.astro"; 
+---
+
+<Layout>
+    <Header />
+    <div class="h-16"></div> 
+
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">Directorio Completo de Concejales</h1>
+        <DirectorioConcejales />
+    </main>
+
+    <Footer />
+</Layout>

@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout>
+    <Header />
+    <div class="h-16"></div>
+
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">Contacto</h1>
+        <p class="text-lg text-gray-700 text-center mb-10 max-w-4xl mx-auto">
+            Comuníquese con el Concejo Municipal del Medio Atrato a través de nuestros canales oficiales.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            
+            <div class="bg-gray-100 p-8 rounded-xl shadow-lg space-y-5 border-t-8 border-concejo-verde-principal">
+                <h2 class="text-2xl font-bold text-concejo-negro mb-4">Información de la Corporación</h2>
+                
+                <div class="flex items-start space-x-4">
+                    <i class="fas fa-phone text-concejo-azul-principal text-2xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-concejo-negro">Teléfono y WhatsApp</p>
+                        <a href="tel:3117539517" class="text-gray-700 hover:text-concejo-verde-principal">3117539517</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <i class="fas fa-envelope text-concejo-azul-principal text-2xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-concejo-negro">Correo Oficial</p>
+                        <a href="mailto:concejomedioatrato@hotmail.com" class="text-gray-700 hover:text-concejo-verde-principal">concejomedioatrato@hotmail.com</a>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <i class="fas fa-map-marker-alt text-concejo-azul-principal text-2xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-concejo-negro">Dirección de Oficinas</p>
+                        <p class="text-gray-700">Beté, calle principal B/. [cite_start]Virgen Morena[cite: 194].</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-4">
+                    <i class="fas fa-clock text-concejo-azul-principal text-2xl mt-1"></i>
+                    <div>
+                        <p class="font-bold text-concejo-negro">Horario de Atención</p>
+                        <p class="text-gray-700">Lunes a Viernes (Ver detalle en footer)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 p-4 rounded-xl shadow-lg border-t-8 border-concejo-verde-principal">
+                <h2 class="text-2xl font-bold text-concejo-negro mb-4">Ubicación Geográfica</h2>
+                
+                <div class="relative pt-[75%] bg-gray-300 rounded-lg overflow-hidden border border-gray-400">
+                    <iframe 
+                        class="absolute top-0 left-0 w-full h-full"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3972.6394595286543!2d-76.71965682570053!3d5.938804394017647!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e5c269201f80211%3A0x6b4f7a2d48c8b671!2sBet%C3%A9%2C%20Medio%20Atrato%2C%20Choc%C3%B3%2C%20Colombia!5e0!3m2!1ses-419!2sus!4v1678822000000!5m2!1ses-419!2sus"
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                </div>
+                <p class="text-sm text-gray-600 mt-3">Utilice el mapa para obtener indicaciones a nuestra ubicación física.</p>
+            </div>
+            
+        </div>
+    </main>
+
+    <Footer />
+</Layout>

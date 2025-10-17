@@ -1,0 +1,71 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout>
+    <Header />
+    <div class="h-16"></div>
+
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">Mecanismos de Participación Ciudadana</h1>
+        <p class="text-lg text-gray-700 text-center mb-10 max-w-4xl mx-auto">
+            Conozca las formas en que puede participar activamente en la toma de decisiones y el control político del Concejo Municipal del Medio Atrato.
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-concejo-azul-principal text-center flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300">
+                <i class="fas fa-hand-paper text-5xl text-concejo-azul-principal mb-4"></i>
+                <h3 class="text-xl font-bold text-concejo-negro mb-2">Audiencias Públicas</h3>
+                <p class="text-gray-700 text-sm mb-4 flex-grow">Participe en las sesiones de control político y dé a conocer sus opiniones sobre temas de interés municipal.</p>
+                <a href="#" class="inline-block bg-concejo-verde-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-negro transition-colors duration-300">
+                    Ver Calendario
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-concejo-azul-principal text-center flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300">
+                <i class="fas fa-chart-line text-5xl text-concejo-azul-principal mb-4"></i>
+                <h3 class="text-xl font-bold text-concejo-negro mb-2">Rendición de Cuentas</h3>
+                <p class="text-gray-700 text-sm mb-4 flex-grow">Consulte los reportes periódicos de la gestión corporativa y administrativa del Concejo.</p>
+                <a href="/transparencia/informes" class="inline-block bg-concejo-verde-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-negro transition-colors duration-300">
+                    Ver Informes
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-concejo-azul-principal text-center flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300">
+                <i class="fas fa-vote-yea text-5xl text-concejo-azul-principal mb-4"></i>
+                <h3 class="text-xl font-bold text-concejo-negro mb-2">Iniciativa Ciudadana</h3>
+                <p class="text-gray-700 text-sm mb-4 flex-grow">Conozca el mecanismo para proponer acuerdos y proyectos de ley ante el Concejo.</p>
+                <a href="/docs/iniciativa-ciudadana.pdf" target="_blank" class="inline-block bg-concejo-verde-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-negro transition-colors duration-300">
+                    Ver Requisitos
+                </a>
+            </div>
+            
+        </div>
+        
+        <div class="mt-16 max-w-4xl mx-auto">
+             <h2 class="text-3xl font-bold text-concejo-negro mb-6 border-b pb-2">Canales de Comunicación</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 <div class="bg-gray-100 p-5 rounded-lg shadow-md flex items-center space-x-4">
+                     <i class="fas fa-envelope text-3xl text-concejo-azul-principal"></i>
+                     <div>
+                         <p class="font-bold text-concejo-negro">Atención por Correo</p>
+                         <p class="text-sm text-gray-700">concejomedioatrato@hotmail.com</p>
+                     </div>
+                 </div>
+                 <div class="bg-gray-100 p-5 rounded-lg shadow-md flex items-center space-x-4">
+                     <i class="fas fa-phone text-3xl text-concejo-azul-principal"></i>
+                     <div>
+                         <p class="font-bold text-concejo-negro">Línea de Contacto</p>
+                         <p class="text-sm text-gray-700">3117539517</p>
+                     </div>
+                 </div>
+             </div>
+        </div>
+        
+    </main>
+
+    <Footer />
+</Layout>

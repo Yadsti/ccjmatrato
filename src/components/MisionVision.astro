@@ -1,45 +1,24 @@
-<section class="container mx-auto px-4 py-16 font-sans">
-  <h2 class="text-3xl font-bold text-center text-concejo-verde-principal mb-10">Propósito y Compromiso</h2>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<section class="bg-gray-100 py-12 font-sans">
+  <div class="container mx-auto px-4">
     
-    <div class="bg-concejo-verde-claro rounded-lg p-6 cursor-pointer" onclick="togglePanel('mision-panel')">
-      <h3 class="text-xl font-bold text-concejo-negro flex items-center justify-between">
-        Misión
-        <span id="mision-icon">-</span>
-      </h3>
-      <div id="mision-panel" class="mt-4">
-        <p class="text-concejo-negro">
+    <h2 class="text-3xl font-bold text-center text-concejo-verde-principal mb-10">Propósito y Compromiso</h2>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-6xl mx-auto">
+      
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-xl font-bold text-concejo-negro mb-4">Misión</h3>
+        <p class="text-gray-700 leading-relaxed">
           El Concejo Municipal del Medio Atrato es la corporación político-administrativa encargada de ejercer el control político, normativo y administrativo dentro del municipio, representando los intereses de la comunidad medioatrateña. Promueve el desarrollo integral, la participación ciudadana, la equidad social y la protección del patrimonio ambiental y cultural del territorio, mediante la formulación y aprobación de acuerdos que contribuyan al bienestar colectivo y al fortalecimiento institucional.
         </p>
       </div>
-    </div>
-    
-    <div class="bg-concejo-verde-claro rounded-lg p-6 cursor-pointer" onclick="togglePanel('vision-panel')">
-      <h3 class="text-xl font-bold text-concejo-negro flex items-center justify-between">
-        Visión
-        <span id="vision-icon">-</span>
-      </h3>
-      <div id="vision-panel" class="mt-4">
-        <p class="text-concejo-negro">
+      
+      <div class="bg-white rounded-xl shadow-lg p-6">
+        <h3 class="text-xl font-bold text-concejo-negro mb-4">Visión</h3>
+        <p class="text-gray-700 leading-relaxed">
           Para el año 2030, el Concejo Municipal del Medio Atrato será reconocido como una corporación moderna, participativa y transparente, que impulsa el desarrollo sostenible, la inclusión social y el fortalecimiento de la gobernanza local, garantizando decisiones concertadas que mejoren la calidad de vida de todos los habitantes del municipio.
         </p>
       </div>
+      
     </div>
-
   </div>
 </section>
-
-<script>
-  function togglePanel(panelId) {
-    const panel = document.getElementById(panelId);
-    const icon = document.getElementById(panelId.replace('-panel', '-icon'));
-    
-    if (panel.classList.contains('hidden')) {
-      panel.classList.remove('hidden');
-      icon.textContent = '-';
-    } else {
-      panel.classList.add('hidden');
-      icon.textContent = '+';
-    }
-  }
-</script>

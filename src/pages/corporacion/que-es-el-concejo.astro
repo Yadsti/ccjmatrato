@@ -1,0 +1,87 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import MisionVision from "../../components/MisionVision.astro";
+---
+
+<Layout>
+    <Header />
+    <div class="h-16"></div> <main class="container mx-auto px-4 py-8 font-sans">
+        
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16 max-w-6xl mx-auto">
+            
+            <div class="order-2 md:order-1">
+                <p class="text-sm text-concejo-verde-principal font-semibold">ESTRUCTURA Y COMPROMISO</p>
+                <h1 class="text-5xl font-extrabold text-concejo-negro mb-4">¿Qué es el Concejo?</h1>
+                <p class="text-lg text-gray-700 leading-relaxed border-l-4 border-concejo-azul-principal pl-4">
+                    El Concejo Municipal del Medio Atrato es la corporación político-administrativa encargada de ejercer el control político, normativo y administrativo dentro del municipio, representando los intereses de la comunidad medioatrateña. Promueve el desarrollo integral, la participación ciudadana, la equidad social y la protección del patrimonio ambiental y cultural del territorio, mediante la formulación y aprobación de acuerdos que contribuyan al bienestar colectivo y al fortalecimiento institucional.
+                </p>
+            </div>
+
+            <div class="order-1 md:order-2">
+                <img src="/imagen-corporacion.jpg" alt="Edificio del Concejo Municipal del Medio Atrato" class="rounded-xl shadow-2xl w-full h-auto">
+            </div>
+        </section>
+
+
+        <MisionVision />
+        
+        <section class="mt-20 max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-concejo-azul-principal mb-8">Conoce Nuestra Labor en un Video</h2>
+            
+            <div class="relative pt-[56.25%] bg-black rounded-xl shadow-2xl">
+                <iframe 
+                    class="absolute top-0 left-0 w-full h-full rounded-xl"
+                    src="https://www.youtube.com/embed/XXXXXXX" 
+                    title="Video Informativo del Concejo Municipal del Medio Atrato" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <p class="text-center text-gray-600 mt-4 text-sm">¿Qué hacemos en el Concejo? (Video explicativo)</p>
+        </section>
+
+
+        <div class="mt-20 max-w-6xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-concejo-azul-principal mb-8">Nuestros Objetivos Institucionales</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
+                    <h3 class="text-xl font-bold text-concejo-negro">1. Control y Transparencia</h3>
+                    <p class="text-gray-700 text-base">Fortalecer la función normativa y de control político, garantizando la transparencia, la eficiencia administrativa y el cumplimiento de los principios de la gestión pública.</p>
+                </div>
+
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
+                    <h3 class="text-xl font-bold text-concejo-negro">2. Participación Social</h3>
+                    <p class="text-gray-700 text-base">Promover la participación ciudadana en los procesos de formulación, debate y aprobación de políticas públicas y acuerdos municipales.</p>
+                </div>
+
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
+                    <h3 class="text-xl font-bold text-concejo-negro">3. Impulso al Desarrollo</h3>
+                    <p class="text-gray-700 text-base">Impulsar el desarrollo económico, social y ambiental sostenible, fomentando iniciativas que mejoren las condiciones de vida de las comunidades urbanas y rurales.</p>
+                </div>
+                
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
+                    <h3 class="text-xl font-bold text-concejo-negro">4. Capacidad Institucional</h3>
+                    <p class="text-gray-700 text-base">Fortalecer la capacidad institucional del Concejo Municipal, mediante la formación continua de los concejales y el mejoramiento de los procesos administrativos y tecnológicos.</p>
+                </div>
+
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
+                    <h3 class="text-xl font-bold text-concejo-negro">5. Inclusión y Equidad</h3>
+                    <p class="text-gray-700 text-base">Garantizar la inclusión y la equidad, promoviendo acuerdos que favorezcan a las poblaciones vulnerables, étnicas y campesinas del municipio.</p>
+                </div>
+
+                <div class="bg-gray-100 p-6 rounded-lg shadow-md space-y-3">
+                    <h3 class="text-xl font-bold text-concejo-negro">6. Ética Pública</h3>
+                    <p class="text-gray-700 text-base">Fomentar la ética pública y la rendición de cuentas, promoviendo la confianza ciudadana en la gestión del Concejo y en la administración municipal.</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>

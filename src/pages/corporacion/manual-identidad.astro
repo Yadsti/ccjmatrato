@@ -1,0 +1,79 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout>
+    <Header />
+    <div class="h-16"></div>
+
+    <main class="container mx-auto px-4 py-8 font-sans">
+        
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-extrabold text-concejo-negro mb-3">Marca del Concejo</h1>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                Descubre los elementos oficiales de nuestra identidad visual para garantizar un uso coherente y representativo de nuestra marca.
+            </p>
+        </div>
+
+        <section class="max-w-4xl mx-auto mb-16 p-8 bg-concejo-verde-claro rounded-xl shadow-xl">
+            <p class="text-xl font-semibold text-concejo-negro mb-4">Guía de usos correctos e incorrectos</p>
+            <p class="text-gray-800 mb-6">Descargue la guía de uso completa, donde explicamos al detalle la aplicación del imagotipo y sus proporciones.</p>
+            <a href="/IMAGEN-CORPORATIVA-CONCEJO-MUNICIPAL-MEDIO-ATRATO.pdf" target="_blank" class="inline-block bg-concejo-negro text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-concejo-verde-principal transition-colors duration-300">
+                Descargar Manual Completo
+            </a>
+        </section>
+
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <div class="bg-gray-100 p-8 rounded-xl shadow-lg border-t-4 border-concejo-verde-principal">
+                <h3 class="text-2xl font-bold text-concejo-negro mb-4">Imagotipo</h3>
+                <div class="text-center">
+                    <img src="/logo-concejo.png" alt="Símbolo oficial del Concejo" class="w-32 h-auto mx-auto mb-4">
+                    <p class="text-sm text-gray-700">El imagotipo es el emblema principal de nuestra marca.</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 p-8 rounded-xl shadow-lg border-t-4 border-concejo-verde-principal">
+                <h3 class="text-2xl font-bold text-concejo-negro mb-4">Tipografías</h3>
+                <div class="text-center">
+                    <p class="font-sans text-4xl font-extrabold text-concejo-negro mb-2">Nunito Sans</p>
+                    <p class="text-sm text-gray-700">Usada para títulos (Bold) y cuerpo de texto (Normal).</p>
+                </div>
+            </div>
+
+            <div class="bg-gray-100 p-8 rounded-xl shadow-lg border-t-4 border-concejo-verde-principal">
+                <h3 class="text-2xl font-bold text-concejo-negro mb-4">Paleta Cromática</h3>
+                <div class="flex justify-around mt-4">
+                    <div class="w-10 h-10 rounded-full bg-concejo-verde-principal border-2 border-concejo-negro" title="Verde Principal"></div>
+                    <div class="w-10 h-10 rounded-full bg-concejo-azul-principal border-2 border-concejo-negro" title="Azul Principal"></div>
+                    <div class="w-10 h-10 rounded-full bg-concejo-amarillo border-2 border-concejo-negro" title="Amarillo"></div>
+                </div>
+                <p class="text-sm text-center text-gray-700 mt-4">Nuestros colores representan la selva, los ríos y el oro de la región.</p>
+            </div>
+
+        </section>
+        
+        <section class="mt-16 max-w-6xl mx-auto">
+             <h2 class="text-3xl font-bold text-concejo-negro mb-6">Versiones Principales</h2>
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                     <h3 class="text-xl font-bold mb-2">Versión Vertical</h3>
+                     <img src="/logo-concejo.png" alt="Ejemplo Vertical" class="w-24 h-auto mx-auto border p-2">
+                 </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                     <h3 class="text-xl font-bold mb-2">Versión Horizontal</h3>
+                     <img src="/logo-concejo.png" alt="Ejemplo Horizontal" class="w-24 h-auto mx-auto border p-2">
+                 </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                     <h3 class="text-xl font-bold mb-2">Lema Oficial</h3>
+                     <p class="font-sans font-bold text-sm text-concejo-verde-principal mt-4">TRANSPARENCIA, EQUIDAD Y JUSTICIA</p>
+                 </div>
+             </div>
+        </section>
+        
+    </main>
+
+    <Footer />
+</Layout>

@@ -1,0 +1,68 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+
+// --- FUENTE DE DATOS DE NOTICIAS ---
+const noticiasEjemplo = [
+    { id: 1, titulo: "Título Completo de la Noticia 1", fecha: "10 de octubre de 2025", subtitulo: "Subtítulo o resumen ejecutivo de la noticia 1.", descripcion: "Contenido completo de la Noticia 1...", imagen: "/noticias/noticia1.jpg" },
+    { id: 2, titulo: "Título Completo de la Noticia 2", fecha: "05 de octubre de 2025", subtitulo: "Subtítulo o resumen ejecutivo de la noticia 2.", descripcion: "Contenido completo de la Noticia 2...", imagen: "/noticias/noticia2.jpg" },
+    { id: 3, titulo: "Título Completo de la Noticia 3", fecha: "28 de septiembre de 2025", subtitulo: "Subtítulo o resumen ejecutivo de la noticia 3.", descripcion: "Contenido completo de la Noticia 3...", imagen: "/noticias/noticia3.jpg" },
+    { id: 4, titulo: "Título Completo de la Noticia 4", fecha: "20 de septiembre de 2025", subtitulo: "Subtítulo o resumen ejecutivo de la noticia 4.", descripcion: "Contenido completo de la Noticia 4...", imagen: "/noticias/noticia4.jpg" },
+];
+
+// LÓGICA PARA EXTRAER EL ID DE LA URL
+const url = new URL(Astro.request.url);
+const noticiaId = parseInt(url.searchParams.get('id') || '1');
+const noticia = noticiasEjemplo.find(n => n.id === noticiaId) || noticiasEjemplo[0];
+
+// Construye la ruta de la imagen basada en el ID
+const imagenRuta = noticia.imagen || '/noticias/noticia1.jpg';
+---
+
+<Layout>
+    <Header />
+    <div class="h-16"></div>
+
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <article class="max-w-4xl mx-auto">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 items-start">
+                
+                <div class="md:col-span-2 order-1">
+                    <p class="text-sm text-gray-500 mb-2">Publicado el {noticia.fecha}</p>
+                    <h1 class="text-4xl font-extrabold text-concejo-negro mb-3 leading-tight">{noticia.titulo}</h1>
+                    <p class="text-xl text-concejo-azul-principal font-semibold mb-2">{noticia.subtitulo}</p>
+                    
+                    <hr class="w-16 h-1 bg-concejo-verde-principal border-0 rounded-full my-4">
+                </div>
+
+                <div class="md:col-span-1 order-2">
+                    <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 transform hover:shadow-2xl transition-all duration-300">
+                        <img 
+                            src={imagenRuta} 
+                            alt={`Imagen destacada de ${noticia.titulo}`} 
+                            class="w-full h-auto object-cover transform hover:scale-[1.03] transition-transform duration-300"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="prose max-w-none text-gray-800 space-y-6 pt-6 border-t border-gray-200">
+                <p>{noticia.descripcion}</p>
+                
+                <h2 class="text-3xl font-bold text-concejo-negro pt-4">Impacto y Resultados</h2>
+                <p>El Concejo informa sobre los resultados obtenidos de esta actividad: [Añade el detalle aquí].</p>
+                </div>
+            
+        </article>
+        
+        <div class="text-center mt-12">
+            <a href="/transparencia/" class="inline-block bg-concejo-verde-principal text-white font-bold py-3 px-3 rounded-full shadow-md hover:bg-concejo-azul-principal transition-colors duration-300 flex items-center justify-center mx-auto w-48">
+                ← Volver a Noticias
+            </a>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>
