@@ -3,17 +3,43 @@ import Hero from "../sections/Hero.astro";
 import Header from "../sections/Header.astro";
 import Footer from "../sections/Footer.astro";
 import Layout from "../layouts/Layout.astro";
-import { getPageInfo } from "../lib/wp";
+import { getPageInfo, getLatestNotices } from "../lib/wp";
 
-const { title, content } = await getPageInfo('inicio');
+const { title, content } = await getPageInfo("inicio");
+const notices = await getLatestNotices({ perPage: 3 });
+
+const pageTitle = "Pruebas";
+const pageDescription = "Página de pruebas del sitio web oficial del Concejo Municipal del Medio Atrato.";
 ---
 
-<Layout>
+<Layout title={pageTitle} description={pageDescription}>
   <Hero />
   <Header />
   <div>
     <h1>{title}</h1>
-    <div>{content}</div>
+    <div set:html={content} />
   </div>
-  <Footer />
+
+  <section>
+    <h2>Últimas noticias</h2>
+    <div>
+      {
+        notices.length ? (
+          notices.map((notice) => (
+            <article>
+              {notice.imageUrl && (
+                <img src={notice.imageUrl} alt={notice.title} />
+              )}
+              <h3>{notice.title}</h3>
+              <div set:html={notice.content} />
+            </article>
+          ))
+        ) : (
+          <p>No se encontraron noticias.</p>
+        )
+      }
+    </div>
+
+    <Footer />
+  </section>
 </Layout>

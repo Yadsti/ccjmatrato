@@ -1,15 +1,121 @@
-<header class="bg-white shadow">
-  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a href="/" class="flex items-center gap-2">
-      <img src="/logo.svg" alt="Logo Concejo" class="h-10" />
-      <h1 class="text-lg font-semibold text-blue-800">Concejo Distrital</h1>
-    </a>
+---
+export interface Props {
+  currentPage: string;
+}
+const { currentPage } = Astro.props;
 
-    <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-700">
-      <a href="#" class="hover:text-blue-700">Inicio</a>
-      <a href="#" class="hover:text-blue-700">Corporación</a>
-      <a href="#" class="hover:text-blue-700">Transparencia</a>
-      <a href="#" class="hover:text-blue-700">Participa</a>
-    </nav>
-  </div>
+// Clase activa: Azul Oscuro (septenary) y negrita
+const activeClass = "text-septenary font-bold"; 
+// Clase inactiva: Gris Oscuro (quinary)
+const inactiveClass = "text-quinary"; 
+// Clase activa para sub-enlaces: Azul Oscuro (septenary)
+const subLinkActiveClass = "bg-gray-100 text-septenary font-semibold";
+const subLinkInactiveClass = "text-quinary";
+
+// Color de interacción (hover) principal: Azul Oscuro (septenary)
+const hoverClass = "hover:text-septenary";
+---
+
+<header class="bg-primary shadow">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+    <a href="/" class="flex items-center gap-2">
+      <img src="/logo.svg" alt="Logo Concejo" class="h-10" />
+
+      <h1 class="text-lg font-semibold text-quinary">
+        Concejo Municipal Medio Atrato
+      </h1>
+    </a>
+
+    <nav class="hidden md:flex gap-6 text-sm font-medium">
+      
+      <a
+        href="/"
+        class:list={[
+          hoverClass, // <-- Ajustado a Azul Oscuro
+          currentPage === "/" ? activeClass : inactiveClass,
+        ]}>Inicio</a
+      >
+
+      <div class="relative group">
+        <a
+          href="/corporacion"
+          class:list={[
+            hoverClass, // <-- Ajustado a Azul Oscuro
+            // Lógica para mantener activo el menú principal
+            currentPage.startsWith("/corporacion") ||
+            currentPage === "/concejales" ||
+            currentPage === "/organigrama" ||
+            currentPage === "/manual-identidad"
+              ? activeClass
+              : inactiveClass,
+          ]}>Corporación</a
+        >
+        <div
+          class="absolute hidden group-hover:block bg-primary shadow-lg
+                    mt-2 w-56 rounded-md z-10 border border-gray-100"
+        >
+                    <a
+            href="/corporacion/que-es"
+            class:list={[
+                "block px-4 py-2 hover:bg-gray-100", 
+                currentPage === "/corporacion/que-es" ? subLinkActiveClass : subLinkInactiveClass
+            ]}>Qué es el concejo</a
+          >
+          <a
+            href="/concejales"
+            class:list={[
+                "block px-4 py-2 hover:bg-gray-100", 
+                currentPage === "/concejales" ? subLinkActiveClass : subLinkInactiveClass
+            ]}>Concejales</a
+          >
+          <a
+            href="/organigrama"
+            class:list={[
+                "block px-4 py-2 hover:bg-gray-100", 
+                currentPage === "/organigrama" ? subLinkActiveClass : subLinkInactiveClass
+            ]}>Organigrama</a
+          >
+          <a
+            href="/manual-identidad"
+            class:list={[
+                "block px-4 py-2 hover:bg-gray-100", 
+                currentPage === "/manual-identidad" ? subLinkActiveClass : subLinkInactiveClass
+            ]}>Manual de identidad visual</a
+          >
+        </div>
+      </div>
+
+      <a
+        href="/transparencia"
+        class:list={[
+          hoverClass, // <-- Ajustado a Azul Oscuro
+          currentPage === "/transparencia" ? activeClass : inactiveClass,
+        ]}>Transparencia</a
+      >
+
+      <a
+        href="/servicios"
+        class:list={[
+          hoverClass, // <-- Ajustado a Azul Oscuro
+          currentPage === "/servicios" ? activeClass : inactiveClass,
+        ]}>Servicios a la ciudadanía</a
+      >
+
+      <a
+        href="/participa"
+        class:list={[
+          hoverClass, // <-- Ajustado a Azul Oscuro
+          currentPage === "/participa" ? activeClass : inactiveClass,
+        ]}>Participa</a
+      >
+
+      <a
+        href="/test"
+        class:list={[
+          hoverClass, // <-- Ajustado a Azul Oscuro
+          currentPage === "/test" ? activeClass : inactiveClass,
+        ]}>Pruebas</a
+      >
+    </nav>
+  </div>
 </header>

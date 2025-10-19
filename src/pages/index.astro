@@ -1,12 +1,18 @@
 ---
-import Hero from '../sections/Hero.astro';
-import Header from '../sections/Header.astro';
-import Footer from '../sections/Footer.astro';
-import Layout from '../layouts/Layout.astro';
+import Hero from "../sections/Hero.astro";
+import Header from "../sections/Header.astro";
+import Footer from "../sections/Footer.astro";
+import Layout from "../layouts/Layout.astro";
+
+const pageTitle = "Inicio";
+const pageDescription = "Sitio web oficial del Concejo Municipal del Medio Atrato, Chocó. Consulte las iniciativas, normativa, y procesos de participación ciudadana.";
+const currentPage = Astro.url.pathname;
 ---
 
-<Layout>
-	<Hero />
-	<Header />
-	<Footer />
+<Layout title={pageTitle} description={pageDescription} currentPage={currentPage}>
+    <Header currentPage={currentPage} />
+    <main> 
+        <Hero />
+    </main>
+    <Footer />
 </Layout>
