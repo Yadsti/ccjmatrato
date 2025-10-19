@@ -1,0 +1,87 @@
+---
+import { fetchGraphQL } from "../lib/wp.ts";
+import { InformacionGlobal } from "../lib/queries/global.ts";
+import Layout from "../layouts/Layout.astro";
+const data = await fetchGraphQL(InformacionGlobal);
+const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
+
+const datos = nodoGlobal?.datosGlobales;
+
+const mision = datos?.mision || "Misión no disponible desde WP.";
+const vision = datos?.vision || "Visión no disponible desde WP.";
+const objetivosHTML: string = datos?.objetivos || "";
+const logoPath = datos?.logoInstitucional?.node?.uri;
+console.log("URl del logo: ", logoPath);
+const logoAlt = datos?.logoInstitucional?.node?.altText || "Logo Institucional";
+const manualUrl = datos?.manualDeIdentidadVisual?.node?.uri;
+
+let listaObjetivos: string[] = [];
+
+if (objetivosHTML) {
+    listaObjetivos = objetivosHTML
+        .replace(/<\/?ol[^>]*>/g, "")
+        .split("</li>")
+        .map((item) => {
+        item = item.replace(/<li[^>]*>|<\/?span[^>]*>|<\/?p[^>]*>/g, "").trim();
+        return item.length > 0 ? item : null;
+        })
+        .filter((item): item is string => item !== null);
+}
+
+let logoUrl: string | null = null;
+
+if (logoPath) {
+    const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
+    logoUrl = `${WP_BASE_URL}${logoPath}`;
+}
+---
+
+<Layout>
+    <main class="container">
+        <h1>✅ Conexión con WordPress Headless Exitosa</h1>
+        <p>
+        Esta página se genera con datos estáticos obtenidos de WPGraphQL en tiempo
+        de compilación.
+        </p>
+        <section>
+        <h2>Logo</h2>
+        {
+            logoUrl ? (
+            <img src={logoUrl} alt={logoAlt} width="150" loading="eager" />
+            ) : null
+        }
+        </section>
+        <section>
+            <h2>Misión del Concejo</h2>
+            <p>{mision}</p>
+        </section>
+        <section>
+            <h2>Visión</h2>
+            <p>{vision}</p>
+        </section>
+        <section>
+        {
+            listaObjetivos.length > 0 ? (
+            <>
+                <h2>Objetivos</h2>
+                <ol class="list-decimal ml-6">
+                {listaObjetivos.map((objetivo) => (
+                    <li>{objetivo}</li>
+                ))}
+                </ol>
+            </>
+            ) : null
+        }
+        </section>
+        <sectiion>
+            <h2>Manual de identidad visual</h2>
+            {
+                manualUrl ? (
+                <a href={manualUrl} target="_blank" rel="noopener noreferrer">
+                    Descargar Manual de Identidad Visual
+                </a>
+                ) : null
+            }
+        </sectiion>
+    </main>
+</Layout>

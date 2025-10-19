@@ -1,38 +1,47 @@
-const domain = import.meta.env.WP_DOMAIN || "https://concejo-municipal-de-medio-atrato.wp.local/";
-const apiUrl = `${domain}wp-json/wp/v2/`;
+import 'cross-fetch/polyfill'; 
+const WP_URL: string = import.meta.env.WORDPRESS_API_URL!;
+type GraphQLVariables = Record<string, any>;
 
-// export const getPageInfo = async (slug: string) => {
-//     const response = await fetch(`${apiUrl}pages?slug=${slug}`);
-//     if (!response.ok) {
-//         throw new Error('Problema al obtener información de la página');
-//     }
-//     const [data] = await response.json();
-//     const { title : { rendered: title }, content: { rendered: content } } = data;
-//     return { title, content };
-// };
+/**
+ * 
+ * 
+ * * @param query La consulta GraphQL como string.
+ * @param variables Objeto con variables dinámicas para la consulta (ej. un slug).
+ */
+export async function fetchGraphQL(
+    query: string, 
+    variables: GraphQLVariables = {}
+): Promise<any> {
+  
+  if (!WP_URL) {
+    console.error('ERROR: WORDPRESS_API_URL no está definida en .env');
+    return null;
+  }
 
-// export const getLatestNotices = async ({perPage = 3}: {perPage?: number} = {}) => {
-//     const response = await fetch(`${apiUrl}posts?per_page=${perPage}`);
-//     if (!response.ok) {
-//         throw new Error('Problema al obtener los avisos más recientes');
-//     }
+  try {
+    const response = await fetch(WP_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ query, variables }), 
+      // Configuración de caché avanzada: 
+      // Si usas ISR, puedes controlar el caché aquí o en el servidor.
+    });
 
-//     const results = await response.json();
-//     if (!results.length) {
-//         throw new Error('No se encontraron avisos');
-//     }
+    const result = await response.json();
 
-//     const notices = results.map(notice => {
-//         const {  
-//             title: { rendered: title }, 
-//             excerpt: { rendered: excerpt }, 
-//             content: { rendered: content }, 
-//             date,
-//             slug
-//         } = notice;
-        
-//         return { title, excerpt, content, date, slug };
-//     });
-//     return notices;
-// };
+    if (result.errors) {
+        console.error('GraphQL Errors:', JSON.stringify(result.errors, null, 2));
+        // Lanzamos un error que Astro atrapará en el build-time, deteniendo la compilación
+        throw new Error('GraphQL query failed. Check logs.');
+    }
 
+    return result.data;
+
+  } catch (error) {
+    console.error('Fetch Error:', error);
+    // Para un flujo limpio, dejamos que el error se propague durante la compilación
+    throw error; 
+  }
+}
