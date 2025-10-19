@@ -14,7 +14,7 @@ export default {
             'concejo-verde-suave': 'rgb(220, 240, 210)', // Nuevo color más suave
         },
         fontFamily: {
-            sans: ['"Nunito Sans"', 'sans-serif'],
+            sans: ['Montserrat', 'sans-serif'],
         },
         },
     },

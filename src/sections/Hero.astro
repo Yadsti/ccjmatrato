@@ -1,3 +1,54 @@
 <main>
+    <section class="relative w-full h-[60vh] md:h-[80vh] overflow-hidden">
     
+    <div id="hero-carousel" class="absolute inset-0 transition-opacity duration-500 ease-in-out">
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/img1.jpg'); background-position: top;"></div>
+        <div class="absolute inset-0 bg-cover opacity-0" style="background-image: url('/img2.jpg'); background-position: center;"></div>
+        <div class="absolute inset-0 bg-cover opacity-0" style="background-image: url('/img3.jpg'); background-position: bottom;"></div>
+    </div>
+
+    <div class="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-white to-transparent"></div>
+    
+    <div class="absolute inset-0 flex items-center justify-center">
+        <div class="bg-black bg-opacity-40 text-white text-center p-8 md:p-12 max-w-3xl font-sans rounded-xl shadow-2xl">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-4">Concejo Municipal del Medio Atrato</h1>
+        <p class="text-xl md:text-2xl font-semibold">Transparencia, Equidad y Justicia</p>
+        </div>
+    </div>
+
+    <div class="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 flex justify-between px-4">
+        <button id="prev-btn" class="text-white text-4xl opacity-70 hover:opacity-100 transition-opacity">&lt;</button>
+        <button id="next-btn" class="text-white text-4xl opacity-70 hover:opacity-100 transition-opacity">&gt;</button>
+    </div>
+    </section>
+
+    <script>
+    const carouselContainer = document.getElementById('hero-carousel');
+    const slides = Array.from(carouselContainer.children);
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    let currentSlide = 0;
+
+    const showSlide = (index) => {
+        slides.forEach((slide, i) => {
+        slide.style.opacity = i === index ? '1' : '0';
+        });
+    };
+
+    prevBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(currentSlide);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    });
+
+    // Carrusel automático (5 segundos)
+    setInterval(() => {
+        currentSlide = (currentSlide + 1) % slides.length;
+        showSlide(currentSlide);
+    }, 5000);
+    </script>
 </main>

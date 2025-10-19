@@ -1,7 +1,7 @@
 ---
-import { fetchGraphQL } from "../lib/wp.ts";
-import { InformacionGlobal } from "../lib/queries/global.ts";
-import Layout from "../layouts/Layout.astro";
+import { fetchGraphQL } from "../../lib/wp.ts";
+import { InformacionGlobal } from "../../lib/queries/global.ts";
+import Layout from "../../layouts/Layout.astro";
 const data = await fetchGraphQL(InformacionGlobal);
 const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
 
