@@ -1,0 +1,58 @@
+---
+export interface Props {
+    manualUrl: string;
+}
+const { manualUrl } = Astro.props;
+---
+
+<section aria-labelledby="titulo-principal" class="text-center mb-16">
+    <h1 id="titulo-principal" class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">
+        Identidad Visual Institucional
+    </h1>
+    <p class="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed">
+        Descubre los elementos oficiales de nuestra identidad visual para garantizar un uso coherente y representativo de la marca del Concejo Municipal de Medio Atrato.
+    </p>
+    {/* Breadcrumb */}
+    <nav aria-label="Breadcrumb" class="flex justify-center text-sm text-gray-500 mt-6">
+        <ol class="flex items-center space-x-2">
+            <li><a href="/" class="hover:text-concejo-verde-principal transition-colors focus:outline-none focus:underline">Inicio</a></li>
+            <li aria-hidden="true" class="text-gray-400">/</li>
+            <li><a href="/corporacion" class="hover:text-concejo-verde-principal transition-colors focus:outline-none focus:underline">Corporación</a></li>
+            <li aria-hidden="true" class="text-gray-400">/</li>
+            <li aria-current="page" class="text-concejo-verde-principal font-medium">Identidad Visual</li>
+        </ol>
+    </nav>
+</section>
+
+<section aria-labelledby="manual-titulo" class="max-w-5xl mx-auto mb-16">
+    <div class="bg-gradient-to-br from-concejo-verde-principal to-concejo-azul-principal p-1 rounded-2xl shadow-2xl">
+        <div class="bg-white rounded-2xl p-8 sm:p-10">
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="flex-shrink-0">
+                    <div class="w-20 h-20 rounded-2xl bg-concejo-verde-principal flex items-center justify-center shadow-lg">
+                        <i class="fas fa-book text-4xl text-white" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="flex-grow text-center md:text-left">
+                    <h2 id="manual-titulo" class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
+                        Manual de Identidad Corporativa
+                    </h2>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Descargue la guía oficial completa con especificaciones técnicas, usos correctos e incorrectos del imagotipo, proporciones y aplicaciones de la marca institucional.
+                    </p>
+                    <a 
+                        href={manualUrl} 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center bg-concejo-verde-principal text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-concejo-azul-principal focus:outline-none focus:ring-4 focus:ring-concejo-verde-principal focus:ring-opacity-50 transition-all duration-300"
+                        aria-label="Descargar manual de identidad corporativa (PDF, abre en nueva ventana)"
+                    >
+                        <i class="fas fa-download mr-3" aria-hidden="true"></i>
+                        Descargar Manual Completo
+                        <i class="fas fa-external-link-alt text-xs ml-2" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

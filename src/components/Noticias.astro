@@ -1,0 +1,72 @@
+---
+const { limit = 3, removeTitle = false } = Astro.props; 
+
+const noticiasEjemplo = [
+    { id: 1, titulo: "Título de la Noticia 1", fecha: "10 de octubre de 2025", descripcion: "Breve descripción de la noticia o evento. Puedes usar este espacio para los puntos clave de la noticia. Asegúrate de que el texto no sea demasiado largo.", imagen: "/noticias/noticia1.jpg" },
+    { id: 2, titulo: "Título de la Noticia 2", fecha: "05 de octubre de 2025", descripcion: "Un ejemplo de otra noticia relevante para los ciudadanos. Este texto debe ser un resumen conciso y atractivo.", imagen: "/noticias/noticia2.jpg" },
+    { id: 3, titulo: "Título de la Noticia 3", fecha: "28 de septiembre de 2025", descripcion: "Un tercer ejemplo de noticia. El uso de la clase line-clamp-3 asegura que el texto no desborde la tarjeta.", imagen: "/noticias/noticia3.jpg" },
+    { id: 4, titulo: "Noticia Oculta 4", fecha: "20 de septiembre de 2025", descripcion: "Esta noticia se vería en la página completa, pero no en el inicio si el límite es 3.", imagen: "/noticias/noticia4.jpg" },
+];
+
+const noticiasVisibles = noticiasEjemplo.slice(0, limit);
+---
+
+<section class="container mx-auto px-4 py-8 font-sans">
+    
+    { !removeTitle && (
+        <div class="text-center mb-10 max-w-lg mx-auto">
+            <p class="text-sm font-semibold text-concejo-azul-principal uppercase tracking-widest mb-1">Actualidad de la Corporación</p>
+            <h2 class="text-5xl font-extrabold text-concejo-verde-principal relative inline-block group cursor-default">
+                Noticias y Eventos Recientes
+                <span class="absolute left-0 bottom-[-5px] w-0 h-1 bg-concejo-azul-principal transition-all duration-500 group-hover:w-full"></span>
+            </h2>
+        </div>
+    )}
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        
+        {noticiasVisibles.map((noticia) => (
+            
+            <a href={`/transparencia/noticias/detalle?id=${noticia.id}`} class="group block bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:shadow-2xl transition-all duration-300">
+                
+                <div class="overflow-hidden h-48">
+                    <img 
+                        src={noticia.imagen} 
+                        alt={noticia.titulo} 
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                    >
+                </div>
+
+                <div class="p-5 space-y-2">
+                    
+                    <p class="text-sm font-bold text-concejo-azul-principal">{noticia.fecha}</p>
+                    
+                    <h3 class="text-xl font-bold text-concejo-negro group-hover:text-concejo-verde-principal transition-colors duration-300">
+                        {noticia.titulo}
+                    </h3>
+                    
+                    <p class="text-gray-700 text-base line-clamp-3">
+                        {noticia.descripcion}
+                    </p>
+                    
+                    <span class="inline-block mt-3 text-concejo-verde-principal font-semibold group-hover:underline flex items-center">
+                        Leer más
+                        <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </span>
+                </div>
+            </a>
+            
+        ))}
+        
+    </div>
+
+    { !removeTitle && (
+        <div class="text-center mt-12">
+            <a href="/transparencia/" class="inline-block bg-concejo-verde-principal text-white font-bold py-3 px-6 rounded-full hover:bg-concejo-azul-principal transition-colors duration-300">
+                Ver Archivo Completo de Noticias →
+            </a>
+        </div>
+    )}
+</section>

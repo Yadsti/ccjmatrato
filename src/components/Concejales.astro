@@ -1,0 +1,120 @@
+---
+export interface Concejal {
+    name: string;
+    position: string;
+    photoUrl: string; 
+    slug: string; 
+}
+
+export interface Props {
+    concejalesList: Concejal[];
+}
+
+const { concejalesList } = Astro.props;
+
+const carouselId = 'concejales-slider';
+---
+
+<section class="container mx-auto px-4 py-16 font-sans">
+    
+    <div class="flex justify-between items-end mb-10 border-b-2 border-concejo-verde-principal/50 pb-3 max-w-6xl mx-auto">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-concejo-negro mb-4 sm:mb-0">
+            Directorio de Concejales
+        </h2>
+        
+        <a href="/corporacion/concejales" class="flex-shrink-0 bg-concejo-verde-principal text-white font-semibold py-2 px-4 rounded-lg flex items-center hover:bg-concejo-azul-principal transition-colors duration-300 shadow-md">
+            Ver Directorio Completo
+            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+        </a>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto">
+        
+        <div 
+            id={carouselId} 
+            class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 scroll-smooth scrollbar-hide"
+            role="region" 
+            aria-live="polite"
+            aria-label="Carrusel de Concejales"
+        >
+            
+            {concejalesList.map((concejal) => (
+                <div class="flex-shrink-0 w-full snap-start sm:w-1/2 lg:w-1/4">
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 transform hover:scale-[1.02] transition-transform duration-300 text-center h-full flex flex-col justify-between">
+                        <div>
+                            <img 
+                                src={concejal.photoUrl} 
+                                alt={`Foto de ${concejal.name}`} 
+                                class="w-32 h-32 mx-auto rounded-full object-cover mb-4 shadow-inner"
+                            >
+                            <h3 class="text-xl font-bold text-concejo-negro mt-2">{concejal.name}</h3>
+                            <p class="text-concejo-verde-principal text-sm font-semibold">{concejal.position}</p>
+                        </div>
+                        <a 
+                            href={`/concejales/${concejal.slug}`} 
+                            class="block mt-4 text-concejo-azul-principal font-semibold hover:text-concejo-verde-principal transition-colors duration-300 mx-auto"
+                            aria-label={`Ver perfil completo de ${concejal.name}`}
+                        >
+                            Ver perfil completo
+                        </a>
+                    </div>
+                </div>
+            ))}
+            
+        </div>
+    </div>
+</section>
+
+<style>
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;  
+        scrollbar-width: none;  
+    }
+
+    @media (max-width: 639px) {
+        #concejales-slider > div {
+            width: 95%; 
+            margin-right: 1.5rem; 
+        }
+    }
+</style>
+
+<script>
+    const carousel = document.getElementById('{carouselId}');
+    if (carousel) {
+        const scrollAmount = carousel.offsetWidth / 2; 
+        const intervalTime = 4000; 
+        let scrollInterval;
+
+        const startScrolling = () => {
+            scrollInterval = setInterval(() => {
+                const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+                
+                if (carousel.scrollLeft >= maxScroll) {
+                    
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    
+                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+            }, intervalTime);
+        };
+
+        const stopScrolling = () => {
+            clearInterval(scrollInterval);
+        };
+
+        carousel.addEventListener('mouseenter', stopScrolling);
+        carousel.addEventListener('mouseleave', startScrolling);
+        carousel.addEventListener('touchstart', stopScrolling, { passive: true });
+        carousel.addEventListener('touchend', startScrolling);
+
+        startScrolling();
+    }
+</script>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrusel de Concejales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+<section class="container mx-auto px-4 py-16 font-sans">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-10 border-b border-concejo-verde-claro pb-4 max-w-6xl mx-auto gap-4">
+        <div>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-concejo-negro mb-2">Directorio de Concejales</h2>
+            <p class="text-gray-600 text-sm">Conoce a los representantes de nuestra comunidad</p>
+        </div>
+        
+        <a 
+            href="/corporacion/concejales" 
+            class="flex-shrink-0 bg-concejo-verde-principal text-white font-semibold py-3 px-6 rounded-lg inline-flex items-center hover:bg-concejo-azul-principal focus:outline-none focus:ring-4 focus:ring-concejo-verde-principal focus:ring-opacity-50 transition-all duration-300 shadow-md hover:shadow-lg"
+            aria-label="Ver directorio completo de concejales"
+        >
+            Ver Directorio Completo
+            <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+            </svg>
+        </a>
+    </div>
+    
+    <!-- Carrusel Container -->
+    <div class="relative max-w-6xl mx-auto">
+        
+        <!-- Carrusel -->
+        <div 
+            id="concejales-slider" 
+            class="flex overflow-x-scroll snap-x snap-mandatory space-x-6 pb-4 scroll-smooth scrollbar-hide"
+            role="region"
+            aria-label="Carrusel de concejales"
+            aria-live="polite"
+        >
+            <!-- Concejal 1 -->
+            <article class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 snap-start">
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center h-full">
+                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+                        <img src="/concejales/concejal1.jpg" alt="Yeiber Asprilla" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%232D5F3F%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22%3EYA%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <h3 class="text-xl font-bold text-concejo-negro mt-2">Yeiber Asprilla</h3>
+                    <p class="text-concejo-verde-principal text-sm font-semibold mb-2">Presidente del Concejo</p>
+                    <p class="text-gray-500 text-xs mb-4">Periodo 2024-2027</p>
+                    <button 
+                        onclick="alert('Modal de perfil - Implementar según necesidad')" 
+                        class="mt-auto text-concejo-azul-principal font-semibold hover:text-concejo-verde-principal focus:outline-none focus:underline transition-colors duration-300"
+                        aria-label="Ver perfil completo de Yeiber Asprilla"
+                    >
+                        Ver perfil completo →
+                    </button>
+                </div>
+            </article>
+
+            <!-- Concejal 2 -->
+            <article class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 snap-start">
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center h-full">
+                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+                        <img src="/concejales/concejal2.jpg" alt="Carlos Murillo Córdoba" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%231E88E5%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22%3ECM%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <h3 class="text-xl font-bold text-concejo-negro mt-2">Carlos Murillo Córdoba</h3>
+                    <p class="text-concejo-azul-principal text-sm font-semibold mb-2">Vicepresidente</p>
+                    <p class="text-gray-500 text-xs mb-4">Periodo 2024-2027</p>
+                    <button 
+                        onclick="alert('Modal de perfil - Implementar según necesidad')" 
+                        class="mt-auto text-concejo-azul-principal font-semibold hover:text-concejo-verde-principal focus:outline-none focus:underline transition-colors duration-300"
+                        aria-label="Ver perfil completo de Carlos Murillo Córdoba"
+                    >
+                        Ver perfil completo →
+                    </button>
+                </div>
+            </article>
+
+            <!-- Concejales 3-13 (repetidos para demostración) -->
+            <article class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 snap-start">
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center h-full">
+                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+                        <img src="/concejales/concejal3.jpg" alt="Concejal 3" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%23FFC107%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22%3EC3%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <h3 class="text-xl font-bold text-concejo-negro mt-2">Nombre Concejal 3</h3>
+                    <p class="text-gray-600 text-sm font-semibold mb-2">Concejal</p>
+                    <p class="text-gray-500 text-xs mb-4">Periodo 2024-2027</p>
+                    <button 
+                        onclick="alert('Modal de perfil - Implementar según necesidad')" 
+                        class="mt-auto text-concejo-azul-principal font-semibold hover:text-concejo-verde-principal focus:outline-none focus:underline transition-colors duration-300"
+                        aria-label="Ver perfil completo"
+                    >
+                        Ver perfil completo →
+                    </button>
+                </div>
+            </article>
+
+            <article class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 snap-start">
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center h-full">
+                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+                        <img src="/concejales/concejal4.jpg" alt="Concejal 4" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%232D5F3F%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22%3EC4%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <h3 class="text-xl font-bold text-concejo-negro mt-2">Nombre Concejal 4</h3>
+                    <p class="text-gray-600 text-sm font-semibold mb-2">Concejal</p>
+                    <p class="text-gray-500 text-xs mb-4">Periodo 2024-2027</p>
+                    <button 
+                        onclick="alert('Modal de perfil - Implementar según necesidad')" 
+                        class="mt-auto text-concejo-azul-principal font-semibold hover:text-concejo-verde-principal focus:outline-none focus:underline transition-colors duration-300"
+                        aria-label="Ver perfil completo"
+                    >
+                        Ver perfil completo →
+                    </button>
+                </div>
+            </article>
+
+            <article class="flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 xl:w-1/4 snap-start">
+                <div class="bg-white rounded-xl shadow-lg p-6 border border-gray-100 hover:shadow-2xl transition-all duration-300 text-center h-full">
+                    <div class="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+                        <img src="/concejales/concejal5.jpg" alt="Concejal 5" class="w-full h-full object-cover" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 200%22%3E%3Crect fill=%22%231E88E5%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2260%22 fill=%22white%22%3EC5%3C/text%3E%3C/svg%3E'">
+                    </div>
+                    <h3 class="text-xl font-bold text-concejo-negro mt-2">Nombre Concejal 5</h3>
+                    <p class="text-gray-600 text-sm font-semibold mb-2">Concejal</p>
+                    <p class="text-gray-500 text-xs mb-4">Periodo 2024-2027</p>
+                    <button 
+                        onclick="alert('Modal de perfil - Implementar según necesidad')" 
+                        class="mt-auto text-concejo-azul-principal font-semibold hover:text-concejo-verde-principal focus:outline-none focus:underline transition-colors duration-300"
+                        aria-label="Ver perfil completo"
+                    >
+                        Ver perfil completo →
+                    </button>
+                </div>
+            </article>
+
+        </div>
+
+        <!-- Botones de Navegación -->
+        <button 
+            id="prev-btn"
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-white hover:bg-concejo-verde-principal text-concejo-negro hover:text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-concejo-verde-principal focus:ring-opacity-50 z-10"
+            aria-label="Ver concejales anteriores"
+        >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+
+        <button 
+            id="next-btn"
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-white hover:bg-concejo-verde-principal text-concejo-negro hover:text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-concejo-verde-principal focus:ring-opacity-50 z-10"
+            aria-label="Ver siguientes concejales"
+        >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Indicadores de Posición y Controles -->
+    <div class="flex justify-center items-center space-x-4 mt-8 max-w-6xl mx-auto">
+        <!-- Indicadores de Puntos -->
+        <div id="dots-container" class="flex space-x-2" role="tablist" aria-label="Navegación de concejales"></div>
+        
+        <!-- Botón Play/Pause -->
+        <button 
+            id="play-pause-btn"
+            class="bg-concejo-verde-principal hover:bg-concejo-azul-principal text-white p-2 rounded-full transition-colors duration-300 focus:outline-none focus:ring-4 focus:ring-concejo-verde-principal focus:ring-opacity-50"
+            aria-label="Pausar desplazamiento automático"
+        >
+            <svg id="pause-icon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"></path>
+            </svg>
+            <svg id="play-icon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5v14l11-7z"></path>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Barra de Progreso -->
+    <div class="max-w-6xl mx-auto mt-4">
+        <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+            <div id="progress-bar" class="h-full bg-concejo-verde-principal transition-all duration-100 ease-linear" style="width: 0%"></div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Configuración
+    const AUTOPLAY_INTERVAL = 4000; // 4 segundos
+    const PROGRESS_UPDATE_INTERVAL = 50; // Actualizar cada 50ms
+    
+    // Elementos del DOM
+    const slider = document.getElementById('concejales-slider');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const pauseIcon = document.getElementById('pause-icon');
+    const playIcon = document.getElementById('play-icon');
+    const dotsContainer = document.getElementById('dots-container');
+    const progressBar = document.getElementById('progress-bar');
+    
+    // Variables de control
+    let autoplayInterval = null;
+    let progressInterval = null;
+    let isPlaying = true;
+    let currentIndex = 0;
+    let progressWidth = 0;
+    
+    // Obtener todas las tarjetas
+    const cards = slider.querySelectorAll('article');
+    const totalCards = cards.length;
+    
+    // Calcular cuántas tarjetas se muestran a la vez según el ancho de pantalla
+    function getVisibleCards() {
+        const width = window.innerWidth;
+        if (width >= 1280) return 4; // xl
+        if (width >= 1024) return 3; // lg
+        if (width >= 640) return 2;  // sm
+        return 1; // mobile
+    }
+    
+    // Crear indicadores de puntos
+    function createDots() {
+        dotsContainer.innerHTML = '';
+        const visibleCards = getVisibleCards();
+        const totalDots = Math.ceil(totalCards / visibleCards);
+        
+        for (let i = 0; i < totalDots; i++) {
+            const dot = document.createElement('button');
+            dot.className = 'w-2 h-2 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-concejo-verde-principal';
+            dot.setAttribute('role', 'tab');
+            dot.setAttribute('aria-label', `Ver grupo ${i + 1} de concejales`);
+            
+            if (i === 0) {
+                dot.classList.add('bg-concejo-verde-principal', 'w-8');
+                dot.setAttribute('aria-selected', 'true');
+            } else {
+                dot.classList.add('bg-gray-300');
+                dot.setAttribute('aria-selected', 'false');
+            }
+            
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+    }
+    
+    // Actualizar indicadores
+    function updateDots(index) {
+        const dots = dotsContainer.querySelectorAll('button');
+        dots.forEach((dot, i) => {
+            if (i === index) {
+                dot.classList.remove('bg-gray-300', 'w-2');
+                dot.classList.add('bg-concejo-verde-principal', 'w-8');
+                dot.setAttribute('aria-selected', 'true');
+            } else {
+                dot.classList.remove('bg-concejo-verde-principal', 'w-8');
+                dot.classList.add('bg-gray-300', 'w-2');
+                dot.setAttribute('aria-selected', 'false');
+            }
+        });
+    }
+    
+    // Ir a un slide específico
+    function goToSlide(index) {
+        const visibleCards = getVisibleCards();
+        const cardWidth = cards[0].offsetWidth;
+        const gap = 24; // 1.5rem = 24px
+        const scrollPosition = index * visibleCards * (cardWidth + gap);
+        
+        slider.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+        
+        currentIndex = index;
+        updateDots(index);
+        resetProgress();
+    }
+    
+    // Siguiente slide
+    function nextSlide() {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.ceil(totalCards / visibleCards) - 1;
+        currentIndex = currentIndex >= maxIndex ? 0 : currentIndex + 1;
+        goToSlide(currentIndex);
+    }
+    
+    // Slide anterior
+    function prevSlide() {
+        const visibleCards = getVisibleCards();
+        const maxIndex = Math.ceil(totalCards / visibleCards) - 1;
+        currentIndex = currentIndex <= 0 ? maxIndex : currentIndex - 1;
+        goToSlide(currentIndex);
+    }
+    
+    // Actualizar barra de progreso
+    function updateProgress() {
+        progressWidth += (100 / (AUTOPLAY_INTERVAL / PROGRESS_UPDATE_INTERVAL));
+        if (progressWidth >= 100) {
+            progressWidth = 0;
+        }
+        progressBar.style.width = progressWidth + '%';
+    }
+    
+    // Resetear progreso
+    function resetProgress() {
+        progressWidth = 0;
+        progressBar.style.width = '0%';
+    }
+    
+    // Iniciar autoplay
+    function startAutoplay() {
+        if (autoplayInterval) return;
+        
+        autoplayInterval = setInterval(nextSlide, AUTOPLAY_INTERVAL);
+        progressInterval = setInterval(updateProgress, PROGRESS_UPDATE_INTERVAL);
+        isPlaying = true;
+        
+        pauseIcon.classList.remove('hidden');
+        playIcon.classList.add('hidden');
+        playPauseBtn.setAttribute('aria-label', 'Pausar desplazamiento automático');
+    }
+    
+    // Detener autoplay
+    function stopAutoplay() {
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+        }
+        if (progressInterval) {
+            clearInterval(progressInterval);
+            progressInterval = null;
+        }
+        isPlaying = false;
+        
+        pauseIcon.classList.add('hidden');
+        playIcon.classList.remove('hidden');
+        playPauseBtn.setAttribute('aria-label', 'Reanudar desplazamiento automático');
+        resetProgress();
+    }
+    
+    // Toggle play/pause
+    function togglePlayPause() {
+        if (isPlaying) {
+            stopAutoplay();
+        } else {
+            startAutoplay();
+        }
+    }
+    
+    // Event Listeners
+    prevBtn.addEventListener('click', () => {
+        prevSlide();
+        stopAutoplay();
+    });
+    
+    nextBtn.addEventListener('click', () => {
+        nextSlide();
+        stopAutoplay();
+    });
+    
+    playPauseBtn.addEventListener('click', togglePlayPause);
+    
+    // Pausar al hacer hover sobre el carrusel
+    slider.addEventListener('mouseenter', () => {
+        if (isPlaying) {
+            stopAutoplay();
+        }
+    });
+    
+    slider.addEventListener('mouseleave', () => {
+        if (!isPlaying) {
+            startAutoplay();
+        }
+    });
+    
+    // Detectar scroll manual para actualizar indicadores
+    let scrollTimeout;
+    slider.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const visibleCards = getVisibleCards();
+            const cardWidth = cards[0].offsetWidth;
+            const gap = 24;
+            const scrollLeft = slider.scrollLeft;
+            const newIndex = Math.round(scrollLeft / (visibleCards * (cardWidth + gap)));
+            
+            if (newIndex !== currentIndex) {
+                currentIndex = newIndex;
+                updateDots(currentIndex);
+            }
+        }, 100);
+    });
+    
+    // Reinicializar al cambiar tamaño de ventana
+    window.addEventListener('resize', () => {
+        createDots();
+        goToSlide(0);
+    });
+    
+    // Inicialización
+    createDots();
+    startAutoplay();
+</script>
+
+</body>
+</html>

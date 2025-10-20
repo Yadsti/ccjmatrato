@@ -1,0 +1,306 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const title = "Nuestra Historia";
+const description = "Conoce la trayectoria del Concejo Municipal de Medio Atrato - Décadas de servicio, representación y compromiso con nuestra comunidad";
+---
+
+<Layout title={title} description={description}>
+    {/* Se mantiene este div para compensar el header fijo, si Layout no lo maneja */}
+    <div class="h-16"></div>
+
+    <main class="font-sans">
+
+        <section id="inicio-historia" class="container mx-auto px-4 py-16" aria-labelledby="timeline-titulo">
+            <h2 id="timeline-titulo" class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-4">
+                Nuestra Línea de Tiempo
+            </h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                Cada fecha marca un momento significativo en la construcción de nuestra democracia local
+            </p>
+
+            <div class="max-w-5xl mx-auto">
+                {/* Timeline Item 1 (Verde) */}
+                <article class="relative pl-8 sm:pl-32 py-6 group">
+                    <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-concejo-verde-principal sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-concejo-verde-principal after:border-4 after:box-content after:border-white after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                        {/* FONDO SUAVE Y TEXTO PRIMARIO */}
+                        <time class="sm:absolute left-0 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-8 mb-3 sm:mb-0 text-concejo-verde-principal bg-gray-100 rounded-full border border-concejo-verde-principal">
+                            Año XXXX
+                        </time>
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border-l-4 border-concejo-verde-principal w-full">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">
+                                Fundación del Municipio
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                [INSERTA AQUÍ] El municipio de Medio Atrato fue creado oficialmente, marcando el inicio de nuestra historia institucional. Los primeros líderes comunitarios sentaron las bases de lo que hoy conocemos como el Concejo Municipal.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                {/* Timeline Item 2 (Azul) */}
+                <article class="relative pl-8 sm:pl-32 py-6 group">
+                    <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-concejo-azul-principal sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-concejo-azul-principal after:border-4 after:box-content after:border-white after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                        {/* FONDO SUAVE Y TEXTO PRIMARIO */}
+                        <time class="sm:absolute left-0 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-8 mb-3 sm:mb-0 text-concejo-azul-principal bg-gray-100 rounded-full border border-concejo-azul-principal">
+                            Año XXXX
+                        </time>
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border-l-4 border-concejo-azul-principal w-full">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">
+                                Primera Sesión del Concejo
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                [INSERTA AQUÍ] El Concejo Municipal celebró su primera sesión formal, estableciendo los precedentes democráticos que guiarían las decisiones para las décadas venideras.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                {/* Timeline Item 3 (Amarillo) */}
+                <article class="relative pl-8 sm:pl-32 py-6 group">
+                    <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-concejo-amarillo sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-concejo-amarillo after:border-4 after:box-content after:border-white after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                        {/* FONDO SUAVE Y TEXTO NEGRO */}
+                        <time class="sm:absolute left-0 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-8 mb-3 sm:mb-0 text-gray-900 bg-gray-100 rounded-full border border-concejo-amarillo">
+                            Año XXXX
+                        </time>
+                        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border-l-4 border-concejo-amarillo w-full">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">
+                                Acuerdo Histórico [Nombre]
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                [INSERTA AQUÍ] El Concejo aprobó uno de los acuerdos más significativos en la historia del municipio, que transformó [área específica del municipio].
+                            </p>
+                        </div>
+                    </div>
+                </article>
+
+                {/* Timeline Item 4 (Presente - Muted Accent) */}
+                <article class="relative pl-8 sm:pl-32 py-6 group">
+                    <div class="flex flex-col sm:flex-row items-start mb-1 group-last:before:hidden before:absolute before:left-2 sm:before:left-0 before:h-full before:px-px before:bg-concejo-verde-principal sm:before:ml-[6.5rem] before:self-start before:-translate-x-1/2 before:translate-y-3 after:absolute after:left-2 sm:after:left-0 after:w-2 after:h-2 after:bg-concejo-verde-principal after:border-4 after:box-content after:border-white after:rounded-full sm:after:ml-[6.5rem] after:-translate-x-1/2 after:translate-y-1.5">
+                        <time class="sm:absolute left-0 inline-flex items-center justify-center text-xs font-semibold uppercase w-20 h-8 mb-3 sm:mb-0 text-concejo-verde-principal bg-gray-100 rounded-full border border-concejo-verde-principal">
+                            Presente
+                        </time>
+                        {/* BLOQUE DE ACENTO MÁS SUAVE */}
+                        <div class="bg-concejo-verde-principal/90 p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 w-full">
+                            <h3 class="text-xl font-bold text-white mb-2">
+                                El Concejo en la Actualidad
+                            </h3>
+                            <p class="text-white leading-relaxed opacity-95">
+                                [INSERTA AQUÍ] Hoy, nuestra corporación continúa trabajando por la transparencia, equidad y justicia. Enfocados en el desarrollo sostenible y el bienestar de toda la comunidad del Medio Atrato.
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        {/* --- */}
+
+        <section class="bg-gray-50 py-16" aria-labelledby="narrativa-titulo">
+            <div class="container mx-auto px-4">
+                <div class="max-w-6xl mx-auto">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                        
+                        <article class="lg:col-span-2 space-y-8">
+                            
+                            {/* Orígenes */}
+                            <div class="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-concejo-verde-principal">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-12 h-12 bg-concejo-verde-principal rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-seedling text-2xl text-white" aria-hidden="true"></i>
+                                    </div>
+                                    <h2 class="text-3xl font-bold text-gray-900">Orígenes y Fundación</h2>
+                                </div>
+                                <div class="prose prose-lg max-w-none text-gray-700">
+                                    <p class="leading-relaxed mb-4">
+                                        [INSERTA AQUÍ EL PRIMER PÁRRAFO DE LA HISTORIA] Por ejemplo: El Concejo Municipal se estableció formalmente en el año [XX] tras la creación del municipio del Medio Atrato. Sus primeros esfuerzos se centraron en organizar la representación democrática de las comunidades ribereñas y garantizar que las voces de todos los habitantes fueran escuchadas.
+                                    </p>
+                                    <p class="leading-relaxed">
+                                        Los fundadores del Concejo enfrentaron desafíos únicos relacionados con la geografía de nuestra región, los ríos que conectan nuestras comunidades y la rica biodiversidad que caracteriza al Chocó.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Periodo de Desarrollo */}
+                            <div class="bg-white p-8 rounded-2xl shadow-lg border-l-4 border-concejo-azul-principal">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-12 h-12 bg-concejo-azul-principal rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-chart-line text-2xl text-white" aria-hidden="true"></i>
+                                    </div>
+                                    <h2 class="text-3xl font-bold text-gray-900">Periodo de Desarrollo</h2>
+                                </div>
+                                <div class="prose prose-lg max-w-none text-gray-700">
+                                    <p class="leading-relaxed mb-4">
+                                        [INSERTA AQUÍ EL SEGUNDO SEGMENTO DE LA HISTORIA] Este periodo estuvo marcado por la consolidación institucional y el fortalecimiento de las relaciones entre el Concejo y la comunidad. Los concejales de esta época trabajaron incansablemente para establecer políticas públicas que respondieran a las necesidades reales de los habitantes.
+                                    </p>
+                                    <p class="leading-relaxed">
+                                        Durante estos años, se aprobaron acuerdos fundamentales relacionados con educación, salud, infraestructura vial y la protección de nuestros recursos naturales.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Actualidad (Acento fuerte) */}
+                            <div class="bg-concejo-azul-principal/90 p-8 rounded-2xl shadow-md text-white">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center mr-4">
+                                        <i class="fas fa-star text-2xl text-concejo-azul-principal" aria-hidden="true"></i>
+                                    </div>
+                                    <h2 class="text-3xl font-bold">Nuestro Presente</h2>
+                                </div>
+                                <div class="prose prose-lg max-w-none">
+                                    <p class="leading-relaxed mb-4 opacity-95">
+                                        [INSERTA AQUÍ EL ÚLTIMO SEGMENTO DE LA HISTORIA] Hoy, la corporación se enfoca en la modernización de los procesos democráticos, la transparencia total en la gestión pública y el empoderamiento ciudadano a través de mecanismos de participación efectivos.
+                                    </p>
+                                    <p class="leading-relaxed opacity-95">
+                                        Nuestro compromiso con los principios de transparencia, equidad y justicia nos guía en cada decisión que tomamos por el bienestar de Medio Atrato.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                        </article>
+
+                        {/* Sidebar */}
+                        <aside class="lg:col-span-1 space-y-6">
+                            
+                            {/* Datos Clave */}
+                            <div class="bg-white p-6 rounded-2xl shadow-lg border-l-4 border-concejo-verde-principal sticky top-24">
+                                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center">
+                                    <i class="fas fa-info-circle text-concejo-verde-principal mr-3" aria-hidden="true"></i>
+                                    Datos Clave
+                                </h3>
+                                <dl class="space-y-4">
+                                    <div>
+                                        <dt class="text-sm font-semibold text-gray-500 uppercase">Fundación</dt>
+                                        <dd class="text-2xl font-bold text-concejo-verde-principal">Año XXXX</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="text-sm font-semibold text-gray-500 uppercase">Concejales Actuales</dt>
+                                        <dd class="text-2xl font-bold text-concejo-azul-principal">[Número]</dd>
+                                    </div>
+                                    <div>
+                                        <dt class="text-sm font-semibold text-gray-500 uppercase">Acuerdos Aprobados</dt>
+                                        <dd class="text-2xl font-bold text-gray-900">[Número]+</dd>
+                                    </div>
+                                </dl>
+                            </div>
+
+                            {/* Hito Histórico */}
+                            {/* Se reemplaza el fondo neón por un fondo blanco roto con acento amarillo */}
+                            <div class="bg-gray-100 p-6 rounded-2xl shadow-md border-l-4 border-concejo-amarillo">
+                                <div class="flex items-center mb-3">
+                                    <i class="fas fa-trophy text-2xl text-concejo-amarillo mr-3" aria-hidden="true"></i>
+                                    <h3 class="text-lg font-bold text-gray-900">Hito Histórico</h3>
+                                </div>
+                                <p class="text-gray-700 leading-relaxed">
+                                    En [Año], el Concejo aprobó el [Nombre del Acuerdo/Plan], un evento que cambió el rumbo del municipio y estableció nuevos estándares de gestión pública en la región.
+                                </p>
+                            </div>
+
+                            {/* Cita Inspiradora */}
+                            <blockquote class="bg-gray-800 p-6 rounded-2xl shadow-lg text-white relative overflow-hidden">
+                                <i class="fas fa-quote-left text-4xl opacity-20 absolute top-4 left-4" aria-hidden="true"></i>
+                                <p class="text-lg italic relative z-10 mb-4 leading-relaxed">
+                                    "La historia nos enseña que el desarrollo de Medio Atrato siempre ha estado en manos de su gente."
+                                </p>
+                                <footer class="text-sm font-semibold text-right relative z-10">
+                                    — [Nombre de figura histórica]
+                                </footer>
+                            </blockquote>
+
+                            {/* Imagen Histórica */}
+                            <figure class="rounded-2xl overflow-hidden shadow-lg">
+                                <img 
+                                    src="/historia/foto-antigua.jpg" 
+                                    alt="Fotografía histórica del Concejo Municipal de Medio Atrato" 
+                                    class="w-full h-auto object-cover"
+                                >
+                                <figcaption class="bg-white p-4 text-sm text-gray-600 text-center">
+                                    Concejo Municipal de Medio Atrato - Archivo histórico
+                                </figcaption>
+                            </figure>
+
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {/* --- */}
+
+        <section class="container mx-auto px-4 py-16" aria-labelledby="galeria-titulo">
+            <h2 id="galeria-titulo" class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-4">
+                Galería Histórica
+            </h2>
+            <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+                Imágenes que capturan momentos significativos de nuestra historia institucional
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <figure class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <img 
+                        src="/historia/foto-1.jpg" 
+                        alt="Primera sesión del Concejo Municipal" 
+                        class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                    >
+                    <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+                        <p class="font-semibold">Primera Sesión - [Año]</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <img 
+                        src="/historia/foto-2.jpg" 
+                        alt="Concejales históricos del Medio Atrato" 
+                        class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                    >
+                    <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+                        <p class="font-semibold">Concejales - [Año]</p>
+                    </figcaption>
+                </figure>
+
+                <figure class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300">
+                    <img 
+                        src="/historia/foto-3.jpg" 
+                        alt="Celebración de acuerdo histórico" 
+                        class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+                    >
+                    <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+                        <p class="font-semibold">Acuerdo Histórico - [Año]</p>
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        {/* --- */}
+
+        <section class="bg-concejo-verde-principal py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">
+                    Sé Parte de Nuestra Historia
+                </h2>
+                <p class="text-lg text-white opacity-95 mb-8 max-w-2xl mx-auto leading-relaxed">
+                    Cada ciudadano tiene el poder de escribir el próximo capítulo de nuestra historia municipal. Participa, opina y construye el futuro del Medio Atrato.
+                </p>
+                <a 
+                    href="/participacion" 
+                    class="inline-flex items-center bg-white text-concejo-verde-principal px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-50 transition-all duration-300 shadow-xl"
+                    aria-label="Conocer mecanismos de participación ciudadana"
+                >
+                    Conoce Cómo Participar
+                    <i class="fas fa-arrow-right ml-3" aria-hidden="true"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+</Layout>
+
+<style>
+    /* Se mantienen solo las clases de animación necesarias */
+    .animate-bounce {
+        animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+</style>

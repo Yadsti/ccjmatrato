@@ -1,11 +1,42 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Hero from "../sections/Hero.astro";
+import Noticias from "../components/Noticias.astro";
+import Concejales from "../components/Concejales.astro";
+import MisionVision from "../components/MisionVision.astro";
+import { fetchGraphQL } from "../lib/wp.ts";
+import { InformacionGlobal } from "../lib/queries/global.ts";
+
+const data = await fetchGraphQL(InformacionGlobal);
+const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
+const datos = nodoGlobal?.datosGlobales;
+
+const mision = datos?.mision || "";
+const vision = datos?.vision || "";
 
 const title = "Inicio";
 const description = "Sitio web oficial del Concejo Municipal del Medio Atrato, Chocó. Consulte las iniciativas, normativa, y procesos de participación ciudadana.";
+
+const concejalesData = [
+    { name: 'Yeiber Asprilla', position: 'Presidente', photoUrl: '/concejales/concejal1.jpg', slug: 'yeiber-asprilla' },
+    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
+    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
+    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
+    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
+    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
+    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
+    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
+];
 ---
 
 <Layout title={title} description={description}>
     <Hero />
+    <Noticias />
+    <MisionVision 
+        mision={mision}
+        vision={vision}
+    />
+    <!-- <Concejales 
+        concejalesList={concejalesData}
+    /> -->
 </Layout>
