@@ -1,0 +1,67 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const title = "Normativa";
+const description = "Información normativa del concejo municipal de medio Atrato"
+---
+
+<Layout title={title} description={description}>
+    <div class="h-16"></div>
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">Normativa y Acuerdos</h1>
+        <p class="text-lg text-gray-700 text-center mb-10 max-w-4xl mx-auto">
+            Consulte las leyes, acuerdos municipales, resoluciones y decretos que rigen la actividad del Concejo y el municipio.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-concejo-verde-principal flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-start space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-concejo-verde-principal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <div>
+                        <span class="text-xs font-semibold text-gray-500">Acuerdo Municipal</span>
+                        <h3 class="text-xl font-bold text-concejo-negro">Acuerdo No. 001 de 2025 (Estructura Administrativa)</h3>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-700 mb-4">Documento que establece la estructura, funciones y organización de la administración municipal.</p>
+                <a href="/docs/acuerdo-001-2025.pdf" target="_blank" class="self-end bg-concejo-azul-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-verde-principal transition-colors duration-300 flex items-center">
+                    Ver PDF
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-2l-4-4m4 4l4-4m-4 4V8"></path></svg>
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-concejo-verde-principal flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-start space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-concejo-verde-principal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.247m0-13C13.168 5.477 14.754 5 16.5 5S19.832 5.477 21 6.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.247"></path>
+                    </svg>
+                    <div>
+                        <span class="text-xs font-semibold text-gray-500">Documento Interno</span>
+                        <h3 class="text-xl font-bold text-concejo-negro">Reglamento Interno del Concejo</h3>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-700 mb-4">Norma fundamental que rige el procedimiento, las sesiones y el comportamiento de los miembros de la corporación.</p>
+                <a href="/docs/reglamento-interno.pdf" target="_blank" class="self-end bg-concejo-azul-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-verde-principal transition-colors duration-300 flex items-center">
+                    Ver PDF
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-2l-4-4m4 4l4-4m-4 4V8"></path></svg>
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-concejo-verde-principal flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-start space-x-3 mb-4">
+                    <svg class="w-8 h-8 text-concejo-verde-principal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m4 4h5a2 2 0 002-2v-5m-7 0h7"></path>
+                    </svg>
+                    <div>
+                        <span class="text-xs font-semibold text-gray-500">Normativa Local</span>
+                        <h3 class="text-xl font-bold text-concejo-negro">Estatuto Tributario Municipal</h3>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-700 mb-4">Consolida las normas que rigen la administración, recaudo y control de los impuestos municipales en el Medio Atrato.</p>
+                <a href="/docs/estatuto-tributario.pdf" target="_blank" class="self-end bg-concejo-azul-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-verde-principal transition-colors duration-300 flex items-center">
+                    Ver PDF
+                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4m-4-2l-4-4m4 4l4-4m-4 4V8"></path></svg>
+                </a>
+            </div>
+        </div>
+    </main>
+</Layout>

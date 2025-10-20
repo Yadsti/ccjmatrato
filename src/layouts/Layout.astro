@@ -62,8 +62,8 @@ const brandName = "Concejo del Medio Atrato";
 	</head>
 	<body class="min-h-screen flex flex-col">
 		<Header logoUri={logoNavbar} />
-		<main>
-			<slot class="flex-grow pt-16 lg:pt-20"/>
+		<main class="flex-grow pt-16 lg:pt-20">
+			<slot />
 		</main>
 		<Footer 
 			logoUri={logoFooter} 

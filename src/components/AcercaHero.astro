@@ -1,0 +1,26 @@
+---
+export interface Props {
+    title: string;
+    subtitle: string;
+    introText: string;
+    imageUrl: string;
+}
+const { title, subtitle, introText, imageUrl } = Astro.props;
+---
+
+<section class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-16 max-w-6xl mx-auto pt-8">
+    
+    <div class="order-2 md:order-1 font-sans">
+        <p class="text-sm text-concejo-verde-principal font-semibold">{subtitle}</p>
+        <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-concejo-negro mb-4">{title}</h1>
+        <div class="p-6 bg-concejo-verde-suave/30 rounded-lg">
+            <p class="text-lg text-concejo-negro leading-relaxed border-l-4 border-concejo-azul-principal pl-4">
+                {introText}
+            </p>
+        </div>
+    </div>
+
+    <div class="order-1 md:order-2 flex justify-center">
+        <img src={imageUrl} alt={title} class="rounded-xl shadow-2xl max-w-md w-full h-auto mx-auto">
+    </div>
+</section>

@@ -1,0 +1,32 @@
+---
+export interface Props {
+    title: string;
+    description: string;
+    iconClass: string; 
+    buttonText: string;
+    buttonLink: string;
+    isExternal?: boolean;
+}
+const { title, description, iconClass, buttonText, buttonLink, isExternal = false } = Astro.props;
+---
+
+<article class="bg-white rounded-lg shadow-md p-6 border-t-4 border-concejo-azul-principal text-center flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300 focus-within:ring-2 focus-within:ring-concejo-azul-principal focus-within:ring-offset-2">
+    <div class="mb-6">
+        <div class="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-concejo-azul-principal mb-5">
+            <i class={iconClass + " text-4xl text-white"} aria-hidden="true"></i>
+        </div>
+        <h3 class="text-xl font-bold text-gray-900 mb-3">{title}</h3>
+        <p class="text-gray-600 text-sm leading-relaxed">
+            {description}
+        </p>
+    </div>
+    <a 
+        href={buttonLink} 
+        {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        class="inline-block bg-concejo-verde-principal text-white px-6 py-3 rounded-md font-semibold hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-concejo-verde-principal focus:ring-offset-2 transition-all duration-300"
+        aria-label={`Ver ${title}`}
+    >
+        {buttonText}
+        {isExternal && <i class="fas fa-external-link-alt text-xs ml-2" aria-hidden="true"></i>}
+    </a>
+</article>

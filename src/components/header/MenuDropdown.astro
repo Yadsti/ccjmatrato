@@ -1,0 +1,48 @@
+---
+export interface Props {
+    item: {
+        label: string;
+        path: string;
+        subItems: { label: string; path: string; }[];
+    };
+    baseClass: string;
+    activeClass: string;
+    isActive: (path: string) => boolean;
+}
+const { item, baseClass, activeClass, isActive } = Astro.props;
+---
+<div class="relative group">
+    <span
+        class:list={[
+            baseClass,
+            "flex items-center cursor-pointer",
+            isActive(item.path) ? activeClass : "",
+        ]}
+    >
+        {item.label}
+        <svg
+            class="ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:rotate-180"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+        >
+            <path
+                fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd"
+            ></path>
+        </svg>
+    </span>
+
+    <div
+        class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-56 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2"
+    >
+        {item.subItems.map(sub => (
+            <a
+                href={sub.path}
+                class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
+            >
+                {sub.label}
+            </a>
+        ))}
+    </div>
+</div>

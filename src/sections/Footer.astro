@@ -1,12 +1,10 @@
 ---
-
-import { fetchGraphQL } from "../lib/wp";
-import { InformacionGlobal } from "../lib/queries/global.ts";
 import { navegacionPrincipal, enlacesInteres, horarios } from '../components/footer/_FooterLinks';
 
 import FooterColumnaContacto from '../components/footer/FooterColumnaContacto.astro';
 import FooterColumnaEnlaces from '../components/footer/FooterColumnaEnlaces.astro';
 import FooterCopyright from '../components/footer/FooterCopyright.astro';
+import FooterHorariosContactos from '../components/footer/FooterHorariosContactos.astro';
 
 export interface Props {
     logoUri: string;
@@ -15,10 +13,8 @@ export interface Props {
     email: string;
 }
 const { logoUri, logoAlt, telefono, email } = Astro.props;
-
 const nombreDesarrollador = "EbanoCompany";
 const urlDesarrollador = "https://www.ebanocompany.com/";
-
 
 let logoPath: string | null = null;
 if (logoUri) {
@@ -35,18 +31,21 @@ const enlacesFinal = enlacesInteres.map(link => {
 
 ---
 
-<footer class="bg-gray-100 text-gray-800 pt-12 pb-4 font-sans border-t border-gray-300">
+<footer class="bg-gray-100 text-gray-800 pt-12 pb-4 font-sans">
     <div class="container mx-auto px-4 sm:px-6 lg:px-8">
 
         <div
-        class="grid grid-cols-1 gap-10 md:grid-cols-4 md:gap-8 justify-items-center md:justify-items-start"
+        class="grid grid-cols-1 gap-6 md:grid-cols-4 md:gap-8 justify-items-center md:justify-items-start md:items-start"
         >
             <FooterColumnaContacto 
                 logoPath={logoPath}
                 logoAlt={logoAlt}
+            />
+
+            <FooterHorariosContactos
+                horarios={horarios}
                 telefono={telefono}
                 email={email}
-                horarios={horarios}
             />
 
             <FooterColumnaEnlaces 
@@ -58,8 +57,6 @@ const enlacesFinal = enlacesInteres.map(link => {
                 title="Documentos y Leyes" 
                 links={enlacesFinal} 
             />
-
-
         </div>
         
         <FooterCopyright 

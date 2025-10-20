@@ -1,68 +1,47 @@
 ---
 export interface Props {
-    logoPath: string; 
+    logoPath: string;
     logoAlt: string;
-    telefono: string;
-    email: string;
-    horarios: string[];
 }
 
-const { logoPath, logoAlt, telefono, email, horarios } = Astro.props;
+const { logoPath, logoAlt } = Astro.props;
 ---
 
-<div class="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-8 justify-items-center md:justify-items-start md:col-span-2">
+<div class="flex flex-col items-center md:items-start text-center md:text-left space-y-4 max-w-xs md:max-w-none">
+    
+    <a href="/">
 
-    <div class="flex flex-col items-center md:items-start text-center md:text-left space-y-4 max-w-xs md:max-w-none">
-        
-        <a href="/">
-            <img
-                src={logoPath} 
-                alt={logoAlt} 
-                width={120} 
-                height={120} 
-                class="h-20 w-auto" 
-            />
-        </a>
-        
-        <p class="text-sm text-gray-600">
-            Trabajando por la transparencia y el desarrollo sostenible del Medio Atrato.
-        </p>
+        <img 
+            src={logoPath} 
+            alt={logoAlt} 
+            width={120} 
+            height={120} 
+            class="h-20 w-auto" 
+        />
+    </a>
+    
+    <p class="text-sm text-gray-600">
+        Trabajando por la transparencia y el desarrollo sostenible del Medio Atrato.
+    </p>
 
-        <ul class="mt-4 flex justify-center gap-6 sm:justify-start md:gap-8">
-            <li>
-                <a href="#" rel="noreferrer" target="_blank" class="text-concejo-azul-principal transition hover:text-concejo-verde-principal">
-                    <span class="sr-only">Facebook</span>
-                    <i class="fa-brands fa-facebook fa-xl" style="color: #489690;"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" rel="noreferrer" target="_blank" class="text-concejo-azul-principal transition hover:text-concejo-verde-principal">
-                    <span class="sr-only">Instagram</span>
-                    <i class="fa-brands fa-instagram fa-xl" style="color: #489690;"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" rel="noreferrer" target="_blank" class="text-concejo-azul-principal transition hover:text-concejo-verde-principal">
-                    <span class="sr-only">X (Twitter)</span>
-                    <i class="fa-brands fa-square-x-twitter fa-xl" style="color: #489690;"></i>
-                </a>
-            </li>
-        </ul>
-    </div>
-
-    <div class="space-y-4 text-center md:text-left">
-        <h3 class="text-lg font-bold text-concejo-verde-principal tracking-wider">
-            Horarios y Contacto
-        </h3>
-        
-        <ul class="space-y-1 text-sm leading-relaxed">
-            {horarios.map(line => <li>{line}</li>)}
-            <li>
-                <p>Teléfono: <a href={`tel:${telefono}`} class="hover:text-concejo-azul-principal">{telefono}</a></p>
-            </li>
-            <li>
-                <p>Email: <a href={`mailto:${email}`} class="hover:text-concejo-azul-principal">{email}</a></p>
-            </li>
-        </ul>
-    </div>
+    <ul class="mt-4 flex justify-start gap-4">
+        <li>
+            <a href="#" rel="noreferrer" target="_blank" class="text-concejo-azul-principal transition hover:text-concejo-verde-principal">
+                <span class="sr-only">Facebook</span>
+                <i class="fa-brands fa-facebook fa-xl" style="color: #489690;"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#" rel="noreferrer" target="_blank" class="text-concejo-azul-principal transition hover:text-concejo-verde-principal">
+                <span class="sr-only">Instagram</span>
+                <i class="fa-brands fa-instagram fa-xl" style="color: #489690;"></i>
+            </a>
+        </li>
+        <li>
+            <a href="#" rel="noreferrer" target="_blank" class="text-concejo-azul-principal transition hover:text-concejo-verde-principal">
+                <span class="sr-only">X (Twitter)</span>
+                <i class="fa-brands fa-square-x-twitter fa-xl" style="color: #489690;"></i>
+            </a>
+        </li>
+    </ul>
 </div>

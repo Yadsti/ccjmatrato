@@ -1,0 +1,35 @@
+---
+// src/components/footer/FooterHorariosContacto.astro
+export interface Props {
+    telefono: string;
+    email: string;
+    horarios: string[];
+}
+
+const { telefono, email, horarios } = Astro.props;
+---
+
+<div class="space-y-4 text-center md:text-left pt-2">
+    <h3 class="text-lg font-bold text-concejo-verde-principal tracking-wider">
+        Horarios y Contacto
+    </h3>
+    
+    <ul class="space-y-1 text-sm leading-relaxed">
+        <li class="font-bold">Lunes a Viernes</li>
+        {horarios.map(line => <li>{line}</li>)}
+        <li>
+            <p><p class="font-bold">Teléfono:</p>
+                <a href={`tel:${telefono}`} class="hover:text-concejo-azul-principal">
+                    {telefono}
+                </a>
+            </p>
+        </li>
+        <li>
+            <p><p class="font-bold">Email:</p>
+                <a href={`mailto:${email}`} class="hover:text-concejo-azul-principal">
+                    {email}
+                </a>
+            </p>
+        </li>
+    </ul>
+</div>

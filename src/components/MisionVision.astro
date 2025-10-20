@@ -1,0 +1,28 @@
+---
+export interface Props {
+    mision: string;
+    vision: string;
+}
+
+const { mision, vision } = Astro.props;
+---
+
+<section class="bg-gray-100 py-12 font-sans">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center text-concejo-verde-principal mb-10">Propósito y Compromiso</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            <div class="bg-white rounded-xl shadow-xl p-8 border-t-4 border-concejo-azul-principal">
+                <h3 class="text-2xl font-bold text-concejo-negro mb-4">Misión</h3>
+                <p class="text-gray-800 leading-relaxed">
+                    {mision}
+                </p>
+            </div>
+            <div class="bg-white rounded-xl shadow-xl p-8 border-t-4 border-concejo-azul-principal">
+                <h3 class="text-2xl font-bold text-concejo-negro mb-4">Visión</h3>
+                <p class="text-gray-800 leading-relaxed">
+                    {vision}
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

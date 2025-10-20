@@ -17,8 +17,7 @@ export const enlacesInteres: Link[] = [
     { href: "/transparencia/terminos", label: "Términos y Condiciones" },
 ];
 
-export const horarios = [
-    "Lunes a Jueves: ", 
+export const horarios = [ 
     "7:00 a.m. a 12:00 p.m.",
     "2:00 p.m. a 5:00 p.m.",
 ];

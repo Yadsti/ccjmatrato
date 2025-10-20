@@ -1,8 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../sections/Hero.astro'
+import Layout from "../layouts/Layout.astro";
+import Hero from "../sections/Hero.astro";
+
+const title = "Inicio";
+const description = "Sitio web oficial del Concejo Municipal del Medio Atrato, Chocó. Consulte las iniciativas, normativa, y procesos de participación ciudadana.";
 ---
 
-<Layout>
+<Layout title={title} description={description}>
     <Hero />
 </Layout>

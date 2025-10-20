@@ -1,0 +1,38 @@
+---
+export interface Props {
+    title: string;
+    details: string; 
+    subtitle: string; 
+    iconClass: string;
+    type: 'email' | 'phone' | 'address';
+}
+const { title, details, subtitle, iconClass, type } = Astro.props;
+
+---
+
+<div class="bg-gradient-to-br from-gray-50 to-gray-100 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+    <div class="flex items-start space-x-4">
+        <div class="flex-shrink-0">
+            <div class="w-12 h-12 rounded-full bg-concejo-azul-principal flex items-center justify-center">
+                <i class={iconClass + " text-xl text-white"} aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="flex-grow min-w-0">
+            <p class="font-bold text-concejo-negro mb-2 text-lg">{title}</p>
+        
+            {(type === 'email' || type === 'phone') ? (
+                <a 
+                    href="#"
+                    class="text-sm sm:text-base text-concejo-azul-principal hover:text-concejo-verde-principal break-all transition-colors focus:outline-none focus:underline"
+                    aria-label={`Contacto vía ${title}`}
+                >
+                    {details}
+                </a>
+            ) : (
+                <p class="text-sm sm:text-base text-gray-700 mb-1">{details}</p>
+            )}
+            
+            <p class="text-xs text-gray-600 mt-2">{subtitle}</p>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,165 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import MecanismoTarjeta from "../../components/MecanismoTarjeta.astro";
+import CanalContacto from "../../components/CanalContacto.astro";
+import CtaFinal from "../../sections/CtaFinal.astro";
+
+export interface Props {
+  telefono: string;
+  email: string;
+}
+
+const { telefono, email } = Astro.props;
+const title = "Participación Ciudadana";
+const description =
+  "Oportunidades de participación ciudadana en el Concejo Municipal del Medio Atrato";
+// const emailContacto = "concejomedioatrato@hotmail.com";
+// const telefonoContacto = "3117539517";
+---
+
+<Layout title={title} description={description}>
+  <div class="h-16"></div>
+  <main class="container mx-auto px-4 py-8 sm:py-12 font-sans">
+    <section aria-labelledby="titulo-principal" class="mb-16">
+      <h1
+        id="titulo-principal"
+        class="text-3xl sm:text-4xl lg:text-5xl font-bold text-center text-concejo-verde-principal mb-6"
+      >
+        Mecanismos de Participación Ciudadana
+      </h1>
+      <p
+        class="text-base sm:text-lg text-gray-600 text-center mb-4 max-w-3xl mx-auto leading-relaxed"
+      >
+        Tu voz importa. Conozca las formas en que puede participar activamente
+        en la toma de decisiones y el control político del Concejo Municipal del
+        Medio Atrato.
+      </p>
+    </section>
+
+    <section aria-labelledby="mecanismos-titulo" class="mb-16">
+      <h2 id="mecanismos-titulo" class="sr-only">Mecanismos disponibles</h2>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto"
+      >
+        <MecanismoTarjeta
+          title="Audiencias Públicas"
+          description="Participe en las sesiones de control político y exprese sus opiniones sobre temas de interés municipal."
+          iconClass="fas fa-hand-paper"
+          buttonText="Ver Calendario"
+          buttonLink="#calendario-audiencias"
+        />
+
+        <MecanismoTarjeta
+          title="Rendición de Cuentas"
+          description="Consulte los reportes periódicos de la gestión corporativa y administrativa del Concejo."
+          iconClass="fas fa-chart-line"
+          buttonText="Ver Informes"
+          buttonLink="/transparencia/informes"
+        />
+
+        <MecanismoTarjeta
+          title="Iniciativa Ciudadana"
+          description="Conozca el mecanismo para proponer acuerdos y proyectos ante el Concejo Municipal."
+          iconClass="fas fa-vote-yea"
+          buttonText="Ver Requisitos"
+          buttonLink="/docs/iniciativa-ciudadana.pdf"
+          isExternal={true}
+        />
+      </div>
+    </section>
+
+    <section
+      aria-labelledby="guia-rapida"
+      class="mb-16 max-w-4xl mx-auto bg-gradient-to-r from-concejo-verde-principal to-concejo-azul-principal p-1 rounded-xl"
+    >
+      <div class="bg-white rounded-lg p-6 sm:p-8">
+        <h2
+          id="guia-rapida"
+          class="text-2xl sm:text-3xl font-bold text-concejo-negro mb-4 flex items-center text-left"
+        >
+          <i
+            class="fas fa-question-circle text-concejo-verde-principal mr-3"
+            aria-hidden="true"></i>
+                              ¿Cómo Participar?
+        </h2>
+        <ol class="space-y-4 text-gray-700 leading-relaxed text-left">
+          <li class="flex items-start">
+            <span
+              class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-concejo-verde-principal text-white font-bold text-sm mr-3 flex-shrink-0"
+              >1</span
+            >
+            <span
+              ><strong>Infórmese:</strong> Revise los mecanismos disponibles y elija
+              el que mejor se adapte a su necesidad.</span
+            >
+          </li>
+          <li class="flex items-start">
+            <span
+              class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-concejo-verde-principal text-white font-bold text-sm mr-3 flex-shrink-0"
+              >2</span
+            >
+            <span
+              ><strong>Consulte requisitos:</strong> Cada mecanismo tiene documentación
+              específica sobre cómo proceder.</span
+            >
+          </li>
+          <li class="flex items-start">
+            <span
+              class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-concejo-verde-principal text-white font-bold text-sm mr-3 flex-shrink-0"
+              >3</span
+            >
+            <span
+              ><strong>Contáctenos:</strong> Use nuestros canales de comunicación
+              para resolver dudas o iniciar su participación.</span
+            >
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section aria-labelledby="canales-titulo" class="max-w-4xl mx-auto mb-16">
+      <h2
+        id="canales-titulo"
+        class="text-2xl sm:text-3xl font-bold text-concejo-negro mb-6 pb-3 border-b-4 border-concejo-verde-principal text-left"
+      >
+        Canales de Comunicación
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <CanalContacto
+          title="Atención por Correo"
+          details={email}
+          subtitle="Respuesta en 24-48 horas hábiles"
+          iconClass="fas fa-envelope"
+          type="email"
+        />
+
+        <CanalContacto
+          title="Línea de Contacto"
+          details={telefono}
+          subtitle="Lunes a Viernes: 8:00 AM - 5:00 PM"
+          iconClass="fas fa-phone"
+          type="phone"
+        />
+      </div>
+
+      <div class="mt-6">
+        <CanalContacto
+          title="Visítenos"
+          details="Concejo Municipal del Medio Atrato - Medio Atrato, Chocó, Colombia"
+          subtitle="Horario de atención al público: Lunes a Viernes, 8:00 AM - 12:00 PM y 2:00 PM - 5:00 PM"
+          iconClass="fas fa-map-marker-alt"
+          type="address"
+        />
+      </div>
+    </section>
+
+    <CtaFinal buttonLink="#mecanismos-titulo" />
+
+    <a
+      href="#titulo-principal"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-concejo-verde-principal text-white px-4 py-2 rounded focus:outline-none focus:ring-4 focus:ring-concejo-azul-principal z-50"
+    >
+      Saltar al contenido principal
+    </a>
+  </main>
+</Layout>

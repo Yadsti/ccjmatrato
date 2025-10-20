@@ -1,219 +1,85 @@
 ---
+import MenuDropdown from '../components/header/MenuDropdown.astro';
+import { menuPrincipal } from '../components/header/_HeaderLinks';
+
 export interface Props {
     logoUri: string;
 }
 
 const { logoUri } = Astro.props;
-let logoPath: string | null = null;
 
+let logoPath: string | null = null;
 if (logoUri) {
     const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
     logoPath = `${WP_BASE_URL}${logoUri}`;
 }
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
-const isActive = (path) => {
-  if (path === "/") {
-    return currentPath === "";
-  }
-  return currentPath.startsWith(path);
+const isActive = (path: string) => {
+  const normalizedPath = path.replace(/\/$/, "");
+  if (normalizedPath === "") return currentPath === "";
+  return currentPath.startsWith(normalizedPath);
 };
 
-const activeClass ="text-concejo-azul-principal border-b-2 border-concejo-azul-principal";
-const baseClass ="px-3 py-2 rounded-lg hover:text-concejo-azul-principal transition-colors duration-300";
+const activeClass = "text-concejo-azul-principal border-b-2 border-concejo-azul-principal";
+const baseClass = "px-3 py-2 rounded-lg hover:text-concejo-azul-principal transition-colors duration-300";
 ---
 
 <header
-  class="bg-white shadow-lg fixed top-0 left-0 right-0 z-50 border-b border-gray-100 h-16 md:h-20"
+    class="bg-white shadow-lg fixed top-0 left-0 right-0 z-50 border-b border-gray-100 h-16 md:h-20"
 >
-  <div
-    class="max-w-7xl mx-auto h-full flex justify-between items-center px-4 sm:px-6 lg:px-8"
-  >
-    <a href="/" class="flex items-center gap-2 flex-shrink-0">
-      <img
-        src={logoPath}
-        alt="Logo Concejo Municipal del Medio Atrato"
-        class="h-12 md:h-16 w-auto"
-      />
-    </a>
-
-    <button
-      id="menu-toggle"
-      class="md:hidden focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300"
-      aria-label="Toggle navigation menu"
+    <div
+        class="max-w-7xl mx-auto h-full flex justify-between items-center px-4 sm:px-6 lg:px-8"
     >
-      <svg
-        class="w-8 h-8 text-concejo-negro"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16m-7 6h7"></path>
-      </svg>
-    </button>
+        <a href="/" class="flex items-center gap-2 flex-shrink-0">
+            <img
+                src={logoPath}
+                alt="Logo Concejo Municipal del Medio Atrato"
+                class="h-12 md:h-16 w-auto"
+            />
+        </a>
 
-    <nav
-      id="main-nav"
-      class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 font-medium font-sans absolute md:static top-full left-0 right-0 bg-white shadow-lg md:shadow-none p-4 md:p-0 w-full md:w-auto text-sm lg:text-base"
-    >
-      <a href="/" class:list={[baseClass, isActive("/") ? activeClass : ""]}>
-        Inicio
-      </a>
-
-      <div class="relative group">
-        <span
-          class:list={[
-            baseClass,
-            "flex items-center cursor-pointer",
-            isActive("/corporacion") ? activeClass : "",
-          ]}
+        <button
+            id="menu-toggle"
+            class="md:hidden focus:outline-none p-2 rounded-lg hover:bg-gray-100 transition-colors duration-300"
+            aria-label="Toggle navigation menu"
         >
-          Corporación
-          <svg
-            class="ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:rotate-180"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </span>
+            <svg class="w-8 h-8 text-concejo-negro" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
+        </button>
 
-        <div
-          class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-56 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2"
+        <nav
+            id="main-nav"
+            class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 font-medium font-sans absolute md:static top-full left-0 right-0 bg-white shadow-lg md:shadow-none p-4 md:p-0 w-full md:w-auto text-sm lg:text-base"
         >
-          <a
-            href="/corporacion/acerca-de"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >¿Qué es el Concejo?</a
-          >
-          <a
-            href="/corporacion/concejales"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Nuestros Concejales</a
-          >
-          <a
-            href="/corporacion/historia"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Historia del Concejo</a
-          >
-          <a
-            href="/corporacion/manual-identidad"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Manual de Identidad Visual</a
-          >
-        </div>
-      </div>
-
-      <div class="relative group">
-        <span
-          class:list={[
-            baseClass,
-            "flex items-center cursor-pointer",
-            isActive("/transparencia") ? activeClass : "",
-          ]}
-        >
-          Transparencia
-          <svg
-            class="ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:rotate-180"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </span>
-
-        <div
-          class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-56 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2"
-        >
-          <a
-            href="/transparencia/noticias"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Noticias y Eventos</a
-          >
-          <a
-            href="/transparencia/informes"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Informes de Gestión</a
-          >
-          <a
-            href="/transparencia/planeacion"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Planeación</a
-          >
-          <a
-            href="/transparencia/normativa"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Normativa</a
-          >
-          <a
-            href="/transparencia/participacion"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Participación</a
-          >
-          <a
-            href="/transparencia/contratacion"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Contratación</a
-          >
-        </div>
-      </div>
-
-      <div class="relative group">
-        <span
-          class:list={[
-            baseClass,
-            "flex items-center cursor-pointer",
-            isActive("/atencion") ? activeClass : "",
-          ]}
-        >
-          Atención al ciudadano
-          <svg
-            class="ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:rotate-180"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-              clip-rule="evenodd"></path>
-          </svg>
-        </span>
-
-        <div
-          class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-52 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2"
-        >
-          <a
-            href="/atencion/pqrsd"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >PQRSD</a
-          >
-          <a
-            href="/atencion/contacto"
-            class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2"
-            >Contacto</a
-          >
-        </div>
-      </div>
-    </nav>
-  </div>
+            {menuPrincipal.map(item => (
+                item.subItems ? (
+                    <MenuDropdown 
+                        item={item} 
+                        baseClass={baseClass} 
+                        activeClass={activeClass} 
+                        isActive={isActive} 
+                    />
+                ) : (
+                    <a 
+                        href={item.path} 
+                        class:list={[baseClass, isActive(item.path) ? activeClass : ""]}
+                    >
+                        {item.label}
+                    </a>
+                )
+            ))}
+        </nav>
+    </div>
 </header>
 
 <script>
-  const toggleButton = document.getElementById("menu-toggle");
-  const navMenu = document.getElementById("main-nav");
+    const toggleButton = document.getElementById("menu-toggle");
+    const navMenu = document.getElementById("main-nav");
 
-  toggleButton.addEventListener("click", () => {
-    navMenu.classList.toggle("hidden");
-    navMenu.classList.toggle("flex"); // Asegura que se muestre como flex para móvil
-  });
+    toggleButton.addEventListener("click", () => {
+        navMenu.classList.toggle("hidden");
+        navMenu.classList.toggle("flex"); 
+    });
 </script>

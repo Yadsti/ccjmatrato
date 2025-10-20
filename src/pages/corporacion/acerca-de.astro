@@ -1,89 +1,78 @@
 ---
 import { fetchGraphQL } from "../../lib/wp.ts";
 import { InformacionGlobal } from "../../lib/queries/global.ts";
-
 import Layout from "../../layouts/Layout.astro";
+import AcercaHero from "../../components/AcercaHero.astro";
+import MisionVision from "../../components/MisionVision.astro";
+import ObjetivosInstitucionales from "../../components/ObjetivosInstitucionales.astro";
 
 const data = await fetchGraphQL(InformacionGlobal);
 const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
-
 const datos = nodoGlobal?.datosGlobales;
 
-const mision = datos?.mision || "Misión no disponible desde WP.";
-const vision = datos?.vision || "Visión no disponible desde WP.";
+const mision = datos?.mision || "";
+const vision = datos?.vision || "";
+const image = datos.logoInstitucional?.node?.uri;
 const objetivosHTML: string = datos?.objetivos || "";
-const logoPath = datos?.logoInstitucional?.node?.uri;
-console.log("URl del logo: ", logoPath);
-const logoAlt = datos?.logoInstitucional?.node?.altText || "Logo Institucional";
 const manualUrl = datos?.manualDeIdentidadVisual?.node?.mediaItemUrl;
 
-let listaObjetivos: string[] = [];
+let imagePath: string | null = null;
+if (image) {
+    const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
+    imagePath = `${WP_BASE_URL}${image}`;
+}
 
+let listaObjetivos: string[] = [];
 if (objetivosHTML) {
     listaObjetivos = objetivosHTML
         .replace(/<\/?ol[^>]*>/g, "")
         .split("</li>")
         .map((item) => {
-        item = item.replace(/<li[^>]*>|<\/?span[^>]*>|<\/?p[^>]*>/g, "").trim();
-        return item.length > 0 ? item : null;
+            item = item.replace(/<li[^>]*>|<\/?span[^>]*>|<\/?p[^>]*>/g, "").trim();
+            return item.length > 0 ? item : null;
         })
         .filter((item): item is string => item !== null);
 }
 
-let logoUrl: string | null = null;
-
-if (logoPath) {
-    const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
-    logoUrl = `${WP_BASE_URL}${logoPath}`;
-}
+const title = "¿Qué es el Concejo?";
+const heroSubtitle = "ESTRUCTURA Y COMPROMISO";
+const description = "El Concejo Municipal del Medio Atrato es la corporación político-administrativa encargada de ejercer el control político, normativo y administrativo dentro del municipio, representando los intereses de la comunidad medioatrateña. Promueve el desarrollo integral, la participación ciudadana, la equidad social y la protección del patrimonio ambiental y cultural del territorio, mediante la formulación y aprobación de acuerdos que contribuyan al bienestar colectivo y al fortalecimiento institucional.";
+const heroImage = "/imagen-corporacion.jpg"; 
 ---
 
-<Layout>
-    <main class="container">
-        <h1>✅ Conexión con WordPress Headless Exitosa</h1>
-        <p>
-        Esta página se genera con datos estáticos obtenidos de WPGraphQL en tiempo
-        de compilación.
-        </p>
-        <section>
-        <h2>Logo</h2>
-        {
-            logoUrl ? (
-            <img src={logoUrl} alt={logoAlt} width="150" loading="eager" />
-            ) : null
-        }
+<Layout title={title} description={description}>
+    <main>
+        
+        <AcercaHero 
+            title={title}
+            subtitle={heroSubtitle}
+            introText={description}
+            imageUrl={imagePath}
+        />
+
+        <section class="mb-24 mt-20">
+            <MisionVision 
+                mision={mision} 
+                vision={vision} 
+            />
+            
+            <ObjetivosInstitucionales 
+                objetivosList={listaObjetivos} 
+            />
         </section>
-        <section>
-            <h2>Misión del Concejo</h2>
-            <p>{mision}</p>
-        </section>
-        <section>
-            <h2>Visión</h2>
-            <p>{vision}</p>
-        </section>
-        <section>
-        {
-            listaObjetivos.length > 0 ? (
-            <>
-                <h2>Objetivos</h2>
-                <ol class="list-decimal ml-6">
-                {listaObjetivos.map((objetivo) => (
-                    <li>{objetivo}</li>
-                ))}
-                </ol>
-            </>
-            ) : null
-        }
-        </section>
-        <sectiion>
-            <h2>Manual de identidad visual</h2>
-            {
-                manualUrl ? (
-                <a href={manualUrl} target="_blank" rel="noopener noreferrer">
+
+        <!-- {manualUrl && (
+            <section class="mt-20 mb-24 text-center">
+                <a 
+                    href={manualUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    class="bg-concejo-azul-principal text-white px-6 py-3 rounded-lg font-semibold hover:bg-concejo-verde-principal transition-colors shadow-lg"
+                >
                     Descargar Manual de Identidad Visual
                 </a>
-                ) : null
-            }
-        </sectiion>
+            </section>
+        )} -->
+        
     </main>
 </Layout>
