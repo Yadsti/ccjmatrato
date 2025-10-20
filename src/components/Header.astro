@@ -35,19 +35,18 @@ const baseClass = "px-3 py-2 rounded-lg hover:bg-concejo-verde-claro hover:text-
       <a href="/" class:list={[baseClass, isActive('/') ? activeClass : '']}>Inicio</a>
       
       <div class="relative group">
-        <span class:list={[baseClass, 'flex items-center cursor-pointer', isActive('/corporacion') ? activeClass : '']}>
-          Corporación
-          <svg class="ml-1 w-4 h-4 transition-transform duration-200 transform group-hover:rotate-180" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-          </svg>
-        </span>
-        <div class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-52 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
-          <a href="/corporacion/que-es-el-concejo" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">¿Qué es el Concejo?</a>
-          <a href="/corporacion/concejales" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Nuestros Concejales</a>
-          <a href="/corporacion/historia" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Historia del Concejo</a>
-          <a href="/corporacion/manual-identidad" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Manual de Identidad Visual</a>
-        </div>
-      </div>
+    <span class:list={[baseClass, 'flex items-center cursor-pointer', isActive('/corporacion') ? activeClass : '']}>
+      Corporación
+      </span>
+    <div class="md:absolute hidden group-hover:block z-50 bg-white shadow-2xl py-2 mt-1 rounded-lg w-full md:w-52 md:left-0 transform transition-all duration-300 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2">
+      <a href="/corporacion/que-es-el-concejo" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">¿Qué es el Concejo?</a>
+      <a href="/corporacion/concejales" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Nuestros Concejales</a>
+      <a href="/corporacion/mesa-directiva" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Mesa Directiva</a>
+      <a href="/corporacion/organigrama" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Organigrama</a>
+      <a href="/corporacion/comisiones" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Comisiones</a> <a href="/corporacion/historia" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Historia del Concejo</a>
+      <a href="/corporacion/manual-identidad" class="block px-4 py-2 text-gray-800 hover:bg-concejo-verde-claro rounded-md mx-2">Manual de Identidad Visual</a>
+    </div>
+</div>
       
       <div class="relative group">
         <span class:list={[baseClass, 'flex items-center cursor-pointer', isActive('/transparencia') ? activeClass : '']}>

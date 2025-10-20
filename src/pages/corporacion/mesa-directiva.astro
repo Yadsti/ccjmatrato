@@ -1,0 +1,46 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+---
+
+<Layout>
+    <Header />
+    <div class="h-16"></div>
+
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">Mesa Directiva</h1>
+        <p class="text-lg text-gray-700 text-center mb-10 max-w-3xl mx-auto">
+            Conozca los miembros del Concejo que lideran y dirigen las sesiones de la Corporación durante el periodo actual.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-concejo-verde-claro text-center">
+                <img src="/concejales/concejal1.jpg" alt="Foto del Presidente" class="w-32 h-32 mx-auto rounded-full object-cover mb-4 shadow-lg">
+                <h3 class="text-xl font-extrabold text-concejo-negro">Yeiber Asprilla</h3>
+                <p class="text-concejo-verde-principal font-semibold mb-3">Presidente del Concejo</p>
+                <p class="text-sm text-gray-700">Lidera y representa la Corporación en todos los actos oficiales.</p>
+                
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-concejo-verde-claro text-center">
+                <img src="/concejales/concejal2.jpg" alt="Foto del Vicepresidente" class="w-32 h-32 mx-auto rounded-full object-cover mb-4 shadow-lg">
+                <h3 class="text-xl font-extrabold text-concejo-negro">Carlos Murillo Córdoba</h3>
+                <p class="text-concejo-verde-principal font-semibold mb-3">Vicepresidente Primero</p>
+                <p class="text-sm text-gray-700">Encargado de la coordinación de comisiones y el seguimiento a los acuerdos.</p>
+                
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-lg p-6 border-t-8 border-concejo-verde-claro text-center">
+                <img src="/concejales/concejal3.jpg" alt="Foto del Vicepresidente Segundo" class="w-32 h-32 mx-auto rounded-full object-cover mb-4 shadow-lg">
+                <h3 class="text-xl font-extrabold text-concejo-negro">Yulieth Asprilla Palacios</h3>
+                <p class="text-concejo-verde-principal font-semibold mb-3">Vicepresidente Segundo</p>
+                <p class="text-sm text-gray-700">Apoya las tareas administrativas y el orden del día de las sesiones.</p>
+                
+
+        </div>
+    </main>
+
+    <Footer />
+</Layout>

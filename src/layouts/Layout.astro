@@ -65,6 +65,42 @@ import "../styles/global.css";
                 'concejal-12': { nombre: 'Concejal Número Doce', cargo: 'Concejal', foto: '/concejales/concejal12.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
                 'concejal-13': { nombre: 'Concejal Número Trece', cargo: 'Concejal', foto: '/concejales/concejal13.jpg', perfilAcademico: ['Estudios en [Área]'], perfilProfesional: ['Experiencia en [Sector]'], twitter: '#', facebook: '#', instagram: '#' },
             };
+            // --- NUEVO OBJETO: DATOS DE COMISIONES Y SUS MIEMBROS ---
+const comisionesData = {
+    'comision-primera': {
+        nombre: 'Comisión Primera',
+        miembros: [
+            { id: 'yeiber-asprilla', cargo: 'Presidente' }, 
+            { id: 'concejal-4', cargo: 'Miembro' }, 
+            { id: 'concejal-9', cargo: 'Miembro' },
+        ],
+    },
+    'comision-segunda': {
+        nombre: 'Comisión Segunda',
+        miembros: [
+            { id: 'carlos-murillo', cargo: 'Presidente' }, 
+            { id: 'concejal-5', cargo: 'Miembro' }, 
+            { id: 'concejal-10', cargo: 'Miembro' },
+        ],
+    },
+    'comision-tercera': {
+        nombre: 'Comisión Tercera',
+        miembros: [
+            { id: 'concejal-3', cargo: 'Presidente' }, 
+            { id: 'concejal-6', cargo: 'Miembro' }, 
+            { id: 'concejal-11', cargo: 'Miembro' },
+        ],
+    },
+    'comision-cuarta': {
+        nombre: 'Comisión Cuarta',
+        miembros: [
+            { id: 'concejal-7', cargo: 'Presidente' }, 
+            { id: 'concejal-8', cargo: 'Miembro' }, 
+            { id: 'concejal-12', cargo: 'Miembro' },
+        ],
+    },
+    // ... Asegúrate de que todos los 13 concejales estén distribuidos ...
+};
 
             function openModal(concejalId) {
                 const data = concejalesData[concejalId];
