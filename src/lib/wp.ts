@@ -45,3 +45,29 @@ export async function fetchGraphQL(
     throw error; 
   }
 }
+
+/**
+ * Obtiene el título y contenido de una página por su slug (URI).
+ * @param slug El slug (URI) de la página.
+ * @returns Un objeto con el título y el contenido.
+ */
+export const getPageInfo = async (slug: string) => {
+    const QUERY = `
+        query GetPageBySlug($uri: String!) {
+            pageBy(uri: $uri) {
+                title
+                content
+            }
+        }
+    `;
+
+    const data = await fetchGraphQL(QUERY, { uri: slug });
+
+    if (!data.pageBy) {
+        throw new Error(`Página con slug "${slug}" no encontrada.`);
+    }
+
+    const { title, content } = data.pageBy;
+
+    return { title, content };
+};

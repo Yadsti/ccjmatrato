@@ -1,0 +1,25 @@
+---
+export interface Props {
+    urlDesarrollador: string;
+    nombreDesarrollador: string;
+}
+
+const { urlDesarrollador, nombreDesarrollador } = Astro.props;
+---
+
+<hr class="border-t border-gray-300 my-8" />
+<div class="text-center text-xs space-y-1 text-gray-600">
+    <p>
+        &copy; {new Date().getFullYear()} Concejo Municipal de Medio Atrato. Todos los derechos reservados.
+    </p>
+    <p>
+        Desarrollado por <a
+        href={urlDesarrollador}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-concejo-azul-principal hover:underline"
+        >
+        {nombreDesarrollador}
+        </a>
+    </p>
+</div>

@@ -1,0 +1,6 @@
+POST http://ccmedio.local/graphql
+Content-Type: application/json
+
+{
+    "query": "query InformacionGlobal { allInformacionGlobal { edges { node { id datosGlobales { mision vision } } } } }"
+}

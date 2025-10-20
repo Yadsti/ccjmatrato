@@ -2,6 +2,27 @@
 import Header from "../sections/Header.astro";
 import Footer from "../sections/Footer.astro";
 import '../styles/global.css';
+
+import { fetchGraphQL } from '../lib/wp.ts';
+import { InformacionGlobal } from '../lib/queries/global.ts';
+
+const data = await fetchGraphQL(InformacionGlobal);
+const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
+const datosGlobales = nodoGlobal?.datosGlobales;
+
+const logoNavbar = datosGlobales?.logoNavbar?.node?.uri || "/logo-default.png";
+const logoFooter = datosGlobales?.logoFooter?.node?.uri || "/logo-default.png";
+const logoFooterAlt = datosGlobales?.logoFooter?.node?.altText || "Logo Concejo";
+const telefono = datosGlobales?.telefono || "3117539517";
+const email = datosGlobales?.email || "concejomedioatrato@hotmail.com";
+
+export interface Props {
+	title: string;
+	description: string;
+}
+
+const { title, description } = Astro.props;
+const brandName = "Concejo del Medio Atrato";
 ---
 
 <!doctype html>
@@ -18,25 +39,38 @@ import '../styles/global.css';
 			crossorigin="anonymous" 
 			referrerpolicy="no-referrer" 
 		/>
-		<title>Concejo Municipal Medio Atrato</title>
+		<title>{title} | {brandName}</title>
 		<meta
 		name="description"
-		content="Sitio web oficial del Concejo Municipal Medio Atrato"
+		content= {description || "Sitio web oficial del Concejo Municipal Medio Atrato."}
 		/>
 		<meta
 		name="keywords"
 		content="Concejo, Municipal, Medio, Atrato, Sitio, Web, Oficial, Medio Atrato"
 		/>
-		<meta name="author" content="Concejo Municipal Medio Atrato" />
+		<meta name="author" content={ brandName ||"Concejo Municipal Medio Atrato"} />
 		<meta name="robots" content="index, follow" />
-		<meta property="og:title" content="Concejo Municipal Medio Atrato" />
+		<meta property="og:title" content={title} />
+		<script type="application/ld+json">
+			{
+			"@context": "https://schema.org",
+			"@type": "GovernmentOrganization",
+			"name": "Concejo Municipal Medio Atrato",
+			"description": "Sitio web oficial del Concejo Municipal del Medio Atrato, Chocó. Consulte normativa, actas y procesos de participación ciudadana."
+			}
+		</script>
 	</head>
 	<body class="min-h-screen flex flex-col">
-		<Header />
+		<Header logoUri={logoNavbar} />
 		<main>
 			<slot class="flex-grow pt-16 lg:pt-20"/>
 		</main>
-		<Footer />
+		<Footer 
+			logoUri={logoFooter} 
+            logoAlt={logoFooterAlt} 
+            telefono={telefono} 
+            email={email}
+		/>
 	</body>
 </html>
 
