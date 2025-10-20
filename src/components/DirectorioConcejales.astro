@@ -1,43 +1,46 @@
+---
+export interface Concejal {
+    name: string;
+    position: string;
+    photoUrl: string;
+    slug: string;
+    resumen?: string; 
+}
+
+export interface Props {
+    concejalesList: Concejal[];
+}
+
+const { concejalesList } = Astro.props;
+---
+
 <section class="container mx-auto px-4 py-8 font-sans">
+    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 max-w-4xl mx-auto">
-        <div class="flex items-start space-x-6 bg-white p-4 rounded-lg shadow-md border-b-2 border-concejo-verde-principal">
-            <div class="flex-shrink-0 pt-1">
-                <img src="/concejales/concejal1.jpg" alt="Foto de Yeiber Asprilla" class="w-32 h-32 rounded-full object-cover shadow-lg border-2 border-gray-300">
-            </div>
-
-            <div class="flex-grow space-y-1">
-                <p class="text-sm font-semibold text-concejo-azul-principal">Presidente del Concejo</p>
-                <h2 class="text-xl font-extrabold text-concejo-negro">Yeiber Asprilla</h2>
-                <p class="text-sm text-gray-700 leading-snug line-clamp-3">
-                    [Añade aquí un resumen de su perfil profesional y académico].
-                </p>
+        
+        {concejalesList.map((concejal) => (
+            <div class="flex items-start space-x-6 bg-white p-4 rounded-lg shadow-md border-b-2 border-concejo-verde-principal transform hover:scale-[1.02] transition-transform duration-300">
                 
-                <button 
-                    onclick="openModal('yeiber-asprilla')" 
-                    class="text-concejo-verde-principal font-semibold hover:underline flex items-center pt-2">
-                    Conoce más
-                    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
-            </div>
-        </div>
+                <div class="flex-shrink-0 pt-1">
+                    <img 
+                        src={concejal.photoUrl} 
+                        alt={`Foto de ${concejal.name}`} 
+                        class="w-32 h-32 rounded-full object-cover shadow-lg border-2 border-gray-300"
+                    />
+                </div>
 
-        <div class="flex items-start space-x-6 bg-white p-4 rounded-lg shadow-md border-b-2 border-concejo-verde-principal">
-            <div class="flex-shrink-0 pt-1">
-                <img src="/concejales/concejal2.jpg" alt="Foto de Carlos Murillo Córdoba" class="w-32 h-32 rounded-full object-cover shadow-lg border-2 border-gray-300">
+                <div class="flex-grow space-y-1">
+                    <p class="text-sm font-semibold text-concejo-azul-principal">
+                        {concejal.position}
+                    </p>
+                    <h2 class="text-xl font-extrabold text-concejo-negro">
+                        {concejal.name}
+                    </h2>
+                    <p class="text-sm text-gray-700 leading-snug line-clamp-3">
+                        {concejal.resumen || "Honorable Concejal trabajando activamente en el Concejo Municipal por la transparencia y el desarrollo del Medio Atrato."}
+                    </p>
+                </div>
             </div>
-            <div class="flex-grow space-y-1">
-                <p class="text-sm font-semibold text-concejo-azul-principal">Vicepresidente</p>
-                <h2 class="text-xl font-extrabold text-concejo-negro">Carlos Murillo Córdoba</h2>
-                <p class="text-sm text-gray-700 leading-snug line-clamp-3">
-                    [Añade aquí un resumen de su perfil profesional y académico].
-                </p>
-                <button 
-                    onclick="openModal('carlos-murillo')" 
-                    class="text-concejo-verde-principal font-semibold hover:underline flex items-center pt-2">
-                    Conoce más
-                    <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                </button>
-            </div>
-        </div>
+        ))}
     </div>
 </section>

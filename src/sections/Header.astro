@@ -16,9 +16,9 @@ if (logoUri) {
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "");
 const isActive = (path: string) => {
-  const normalizedPath = path.replace(/\/$/, "");
-  if (normalizedPath === "") return currentPath === "";
-  return currentPath.startsWith(normalizedPath);
+    const normalizedPath = path.replace(/\/$/, "");
+    if (normalizedPath === "") return currentPath === "";
+    return currentPath.startsWith(normalizedPath);
 };
 
 const activeClass = "text-concejo-azul-principal border-b-2 border-concejo-azul-principal";

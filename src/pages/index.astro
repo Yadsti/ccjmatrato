@@ -7,6 +7,26 @@ import MisionVision from "../components/MisionVision.astro";
 import SeparadorWave from "../components/SeparadorWave.astro";
 import { fetchGraphQL } from "../lib/wp.ts";
 import { InformacionGlobal } from "../lib/queries/global.ts";
+import { InformacionConcejales } from "../lib/queries/concejales.ts";
+
+const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
+
+const concejalesData = await fetchGraphQL(InformacionConcejales);
+
+const concejalesList = concejalesData?.concejales?.edges?.map((edge) => {
+    const concejalData = edge.node.datosDeConcejales;
+    const photoUri = concejalData.fotoDelConcejal?.node?.uri;
+    const photoUrl = photoUri ? `${WP_BASE_URL}${photoUri}` : "/concejales/default.jpg";
+    return {
+        name: concejalData.nombreDeConcejal,
+        partido: concejalData.partidoPolitico,
+        comunidad: concejalData.comunidad,
+        cargo: concejalData.cargo,
+        photoUrl: photoUrl,
+    };
+}) || []; 
+
+const concejalesHome = concejalesList.slice(0, 5);
 
 const data = await fetchGraphQL(InformacionGlobal);
 const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
@@ -17,28 +37,15 @@ const vision = datos?.vision || "";
 
 const title = "Inicio";
 const description = "Sitio web oficial del Concejo Municipal del Medio Atrato, Chocó. Consulte las iniciativas, normativa, y procesos de participación ciudadana.";
-
-const concejalesData = [
-    { name: 'Yeiber Asprilla', position: 'Presidente', photoUrl: '/concejales/concejal1.jpg', slug: 'yeiber-asprilla' },
-    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
-    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
-    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
-    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
-    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
-    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
-    { name: 'Carlos Murillo C.', position: 'Vicepresidente', photoUrl: '/concejales/concejal2.jpg', slug: 'carlos-murillo' },
-];
 ---
 
 <Layout title={title} description={description}>
     <Hero />
-    <SeparadorWave marginY="lg" />
+    <!-- <SeparadorWave marginY="lg" /> -->
     <Noticias />
     <MisionVision 
         mision={mision}
         vision={vision}
     />
-    <!-- <Concejales 
-        concejalesList={concejalesData}
-    /> -->
+    <Concejales concejalesList={concejalesHome}/>
 </Layout>

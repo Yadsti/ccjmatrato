@@ -1,0 +1,30 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Noticias from "../../../components/Noticias.astro";
+
+const title = "Noticias"
+const description = "Enterese de los ultimos acontecimientos"
+---
+
+<Layout title={title} description={description}>
+    <div class="bg-gray-50 py-12 border-b border-gray-200">
+        <main class="container mx-auto px-4 font-sans">
+            <div class="text-center max-w-4xl mx-auto">
+                
+                <h1 class="text-5xl font-extrabold text-concejo-negro relative inline-block mb-3">
+                    Archivo Completo de Noticias
+                </h1>
+                
+                <hr class="w-24 h-1 mx-auto mt-2 bg-concejo-verde-principal border-0 rounded-full">
+
+                <p class="text-lg text-gray-700 mt-4">
+                    Consulte la cronología completa de las actividades y eventos del Concejo Municipal del Medio Atrato.
+                </p>
+            </div>
+        </main>
+    </div>
+
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <Noticias limit={100} removeTitle={true} /> 
+    </main>
+</Layout>

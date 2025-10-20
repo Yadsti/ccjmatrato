@@ -1,15 +1,51 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import DirectorioConcejales from "../../../components/DirectorioConcejales.astro"; 
+import DirectorioConcejales from "../../../components/DirectorioConcejales.astro";
+import { fetchGraphQL } from "../../../lib/wp";
+import { InformacionConcejales } from "../../../lib/queries/concejales";
 
-const title = "Concejales"
-const description = "Conozca a nuestro honorables concejales"
+const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
+const data = await fetchGraphQL(InformacionConcejales);
+
+const concejalesList = data?.concejales?.edges?.map((edge) => {
+    const concejalData = edge.node.datosDeConcejales;
+    const cargo = concejalData.cargoDelConcejal;
+    const partido = concejalData.partidoPolitico;
+    let positionString = '';
+    const photoUri = concejalData.fotoDelConcejal?.node?.uri;
+    const photoUrl = photoUri ? `${WP_BASE_URL}${photoUri}` : "/concejales/default.jpg";
+
+    // Lógica para combinar
+    if (cargo && partido) {
+        positionString = `${cargo} | (${partido})`;
+    } else if (cargo) {
+        positionString = cargo;
+    } else if (partido) {
+        positionString = partido;
+    } else {
+        positionString = 'Concejal Municipal';
+    }
+
+    return {
+        comunidad: concejalData.comunidad,
+        name: concejalData.nombreDeConcejal,
+        position: positionString,
+        photoUrl: photoUrl,
+    };
+}) || [];
+
+const title = "Concejales";
+const description = "Conozca a nuestro honorables concejales";
 ---
 
 <Layout title={title} description={description}>
-    <div class="h-16"></div> 
+    <div class="h-16"></div>
     <main class="container mx-auto px-4 py-8 font-sans">
-        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">{description}</h1>
-        <DirectorioConcejales />
+        <h1
+        class="text-4xl font-bold text-center text-concejo-verde-principal mb-8"
+        >
+        {description}
+        </h1>
+        <DirectorioConcejales concejalesList={concejalesList} />
     </main>
 </Layout>

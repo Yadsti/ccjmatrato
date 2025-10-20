@@ -6,6 +6,9 @@ export const InformacionConcejales = `
                     datosDeConcejales {
                         nombreDeConcejal
                         partidoPolitico
+                        cargoDelConcejal
+                        correoElectronico
+                        comunidad
                         fotoDelConcejal {
                             node {
                                 uri
