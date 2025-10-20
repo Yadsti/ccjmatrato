@@ -1,0 +1,62 @@
+---
+// src/components/SeparatorWave.astro
+
+export interface Props {
+    // Color de fondo de la sección SUPERIOR (donde se une la curva)
+    bgColor: string; 
+    // Dirección del gradiente (para el color de la línea si se desea)
+    accentColor?: 'verde' | 'azul'; 
+}
+
+const { 
+    bgColor = 'bg-gray-50', // Por defecto, si no se especifica, usa un gris muy claro
+    accentColor 
+} = Astro.props;
+
+// Clase dinámica para el acento de color (opcional para un borde o sombra)
+const accentClass = accentColor === 'azul' ? 'shadow-concejo-azul-principal' : 'shadow-concejo-verde-principal';
+---
+
+<div class:list={[bgColor, 'relative w-full overflow-hidden']} aria-hidden="true">
+    
+    {/*
+      El SVG crea la forma de onda.
+      NOTA: El 'fill' debe coincidir con el color de fondo de la sección INFERIOR (generalmente blanco, bg-white).
+    */}
+    <svg 
+        class="w-full h-auto block" 
+        data-name="Layer 1" 
+        xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 1200 120" 
+        preserveAspectRatio="none"
+        style="height: 100px; transform: rotate(180deg);" 
+    >
+        {/* El fill debe ser el color de la siguiente sección (normalmente white) */}
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39.27.08,5.43,2.46,7.44,1.86" class="shape-fill" fill="white" />
+    </svg>
+    
+</div>
+
+<style>
+    /* Aseguramos que el SVG se posicione correctamente.
+       Rotate(180deg) hace que la curva se muestre hacia abajo.
+    */
+    .relative > svg {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: rotateX(180deg); /* Curva hacia abajo */
+    }
+
+    /* Se puede mejorar la apariencia del borde de la curva con un sutil box-shadow si se desea */
+    .shape-fill {
+        /* Ejemplo de color para el sombreado si el SVG es complejo */
+        filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.05));
+    }
+
+    /* Ajuste para que la ola se pegue al fondo de la sección */
+    .relative {
+        padding-bottom: 0 !important; 
+        margin-bottom: 0 !important;
+    }
+</style>
