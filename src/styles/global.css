@@ -1,4 +1,27 @@
-/* This file should be processed by Tailwind CSS CLI or PostCSS with Tailwind plugin */
+/* src/styles/global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Define la animación de aparecer desde abajo */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* Comienza 20px abajo */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0); /* Termina en su posición original */
+  }
+}
+
+/* Clase base para el estado oculto (antes de aparecer) */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Clase para aplicar la animación (cuando está visible) */
+.is-visible {
+  animation: fadeInUp 0.8s ease-out forwards; /* Duración de 0.8s */
+}
