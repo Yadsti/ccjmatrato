@@ -1,45 +1,58 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import DirectorioConcejales from "../../../components/DirectorioConcejales.astro";
-import { fetchGraphQL } from "../../../lib/wp";
-import { InformacionConcejales } from "../../../lib/queries/concejales";
+import { fetchGraphQL } from "../../../lib/wp.ts";
+import { InformacionConcejales } from "../../../lib/queries/concejales.ts"; 
+import { InformacionSecretaria } from "../../../lib/queries/secretaria.ts"; 
 
 const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
-const data = await fetchGraphQL(InformacionConcejales);
+const concejalesData = await fetchGraphQL(InformacionConcejales);
 
-const concejalesList = data?.concejales?.edges?.map((edge) => {
+const concejalesList = concejalesData?.concejales?.edges?.map((edge) => {
     const concejalData = edge.node.datosDeConcejales;
-    const cargo = concejalData.cargoDelConcejal;
-    const partido = concejalData.partidoPolitico;
-    let positionString = '';
+    // ... (Tu lógica de mapeo de concejales aquí) ...
+    // Asegúrate de que los concejales de la Mesa Directiva NO tengan el rol de 'Secretaria' si el CPT 'Concejales' ya no lo contiene.
+    const positionString = concejalData.cargoDelConcejal || 'Concejal';
+
     const photoUri = concejalData.fotoDelConcejal?.node?.uri;
     const photoUrl = photoUri ? `${WP_BASE_URL}${photoUri}` : "/concejales/default.jpg";
-
-    // Lógica para combinar
-    if (cargo && partido) {
-        positionString = `${cargo} | ${partido}`;
-    } else if (cargo) {
-        positionString = cargo;
-    } else if (partido) {
-        positionString = partido;
-    } else {
-        positionString = 'Concejal Municipal';
-    }
-
+    
     return {
-        comunidad: concejalData.comunidad,
         name: concejalData.nombreDeConcejal,
         position: positionString,
         photoUrl: photoUrl,
+        comunidad: concejalData.comunidad || 'N/A',
+        partido: concejalData.partidoPolitico,
+        email: concejalData.correoElectronico,
+        slug: 'slug-aqui',
     };
-}) || [];
+}) || []; 
 
-const title = "Concejales";
-const description = "Conozca a nuestro honorables concejales";
+const secretariaRawData = await fetchGraphQL(InformacionSecretaria);
+const secretariaNode = secretariaRawData?.secretarias?.nodes?.[0]?.datosDeSecretaria;
+let secretariaData = null;
+if (secretariaNode) {
+    const photoUri = secretariaNode.foto?.node?.uri;
+    const photoUrl = photoUri ? `${WP_BASE_URL}${photoUri}` : "/default-secretaria.jpg";
+    
+    secretariaData = {
+        name: secretariaNode.nombre,
+        position: 'Secretaria General', 
+        photoUrl: photoUrl,
+        comunidad: 'Sede Administrativa',
+        resumen: 'Lidera la gestión documental y administrativa del Concejo Municipal.',
+    };
+}
+
+const title = "Directorio de Concejales";
+const description = "Conozca a los miembros del Concejo y la Mesa Directiva.";
 ---
 
 <Layout title={title} description={description}>
-    <main class="container mx-auto px-4 py-8 font-sans">
-        <DirectorioConcejales concejalesList={concejalesList} />
+    <main class="container mx-auto">
+        <DirectorioConcejales 
+            concejalesList={concejalesList} 
+            secretariaData={secretariaData} 
+        />
     </main>
 </Layout>
