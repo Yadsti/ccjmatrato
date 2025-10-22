@@ -4,7 +4,10 @@ export interface Concejal {
     position: string;
     photoUrl: string;
     slug: string;
-    resumen?: string; 
+    resumen?: string;
+    comunidad: string;
+    partido?: string;
+    email?: string;
 }
 
 export interface Props {
@@ -12,35 +15,304 @@ export interface Props {
 }
 
 const { concejalesList } = Astro.props;
+
+const presidente = concejalesList.find(c => c.position.toLowerCase().includes('presidente') && !c.position.toLowerCase().includes('vice'));
+const vicepresidente = concejalesList.find(c => c.position.toLowerCase().includes('vicepresidente'));
+const secretaria = concejalesList.find(c => c.position.toLowerCase().includes('secretaria'));
+const demásConcejales = concejalesList.filter(c => 
+    !c.position.toLowerCase().includes('presidente') &&
+    !c.position.toLowerCase().includes('vice') &&
+    !c.position.toLowerCase().includes('secretaria')
+);
+
+function getPositionColor(position: string) {
+    const p = position.toLowerCase();
+    if (p.includes('presidente') && !p.includes('vice')) return 'concejo-verde-principal';
+    if (p.includes('vicepresidente')) return 'concejo-azul-principal';
+    if (p.includes('secretaria')) return 'concejo-amarillo-principal';
+    return 'gray-700';
+}
+
+function getBadgeColor(position: string) {
+    const p = position.toLowerCase();
+    if (p.includes('presidente') && !p.includes('vice')) return 'bg-concejo-verde-principal';
+    if (p.includes('vicepresidente')) return 'bg-concejo-azul-principal';
+    if (p.includes('secretaria')) return 'bg-concejo-amarillo-principal';
+    return 'bg-gray-600';
+}
 ---
 
-<section class="container mx-auto px-4 py-8 font-sans">
+<section class="container mx-auto px-4 py-12 font-sans">
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 max-w-4xl mx-auto">
-        
-        {concejalesList.map((concejal) => (
-            <div class="flex items-start space-x-6 bg-white p-4 rounded-lg shadow-md border-b-2 border-concejo-verde-principal transform hover:scale-[1.02] transition-transform duration-300">
-                
-                <div class="flex-shrink-0 pt-1">
-                    <img 
-                        src={concejal.photoUrl} 
-                        alt={`Foto de ${concejal.name}`} 
-                        class="w-32 h-32 rounded-full object-cover shadow-lg border-2 border-gray-300"
-                    />
-                </div>
-
-                <div class="flex-grow space-y-1">
-                    <p class="text-sm font-semibold text-concejo-azul-principal">
-                        {concejal.position}
-                    </p>
-                    <h2 class="text-xl font-extrabold text-concejo-negro">
-                        {concejal.name}
-                    </h2>
-                    <p class="text-sm text-gray-700 leading-snug line-clamp-3">
-                        {concejal.resumen || "Honorable Concejal trabajando activamente en el Concejo Municipal por la transparencia y el desarrollo del Medio Atrato."}
-                    </p>
-                </div>
-            </div>
-        ))}
+    <!-- Header Section -->
+    <div class="text-center mb-8">
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-4">
+            Directorio de Concejales
+        </h1>
+        <div class="inline-block mb-4">
+            <span class="bg-concejo-verde-claro text-concejo-verde-principal px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-wider">
+                Periodo 2024-2027
+            </span>
+        </div>
     </div>
+
+    <!-- Mesa Directiva -->
+    {(presidente || vicepresidente || secretaria) && (
+        <div class="mb-20">
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center">
+                Mesa Directiva
+            </h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                {/* Presidente */}
+                {presidente && (
+                    <article class="bg-gradient-to-br from-white to-concejo-verde-claro rounded-2xl shadow-xl p-8 border-2 border-concejo-verde-principal hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-concejo-verde-principal opacity-5 rounded-full -mr-16 -mt-16"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex items-center mb-6">
+                                <span class={`${getBadgeColor(presidente.position)} text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider`}>
+                                    {presidente.position}
+                                </span>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+                                <div class="flex-shrink-0">
+                                    <div class="relative">
+                                        <img 
+                                            src={presidente.photoUrl} 
+                                            alt={`Foto de ${presidente.name}`} 
+                                            class="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div class="flex-grow text-center sm:text-left">
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                                        {presidente.name}
+                                    </h3>
+                                    <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center justify-center sm:justify-start">
+                                        <i class="fas fa-map-marker-alt text-concejo-verde-principal mr-2" aria-hidden="true"></i>
+                                        {presidente.comunidad}
+                                    </p>
+                                    {presidente.partido && (
+                                        <p class="text-xs text-gray-600 mb-3">
+                                            {presidente.partido}
+                                        </p>
+                                    )}
+                                    <p class="text-sm text-gray-700 leading-relaxed">
+                                        {presidente.resumen || "Lidera la corporación del Concejo Municipal trabajando por la transparencia y el desarrollo integral del Medio Atrato."}
+                                    </p>
+                                    
+                                    {(presidente.email ) && (
+                                        <div class="mt-4 space-y-2">
+                                            {presidente.email && (
+                                                <a href={`mailto:${presidente.email}`} class="text-sm text-concejo-azul-principal hover:text-concejo-verde-principal transition-colors flex items-center justify-center sm:justify-start">
+                                                    
+                                                    {presidente.email}
+                                                </a>
+                                            )}
+                                        
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                )}
+
+                {/* Vicepresidente */}
+                {vicepresidente && (
+                    <article class="bg-gradient-to-br from-white to-blue-50 rounded-2xl shadow-xl p-8 border-2 border-concejo-azul-principal hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-concejo-azul-principal opacity-5 rounded-full -mr-16 -mt-16"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex items-center mb-6">
+                                <span class={`${getBadgeColor(vicepresidente.position)} text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider`}>
+                                    {vicepresidente.position}
+                                </span>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+                                <div class="flex-shrink-0">
+                                    <div class="relative">
+                                        <img 
+                                            src={vicepresidente.photoUrl} 
+                                            alt={`Foto de ${vicepresidente.name}`} 
+                                            class="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white"
+                                        />
+                    
+                                    </div>
+                                </div>
+
+                                <div class="flex-grow text-center sm:text-left">
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                                        {vicepresidente.name}
+                                    </h3>
+                                    <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center justify-center sm:justify-start">
+                                        <i class="fas fa-map-marker-alt text-concejo-azul-principal mr-2" aria-hidden="true"></i>
+                                        {vicepresidente.comunidad}
+                                    </p>
+                                    {vicepresidente.partido && (
+                                        <p class="text-xs text-gray-600 mb-3">
+                                            {vicepresidente.partido}
+                                        </p>
+                                    )}
+                                    <p class="text-sm text-gray-700 leading-relaxed">
+                                        {vicepresidente.resumen || "Apoya la gestión del Concejo Municipal y representa activamente los intereses de la comunidad del Medio Atrato."}
+                                    </p>
+                                    
+                                    {(vicepresidente.email) && (
+                                        <div class="mt-4 space-y-2">
+                                            {vicepresidente.email && (
+                                                <a href={`mailto:${vicepresidente.email}`} class="text-sm text-concejo-azul-principal hover:text-concejo-verde-principal transition-colors flex items-center justify-center sm:justify-start">
+                                                    
+                                                    {vicepresidente.email}
+                                                </a>
+                                            )}
+                                            
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                )}
+
+                {/* Secretaria */}
+                {secretaria && (
+                    <article class="bg-gradient-to-br from-white to-yellow-50 rounded-2xl shadow-xl p-8 border-2 border-concejo-amarillo hover:shadow-2xl transition-all duration-300 relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-concejo-amarillo opacity-5 rounded-full -mr-16 -mt-16"></div>
+                        
+                        <div class="relative z-10">
+                            <div class="flex items-center mb-6">
+                                <span class="bg-concejo-amarillo text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                                    {secretaria.position}
+                                </span>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
+                                <div class="flex-shrink-0">
+                                    <div class="relative">
+                                        <img 
+                                            src={secretaria.photoUrl} 
+                                            alt={`Foto de ${secretaria.name}`} 
+                                            class="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white"
+                                        />
+                                        
+                                    </div>
+                                </div>
+
+                                <div class="flex-grow text-center sm:text-left">
+                                    <h3 class="text-2xl font-bold text-gray-900 mb-2">
+                                        {secretaria.name}
+                                    </h3>
+                                    <p class="text-sm font-semibold text-gray-700 mb-1 flex items-center justify-center sm:justify-start">
+                                        <i class="fas fa-map-marker-alt text-concejo-amarillo mr-2" aria-hidden="true"></i>
+                                        {secretaria.comunidad}
+                                    </p>
+                                    {secretaria.partido && (
+                                        <p class="text-xs text-gray-600 mb-3">
+                                            {secretaria.partido}
+                                        </p>
+                                    )}
+                                    <p class="text-sm text-gray-700 leading-relaxed">
+                                        {secretaria.resumen || "Gestiona la documentación y actas del Concejo Municipal, garantizando la transparencia administrativa."}
+                                    </p>
+                                    
+                                    {(secretaria.email) && (
+                                        <div class="mt-4 space-y-2">
+                                            {secretaria.email && (
+                                                <a href={`mailto:${secretaria.email}`} class="text-sm text-concejo-azul-principal hover:text-concejo-verde-principal transition-colors flex items-center justify-center sm:justify-start">
+                                                    
+                                                    {secretaria.email}
+                                                </a>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                )}
+            </div>
+        </div>
+    )}
+
+    <!-- Demás Concejales -->
+    {demásConcejales.length > 0 && (
+        <div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-8 text-center flex items-center justify-center">
+                Concejales Municipales
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+                
+                {demásConcejales.map((concejal) => (
+                    <article class="bg-white rounded-xl shadow-md hover:shadow-xl border border-gray-200 overflow-hidden transition-all duration-300 hover:-translate-y-1">
+                        
+                        {/* Header con foto */}
+                        <div class="relative bg-gradient-to-br from-gray-50 to-gray-100 p-6 pb-0">
+                            <div class="flex justify-center">
+                                <div class="relative -mb-16">
+                                    <img 
+                                        src={concejal.photoUrl} 
+                                        alt={`Foto de ${concejal.name}`} 
+                                        class="w-32 h-32 rounded-full object-cover shadow-lg border-4 border-white"
+                                    />
+                                    <div class="absolute -bottom-2 -right-2 bg-gray-700 text-white w-8 h-8 rounded-full flex items-center justify-center shadow-md">
+                                        <i class="fas fa-user text-xs" aria-hidden="true"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Contenido */}
+                        <div class="pt-20 px-6 pb-6 text-center">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">
+                                {concejal.name}
+                            </h3>
+                            
+                            <p class={`text-sm font-semibold text-${getPositionColor(concejal.position)} mb-3`}>
+                                {concejal.position}
+                            </p>
+                            
+                            <div class="flex items-center justify-center text-sm text-gray-600 mb-3">
+                                <i class="fas fa-map-marker-alt text-concejo-verde-principal mr-2" aria-hidden="true"></i>
+                                <span class="font-medium">{concejal.comunidad}</span>
+                            </div>
+
+                            {concejal.partido && (
+                                <div class="mb-4">
+                                    <span class="inline-block bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-medium">
+                                        {concejal.partido}
+                                    </span>
+                                </div>
+                            )}
+                            
+                            <p class="text-sm text-gray-600 leading-relaxed mb-4">
+                                {concejal.resumen || "Honorable Concejal trabajando activamente en el Concejo Municipal por la transparencia y el desarrollo del Medio Atrato."}
+                            </p>
+
+                            {/* Contacto */}
+                            {(concejal.email) && (
+                                <div class="pt-4 border-t border-gray-100 space-y-2">
+                                    {concejal.email && (
+                                        <a 
+                                            href={`mailto:${concejal.email}`} 
+                                            class="text-xs text-concejo-azul-principal hover:text-concejo-verde-principal transition-colors flex items-center justify-center"
+                                        >
+                                            <i class="fas fa-envelope mr-2" aria-hidden="true"></i>
+                                            {concejal.email}
+                                        </a>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    </article>
+                ))}
+            </div>
+        </div>
+    )}
 </section>

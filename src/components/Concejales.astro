@@ -1,7 +1,7 @@
 ---
 export interface Concejal {
     name: string;
-    position: string;
+    partido: string;
     comunidad: string;
     photoUrl: string; 
     slug: string; 
@@ -20,8 +20,8 @@ const carouselId = 'concejales-slider';
     
     <div class="flex flex-col sm:flex-row justify-between items-center sm:items-end mb-10 border-b-2 border-concejo-verde-principal/50 pb-3 max-w-6xl mx-auto">
     
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-concejo-negro mb-4 sm:mb-0 w-full text-center sm:text-left">
-            Directorio de Concejales
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-concejo-negro mb-4 sm:mb-0 w-full text-center sm:text-left">
+            Conozca a nuestros concejales
         </h2>
         
         <a 
@@ -55,7 +55,10 @@ const carouselId = 'concejales-slider';
                                 class="w-32 h-32 mx-auto rounded-full object-cover mb-4 shadow-inner"
                             >
                             <h3 class="text-xl font-bold text-concejo-negro mt-2">{concejal.name}</h3>
-                            <p class="text-concejo-verde-principal text-sm font-semibold">{concejal.position}</p>
+                            <p class="text-concejo-verde-principal text-sm font-semibold">{concejal.partido}</p>
+                            <p class="text-sm font-medium text-gray-600">
+                                Comunidad: {concejal.comunidad}
+                            </p>
                         </div>
                     </div>
                 </div>
