@@ -4,29 +4,35 @@ import MarcaHero from '../../components/identidadVisual/MarcaHero.astro';
 import MarcaElementos from '../../components/identidadVisual/MarcaElementos.astro';
 import MarcaVersiones from '../../components/identidadVisual/MarcaVersiones.astro';
 import MarcaUsosRestricciones from '../../components/identidadVisual/MarcaUsosRestricciones.astro';
-import MarcaContacto from '../../components/identidadVisual/MarcaContacto.astro';
+
+import { fetchGraphQL } from "../../lib/wp.ts";
+import { InformacionGlobal } from "../../lib/queries/global.ts"; 
+
+const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
+
+const data = await fetchGraphQL(InformacionGlobal);
+const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
+const datos = nodoGlobal?.datosGlobales;
+
+const manualUrl = datos?.manualDeIdentidadVisual?.node?.mediaItemUrl;
 
 const title = "Identidad Visual";
 const description = "Descubra la identidad visual del Concejo Municipal de Medio Atrato - Manual de marca, colores institucionales y guías de uso";
 
-const manualUrl = "/IMAGEN-CORPORATIVA-CONCEJO-MUNICIPAL-MEDIO-ATRATO.pdf";
 ---
 
 <Layout title={title} description={description}>
-    {/* RECUERDA: Este div es el fix temporal para el fixed header. */}
-    <div class="h-16"></div> 
 
     <main class="container mx-auto px-4 py-8 sm:py-12 font-sans">
         
         <MarcaHero manualUrl={manualUrl} />
 
-        <MarcaElementos />
+        <!-- <MarcaElementos /> -->
 
-        <MarcaVersiones />
+        <!-- <MarcaVersiones /> -->
 
         <MarcaUsosRestricciones />
 
-        <MarcaContacto />
         
     </main>
 </Layout>
