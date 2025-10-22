@@ -1,5 +1,15 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+
+import { fetchGraphQL } from "../../lib/wp.ts"; 
+import { InformacionGlobal } from "../../lib/queries/global.ts"; 
+
+const data = await fetchGraphQL(InformacionGlobal);
+const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
+const datos = nodoGlobal?.datosGlobales;
+
+const emailPqrsd = datos?.email; 
+
 const title = "Contactenos"
 const description = "Información de conctacto concejo municipal medio atrato"
 ---
@@ -19,18 +29,10 @@ const description = "Información de conctacto concejo municipal medio atrato"
                 <h2 class="text-2xl font-bold text-concejo-negro mb-4">Información de la Corporación</h2>
                 
                 <div class="flex items-start space-x-4">
-                    <i class="fas fa-phone text-concejo-azul-principal text-2xl mt-1"></i>
-                    <div>
-                        <p class="font-bold text-concejo-negro">Teléfono y WhatsApp</p>
-                        <a href="tel:3117539517" class="text-gray-700 hover:text-concejo-verde-principal">3117539517</a>
-                    </div>
-                </div>
-                
-                <div class="flex items-start space-x-4">
                     <i class="fas fa-envelope text-concejo-azul-principal text-2xl mt-1"></i>
                     <div>
                         <p class="font-bold text-concejo-negro">Correo Oficial</p>
-                        <a href="mailto:concejomedioatrato@hotmail.com" class="text-gray-700 hover:text-concejo-verde-principal">concejomedioatrato@hotmail.com</a>
+                        <a href=href={`mailto:${emailPqrsd}`} class="text-gray-700 hover:text-concejo-verde-principal">{emailPqrsd}</a>
                     </div>
                 </div>
                 

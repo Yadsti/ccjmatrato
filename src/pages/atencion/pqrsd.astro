@@ -1,5 +1,14 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import { fetchGraphQL } from "../../lib/wp.ts"; 
+import { InformacionGlobal } from "../../lib/queries/global.ts"; 
+
+const data = await fetchGraphQL(InformacionGlobal);
+const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
+const datos = nodoGlobal?.datosGlobales;
+
+const emailPqrsd = datos?.email; 
+
 const title = "PQRSD";
 const description = "Despeje sus dudas";
 ---
@@ -19,7 +28,7 @@ const description = "Despeje sus dudas";
         la corporación.
       </p>
 
-      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         <div
           class="md:col-span-1 bg-white rounded-xl shadow-lg p-6 border-t-8 border-concejo-azul-principal text-center flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300"
         >
@@ -33,7 +42,7 @@ const description = "Despeje sus dudas";
             soporte.
           </p>
           <a
-            href="mailto:concejomedioatrato@hotmail.com"
+            href={`mailto:${emailPqrsd}`}
             class="inline-block bg-concejo-verde-principal text-white font-semibold py-2 px-4 rounded-full hover:bg-concejo-negro transition-colors duration-300"
           >
             Enviar PQRSD por Email
@@ -58,24 +67,6 @@ const description = "Despeje sus dudas";
             class="inline-block bg-concejo-verde-principal text-white font-semibold py-2 px-4 rounded-full hover:bg-concejo-negro transition-colors duration-300"
           >
             Ver Dirección
-          </a>
-        </div>
-
-        <div
-          class="md:col-span-1 bg-white rounded-xl shadow-lg p-6 border-t-8 border-concejo-azul-principal text-center flex flex-col justify-between hover:shadow-2xl transition-shadow duration-300"
-        >
-          <i class="fas fa-phone text-5xl text-concejo-azul-principal mb-4"></i>
-          <h3 class="text-xl font-bold text-concejo-negro mb-2">
-            Soporte Telefónico
-          </h3>
-          <p class="text-sm text-gray-700 mb-4 flex-grow">
-            Contacte para recibir orientación sobre cómo diligenciar su PQRSD.
-          </p>
-          <a
-            href="tel:3117539517"
-            class="inline-block bg-concejo-verde-principal text-white font-semibold py-2 px-4 rounded-full hover:bg-concejo-negro transition-colors duration-300"
-          >
-            Llamar: 3117539517
           </a>
         </div>
       </div>
