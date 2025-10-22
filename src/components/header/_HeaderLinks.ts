@@ -13,8 +13,10 @@ export const menuPrincipal: MenuItem[] = [
         path: "/corporacion",
         subItems: [
             { label: "¿Qué es el Concejo?", path: "/corporacion/acerca-de" },
-            { label: "Nuestros Concejales", path: "/corporacion/concejales" },
             { label: "Historia del Concejo", path: "/corporacion/historia" },
+            { label: "Nuestros Concejales", path: "/corporacion/concejales" },
+            { label: "Comisiones", path: "/corporacion/comisiones" },
+            { label: "Organigrama", path: "/corporacion/organigrama" },
             { label: "Manual de Identidad Visual", path: "/corporacion/manual-identidad" },
         ]
     },
@@ -22,12 +24,12 @@ export const menuPrincipal: MenuItem[] = [
         label: "Transparencia",
         path: "/transparencia",
         subItems: [
-            { label: "Noticias y Eventos", path: "/transparencia/noticias" },
-            { label: "Informes de Gestión", path: "/transparencia/informes" },
-            { label: "Planeación", path: "/transparencia/planeacion" },
-            { label: "Normativa", path: "/transparencia/normativa" },
-            { label: "Participación", path: "/transparencia/participacion" },
+            { label: "Acuerdos y actas", path: "/transparencia/informes" },
             { label: "Contratación", path: "/transparencia/contratacion" },
+            { label: "Noticias y Eventos", path: "/transparencia/noticias" },
+            { label: "Normativa", path: "/transparencia/normativa" },
+            { label: "Proyectos", path: "/transparencia/planeacion" },
+            { label: "Participación", path: "/transparencia/participacion" },
         ]
     },
     {
@@ -38,4 +40,5 @@ export const menuPrincipal: MenuItem[] = [
             { label: "Contacto", path: "/atencion/contacto" },
         ]
     },
+    { label: "Administrar", path: "/wp-admin" },
 ];

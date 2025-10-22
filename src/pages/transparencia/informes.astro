@@ -1,73 +1,102 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const title = "Informes";
-const description = "Informes"
+import { fetchGraphQL } from "../../lib/wp.ts";
+import { InformacionAcuerdosyActas } from "../../lib/queries/acuerdosyactas.ts"; 
+
+const title = "Actas y Acuerdos";
+const description = "Consulte y descargue las actas de sesiones y acuerdos municipales aprobados por el Concejo Municipal del Medio Atrato.";
+const data = await fetchGraphQL(InformacionAcuerdosyActas);
+
+const acuerdosList = data?.acuerdos?.nodes?.map((node) => {
+    const acuerdo = node.datosDeAcuerdos;
+    return {
+        id: acuerdo.numeroDeAcuerdo,
+        title: acuerdo.tituloDeAcuerdo,
+        summary: acuerdo.resumenDelAcuerdo,
+        date: acuerdo.fechaDeAcuerdo,
+        url: acuerdo.documentoDeSoporte?.node?.mediaItemUrl || "#",
+        displayTitle: `Acuerdo No. ${acuerdo.numeroDeAcuerdo}`,
+    };
+}) || [];
+
+const actasList = data?.actas?.nodes?.map((node) => {
+    const acta = node.datosDeActas;
+    return {
+        id: acta.numeroDeActa,
+        summary: acta.resumenDeActa,
+        date: acta.fechaDeDocumento,
+        url: acta.documentoPdf?.node?.mediaItemUrl || "#",
+        displayTitle: `Acta No. ${acta.numeroDeActa}`,
+    };
+}) || [];
 ---
 
 <Layout title={title} description={description}>
 
-    <div class="h-16"></div>
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">
+            Actas y Acuerdos
+        </h1>
+        <p class="text-lg text-gray-700 text-center mb-10 max-w-3xl mx-auto">
+            Revise y descargue los documentos oficiales que recogen las decisiones y el registro de las sesiones de la Corporación Concejo Municipal.
+        </p>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            
+            <section aria-labelledby="acuerdos-titulo" class="bg-white rounded-xl shadow-xl border-t-4 border-concejo-azul-principal">
+                <h2 id="acuerdos-titulo" class="p-5 text-2xl font-extrabold text-concejo-negro flex items-center">
+                    Acuerdos Municipales
+                </h2>
+                
+                <div class="p-5 pt-0">
+                    {acuerdosList.length > 0 ? (
+                        <ul class="space-y-3 divide-y divide-gray-100">
+                            {acuerdosList.map((acuerdo) => (
+                                <li class="pt-3">
+                                    <a href={acuerdo.url} target="_blank" rel="noopener noreferrer" class="group block p-2 hover:bg-gray-50 rounded-md transition-colors">
+                                        <p class="text-xs font-semibold text-concejo-verde-principal">{acuerdo.displayTitle} - {acuerdo.date}</p>
+                                        <h4 class="text-base font-bold text-concejo-negro group-hover:underline">{acuerdo.title}</h4>
+                                        <p class="text-sm text-gray-700 mt-1 line-clamp-2">{acuerdo.summary}</p>
+                                        <span class="text-sm font-semibold text-concejo-azul-principal mt-1 block">Descargar PDF</span>
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <div class="p-8 text-center text-gray-500 bg-gray-50 rounded-lg border border-gray-200">
+                            <i class="fas fa-file-alt text-4xl mb-3"></i>
+                            <p>No hay Acuerdos municipales publicados todavía.</p>
+                        </div>
+                    )}
+                </div>
+            </section>
 
-    <main class="container mx-auto px-4 py-8 font-sans">
-        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">Informes de Gestión</h1>
-        <p class="text-lg text-gray-700 text-center mb-10 max-w-3xl mx-auto">
-            Aquí puede consultar y descargar los informes de gestión, planes de desarrollo y otros documentos oficiales importantes del Concejo Municipal del Medio Atrato.
-        </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            
-            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-concejo-verde-principal flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
-                <div class="flex items-start space-x-3 mb-4">
-                    <svg class="w-8 h-8 text-concejo-verde-principal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                    <div>
-                        <span class="text-xs font-semibold text-gray-500">Documento Anual</span>
-                        <h3 class="text-xl font-bold text-concejo-negro">Informe de Gestión 2024</h3>
-                    </div>
-                </div>
-                <p class="text-sm text-gray-700 mb-4">Detalle de la ejecución presupuestal y los logros de la corporación durante el periodo fiscal 2024.</p>
-                <a href="/docs/informe-2024.pdf" target="_blank" class="self-end bg-concejo-azul-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-verde-principal transition-colors duration-300 flex items-center">
-                    Descargar
-                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                </a>
-            </div>
-            
-            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-concejo-verde-principal flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
-                <div class="flex items-start space-x-3 mb-4">
-                    <svg class="w-8 h-8 text-concejo-verde-principal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.247m0-13C13.168 5.477 14.754 5 16.5 5S19.832 5.477 21 6.253v13C19.832 18.477 18.246 18 16.5 18s-3.332.477-4.5 1.247"></path>
-                    </svg>
-                    <div>
-                        <span class="text-xs font-semibold text-gray-500">Plan Cuatrienal</span>
-                        <h3 class="text-xl font-bold text-concejo-negro">Plan de Desarrollo 2023-2027</h3>
-                    </div>
-                </div>
-                <p class="text-sm text-gray-700 mb-4">Documento guía que contiene los objetivos, estrategias y metas de desarrollo para el cuatrienio.</p>
-                <a href="/docs/plan-desarrollo.pdf" target="_blank" class="self-end bg-concejo-azul-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-verde-principal transition-colors duration-300 flex items-center">
-                    Descargar
-                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                </a>
-            </div>
-            
-            <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-concejo-verde-principal flex flex-col justify-between hover:shadow-xl transition-shadow duration-300">
-                <div class="flex items-start space-x-3 mb-4">
-                    <svg class="w-8 h-8 text-concejo-verde-principal flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2h2"></path>
-                    </svg>
-                    <div>
-                        <span class="text-xs font-semibold text-gray-500">Reglamento</span>
-                        <h3 class="text-xl font-bold text-concejo-negro">Reglamento Interno</h3>
-                    </div>
-                </div>
-                <p class="text-sm text-gray-700 mb-4">Documento que establece las normas de procedimiento y funcionamiento de la Corporación Concejo Municipal.</p>
-                <a href="/docs/reglamento-interno.pdf" target="_blank" class="self-end bg-concejo-azul-principal text-white px-4 py-2 rounded-full font-semibold hover:bg-concejo-verde-principal transition-colors duration-300 flex items-center">
-                    Descargar
-                    <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                </a>
-            </div>
-            
-        </div>
-    </main>
-
+            <section aria-labelledby="actas-titulo" class="bg-white rounded-xl shadow-xl border-t-4 border-concejo-verde-principal">
+                <h2 id="actas-titulo" class="p-5 text-2xl font-extrabold text-concejo-negro flex items-center">
+                    Actas de Sesiones
+                </h2>
+                
+                <div class="p-5 pt-0">
+                    {actasList.length > 0 ? (
+                        <ul class="space-y-3 divide-y divide-gray-100">
+                            {actasList.map((acta) => (
+                                <li class="pt-3">
+                                    <a href={acta.url} target="_blank" rel="noopener noreferrer" class="group block p-2 hover:bg-gray-50 rounded-md transition-colors">
+                                        <p class="text-xs font-semibold text-concejo-verde-principal">{acta.displayTitle} - {acta.date}</p>
+                                        <p class="text-base font-bold text-concejo-negro group-hover:underline line-clamp-2">{acta.summary || 'Resumen no disponible'}</p>
+                                        <span class="text-sm font-semibold text-concejo-azul-principal mt-1 block">Descargar PDF</span>
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        <div class="p-8 text-center text-gray-500 bg-gray-50 rounded-lg border border-gray-200">
+                            <i class="fas fa-calendar-check text-4xl mb-3"></i>
+                            <p>No hay Actas de sesiones publicadas todavía.</p>
+                        </div>
+                    )}
+                </div>
+            </section>
+        </div>
+    </main>
 </Layout>
