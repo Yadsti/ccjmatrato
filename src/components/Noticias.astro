@@ -1,14 +1,21 @@
 ---
-const { limit = 3, removeTitle = false } = Astro.props; 
+export interface Noticia {
+    fecha: string;
+    titulo: string;
+    resumen: string;
+    contenido: string;
+    imageUrl: string;
+    imageAlt: string;
+    documentUrl: string | null;
+    slug: string;
+}
 
-const noticiasEjemplo = [
-    { id: 1, titulo: "Título de la Noticia 1", fecha: "10 de octubre de 2025", descripcion: "Breve descripción de la noticia o evento. Puedes usar este espacio para los puntos clave de la noticia. Asegúrate de que el texto no sea demasiado largo.", imagen: "/noticias/noticia1.jpg" },
-    { id: 2, titulo: "Título de la Noticia 2", fecha: "05 de octubre de 2025", descripcion: "Un ejemplo de otra noticia relevante para los ciudadanos. Este texto debe ser un resumen conciso y atractivo.", imagen: "/noticias/noticia2.jpg" },
-    { id: 3, titulo: "Título de la Noticia 3", fecha: "28 de septiembre de 2025", descripcion: "Un tercer ejemplo de noticia. El uso de la clase line-clamp-3 asegura que el texto no desborde la tarjeta.", imagen: "/noticias/noticia3.jpg" },
-    { id: 4, titulo: "Noticia Oculta 4", fecha: "20 de septiembre de 2025", descripcion: "Esta noticia se vería en la página completa, pero no en el inicio si el límite es 3.", imagen: "/noticias/noticia4.jpg" },
-];
+export interface Props {
+    noticiasList: Noticia[];
+    removeTitle?: boolean;
+}
 
-const noticiasVisibles = noticiasEjemplo.slice(0, limit);
+const { noticiasList, removeTitle = false } = Astro.props;
 ---
 
 <section class="container mx-auto px-4 py-8 font-sans">
@@ -25,14 +32,14 @@ const noticiasVisibles = noticiasEjemplo.slice(0, limit);
     
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         
-        {noticiasVisibles.map((noticia) => (
+        {noticiasList.map((noticia) => (
             
-            <a href={`/transparencia/noticias/detalle?id=${noticia.id}`} class="group block bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:shadow-2xl transition-all duration-300">
+            <a href={`/transparencia/noticias/${noticia.slug}`} class="group block bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transform hover:shadow-2xl transition-all duration-300">
                 
                 <div class="overflow-hidden h-48">
                     <img 
-                        src={noticia.imagen} 
-                        alt={noticia.titulo} 
+                        src={noticia.imageUrl} 
+                        alt={noticia.imageAlt} 
                         class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
                     >
                 </div>
@@ -46,7 +53,7 @@ const noticiasVisibles = noticiasEjemplo.slice(0, limit);
                     </h3>
                     
                     <p class="text-gray-700 text-base line-clamp-3">
-                        {noticia.descripcion}
+                        {noticia.contenido}
                     </p>
                     
                     <span class="inline-block mt-3 text-concejo-verde-principal font-semibold group-hover:underline flex items-center">
@@ -64,7 +71,7 @@ const noticiasVisibles = noticiasEjemplo.slice(0, limit);
 
     { !removeTitle && (
         <div class="text-center mt-12">
-            <a href="/transparencia/" class="inline-block bg-concejo-verde-principal text-white font-bold py-3 px-6 rounded-full hover:bg-concejo-azul-principal transition-colors duration-300">
+            <a href="/transparencia/noticias/" class="inline-block bg-concejo-verde-principal text-white font-bold py-3 px-6 rounded-full hover:bg-concejo-azul-principal transition-colors duration-300">
                 Ver Archivo Completo de Noticias →
             </a>
         </div>

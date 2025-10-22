@@ -1,30 +1,47 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import Noticias from "../../../components/Noticias.astro";
+import { fetchGraphQL } from "../../../lib/wp.ts";
+import { InformacionNoticias } from "../../../lib/queries/noticias.ts";
 
 const title = "Noticias"
 const description = "Enterese de los ultimos acontecimientos"
+const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
+const noticiasData = await fetchGraphQL(InformacionNoticias);
+const noticiasList = noticiasData?.noticias?.edges?.map((edge) => {
+    const noticia = edge.node.datosDeLasNoticias;
+    const imageUri = noticia.imagenDeLaNoticia?.node?.uri;
+    const imageUrl = imageUri ? `${WP_BASE_URL}${imageUri}` : "/noticias/default.jpg";
+
+    return {
+        fecha: noticia.fechaDeLaNoticia,
+        titulo: noticia.tituloDeNoticia,
+        resumen: noticia.resumen,
+        contenido: noticia.descripcionDeLaNoticia,
+        imageUrl: imageUrl,
+        imageAlt: noticia.imagenDeLaNoticia?.node?.altText || `Imagen de ${noticia.tituloDeNoticia}`,
+        documentUrl: noticia.documentoDeNoticia?.node?.mediaItemUrl || null,
+        slug: noticia.tituloDeNoticia?.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-'),
+    };
+}) || [];
 ---
 
 <Layout title={title} description={description}>
-    <div class="bg-gray-50 py-12 border-b border-gray-200">
-        <main class="container mx-auto px-4 font-sans">
-            <div class="text-center max-w-4xl mx-auto">
-                
-                <h1 class="text-5xl font-extrabold text-concejo-negro relative inline-block mb-3">
-                    Archivo Completo de Noticias
-                </h1>
-                
-                <hr class="w-24 h-1 mx-auto mt-2 bg-concejo-verde-principal border-0 rounded-full">
+    <div class="bg-gray-50 py-12 border-b border-gray-200">
+        <main class="container mx-auto px-4 font-sans">
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="text-5xl font-extrabold text-concejo-negro relative inline-block mb-3">
+                    Archivo Completo de Noticias
+                </h1>
+                <hr class="w-24 h-1 mx-auto mt-2 bg-concejo-verde-principal border-0 rounded-full">
+                <p class="text-lg text-gray-700 mt-4">
+                    Consulte la cronología completa de las actividades y eventos del Concejo Municipal del Medio Atrato.
+                </p>
+            </div>
+        </main>
+    </div>
 
-                <p class="text-lg text-gray-700 mt-4">
-                    Consulte la cronología completa de las actividades y eventos del Concejo Municipal del Medio Atrato.
-                </p>
-            </div>
-        </main>
-    </div>
-
-    <main class="container mx-auto px-4 py-8 font-sans">
-        <Noticias limit={100} removeTitle={true} /> 
-    </main>
+    <main class="container mx-auto px-4 py-8 font-sans">
+        <Noticias noticiasList={noticiasList} removeTitle={true} /> 
+    </main>
 </Layout>

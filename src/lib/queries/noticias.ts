@@ -7,6 +7,7 @@ export const InformacionNoticias = `
         datosDeLasNoticias {
           tituloDeNoticia
           resumen
+          fechaDeLaNoticia
           descripcionDeLaNoticia
           documentoDeNoticia {
             node{

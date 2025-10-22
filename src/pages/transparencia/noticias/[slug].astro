@@ -1,58 +1,117 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-const noticiasEjemplo = [
-    { id: 1, titulo: "Título Completo de la Noticia 1", fecha: "10 de octubre de 2025", subtitulo: "Subtítulo o resumen ejecutivo de la noticia 1.", descripcion: "Contenido completo de la Noticia 1...", imagen: "/noticias/noticia1.jpg" },
-    { id: 2, titulo: "Título Completo de la Noticia 2", fecha: "05 de octubre de 2025", subtitulo: "Subtítulo o resumen ejecutivo de la noticia 2.", descripcion: "Contenido completo de la Noticia 2...", imagen: "/noticias/noticia2.jpg" },
-    { id: 3, titulo: "Título Completo de la Noticia 3", fecha: "28 de septiembre de 2025", subtitulo: "Subtítulo o resumen ejecutivo de la noticia 3.", descripcion: "Contenido completo de la Noticia 3...", imagen: "/noticias/noticia3.jpg" },
-    { id: 4, titulo: "Título Completo de la Noticia 4", fecha: "20 de septiembre de 2025", subtitulo: "Subtítulo o resumen ejecutivo de la noticia 4.", descripcion: "Contenido completo de la Noticia 4...", imagen: "/noticias/noticia4.jpg" },
-];
+import { fetchGraphQL } from "../../../lib/wp.ts";
+import { InformacionNoticias } from "../../../lib/queries/noticias.ts";
 
-const url = new URL(Astro.request.url);
-const noticiaId = parseInt(url.searchParams.get('id') || '1');
-const noticia = noticiasEjemplo.find(n => n.id === noticiaId) || noticiasEjemplo[0];
-const imagenRuta = noticia.imagen || '/noticias/noticia1.jpg';
+interface NoticiaDetail {
+    fecha: string;
+    titulo: string;
+    resumen: string;
+    contenido: string;
+    imageUrl: string;
+    imageAlt: string;
+    documentUrl: string | null;
+    slug: string;
+}
+
+interface Props {
+    post: NoticiaDetail;
+}
+
+const { post } = Astro.props;
+
+export async function getStaticPaths() {
+    const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
+    const noticiasData = await fetchGraphQL(InformacionNoticias);
+    const paths = noticiasData?.noticias?.edges?.map((edge) => {
+        const noticia = edge.node.datosDeLasNoticias;
+        const imageUri = noticia.imagenDeLaNoticia?.node?.uri;
+        const imageUrl = imageUri ? `${WP_BASE_URL}${imageUri}` : "/noticias/default.jpg";
+        const postSlug = noticia.tituloDeNoticia?.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-');
+
+        const postData: NoticiaDetail = {
+            fecha: noticia.fechaDeLaNoticia,
+            titulo: noticia.tituloDeNoticia,
+            resumen: noticia.resumen,
+            contenido: noticia.descripcionDeLaNoticia,
+            imageUrl: imageUrl,
+            imageAlt: noticia.imagenDeLaNoticia?.node?.altText || `Imagen de ${noticia.tituloDeNoticia}`,
+            documentUrl: noticia.documentoDeNoticia?.node?.mediaItemUrl || null,
+            slug: postSlug, 
+        };
+
+        return {
+            params: { slug: postData.slug }, 
+            props: { post: postData },
+        };
+    }) || [];
+
+    return paths;
+}
+
+const title = post.titulo;
+const description = post.resumen;
+const cleanContent = post.contenido; 
 ---
 
-<Layout>
-    <div class="h-16"></div>
+<Layout title={title} description={description}>
+    <main class="container mx-auto px-4 py-12 font-sans">
+        <section class="max-w-4xl mx-auto mb-10 text-center">
+            <h1 class="text-4xl sm:text-5xl font-extrabold text-concejo-negro mb-3 leading-tight">
+                {post.titulo}
+            </h1>
+            <p class="text-sm font-semibold text-concejo-azul-principal uppercase">
+                Publicado el {post.fecha}
+            </p>
+            <hr class="w-16 h-1 mx-auto mt-4 bg-concejo-verde-principal border-0 rounded-full">
+        </section>
 
-    <main class="container mx-auto px-4 py-8 font-sans">
-        <article class="max-w-4xl mx-auto">
+        <section class="max-w-5xl mx-auto">
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 items-start">
-                
-                <div class="md:col-span-2 order-1">
-                    <p class="text-sm text-gray-500 mb-2">Publicado el {noticia.fecha}</p>
-                    <h1 class="text-4xl font-extrabold text-concejo-negro mb-3 leading-tight">{noticia.titulo}</h1>
-                    <p class="text-xl text-concejo-azul-principal font-semibold mb-2">{noticia.subtitulo}</p>
-                    
-                    <hr class="w-16 h-1 bg-concejo-verde-principal border-0 rounded-full my-4">
-                </div>
+            {/* Imagen Principal */}
+            <figure class="mb-8 rounded-xl overflow-hidden shadow-2xl">
+                <img 
+                    src={post.imageUrl} 
+                    alt={post.imageAlt} 
+                    class="w-full h-auto max-h-[500px] object-cover"
+                >
+            </figure>
 
-                <div class="md:col-span-1 order-2">
-                    <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 transform hover:shadow-2xl transition-all duration-300">
-                        <img 
-                            src={imagenRuta} 
-                            alt={`Imagen destacada de ${noticia.titulo}`} 
-                            class="w-full h-auto object-cover transform hover:scale-[1.03] transition-transform duration-300"
-                        >
-                    </div>
+            {post.documentUrl && (
+                <div class="mb-8 p-4 bg-yellow-50 border-l-4 border-concejo-amarillo rounded-lg flex items-center justify-between shadow-sm">
+                    <p class="text-gray-800 font-medium">
+                        <i class="fas fa-paperclip mr-2 text-concejo-amarillo" aria-hidden="true"></i>
+                        Descargue el documento relacionado con esta noticia.
+                    </p>
+                    <a 
+                        href={post.documentUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        class="bg-concejo-azul-principal text-white font-semibold py-2 px-4 rounded-lg hover:bg-concejo-verde-principal transition-colors duration-300 flex items-center text-sm"
+                    >
+                        Descargar Documento
+                        <i class="fas fa-download ml-2" aria-hidden="true"></i>
+                    </a>
                 </div>
+            )}
+
+            <p class="text-xl text-gray-800 italic mb-8 border-l-4 border-concejo-azul-principal pl-4 leading-relaxed">
+                {post.resumen}
+            </p>
+
+            <div class="prose prose-lg max-w-none text-gray-700">
+                <div set:html={cleanContent}></div>
             </div>
 
-            <div class="prose max-w-none text-gray-800 space-y-6 pt-6 border-t border-gray-200">
-                <p>{noticia.descripcion}</p>
-                
-                <h2 class="text-3xl font-bold text-concejo-negro pt-4">Impacto y Resultados</h2>
-                <p>El Concejo informa sobre los resultados obtenidos de esta actividad: [Añade el detalle aquí].</p>
-                </div>
-            
-        </article>
-        
-        <div class="text-center mt-12">
-            <a href="/transparencia/" class="inline-block bg-concejo-verde-principal text-white font-bold py-3 px-3 rounded-full shadow-md hover:bg-concejo-azul-principal transition-colors duration-300 flex items-center justify-center mx-auto w-48">
-                ← Volver a Noticias
-            </a>
-        </div>
+            <hr class="my-12">
+
+            <div class="text-center">
+                <a href="/transparencia/noticias" class="inline-flex items-center text-concejo-verde-principal font-semibold hover:underline">
+                    <i class="fas fa-arrow-left mr-2" aria-hidden="true"></i>
+                    Volver al Archivo de Noticias
+                </a>
+            </div>
+
+        </section>
     </main>
 </Layout>

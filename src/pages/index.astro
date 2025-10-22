@@ -7,11 +7,11 @@ import MisionVision from "../components/MisionVision.astro";
 import { fetchGraphQL } from "../lib/wp.ts";
 import { InformacionGlobal } from "../lib/queries/global.ts";
 import { InformacionConcejales } from "../lib/queries/concejales.ts";
+import { InformacionNoticias } from "../lib/queries/noticias";
 
 const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
-
 const concejalesData = await fetchGraphQL(InformacionConcejales);
-
+const noticiasData = await fetchGraphQL(InformacionNoticias);
 const concejalesList = concejalesData?.concejales?.edges?.map((edge) => {
     const concejalData = edge.node.datosDeConcejales;
     const photoUri = concejalData.fotoDelConcejal?.node?.uri;
@@ -25,23 +25,39 @@ const concejalesList = concejalesData?.concejales?.edges?.map((edge) => {
     };
 }) || []; 
 
-const concejalesHome = concejalesList.slice(0, 5);
+const noticiasList = noticiasData?.noticias?.edges?.map((edge) => {
+    const noticia = edge.node.datosDeLasNoticias;
+    const postId = edge.node.id;
+    const imageUri = noticia.imagenDeLaNoticia?.node?.uri;
+    const imageUrl = imageUri ? `${WP_BASE_URL}${imageUri}` : "/noticias/default.jpg";
 
+    return {
+        fecha: noticia.fechaDeLaNoticia,
+        titulo: noticia.tituloDeNoticia,
+        resumen: noticia.resumen,
+        contenido: noticia.descripcionDeLaNoticia,
+        imageUrl: imageUrl,
+        imageAlt: noticia.imagenDeLaNoticia?.node?.altText || `Imagen de ${noticia.tituloDeNoticia}`,
+        documentUrl: noticia.documentoDeNoticia?.node?.mediaItemUrl || null,
+        slug: noticia.tituloDeNoticia?.toLowerCase().replace(/[^\w\s-]/g, '').replace(/[\s_]+/g, '-'), // Generar slug
+    };
+}) || [];
+
+
+const noticiasHome = noticiasList.slice(0, 3);
+const concejalesHome = concejalesList.slice(0, 5);
 const data = await fetchGraphQL(InformacionGlobal);
 const nodoGlobal = data?.allInformacionGlobal?.edges?.[0]?.node;
 const datos = nodoGlobal?.datosGlobales;
-
 const mision = datos?.mision || "";
 const vision = datos?.vision || "";
-
 const title = "Inicio";
 const description = "Sitio web oficial del Concejo Municipal del Medio Atrato, Chocó. Consulte las iniciativas, normativa, y procesos de participación ciudadana.";
 ---
 
 <Layout title={title} description={description}>
     <Hero />
-    <!-- <SeparadorWave marginY="lg" /> -->
-    <Noticias />
+    <Noticias noticiasList={noticiasHome}/>
     <MisionVision 
         mision={mision}
         vision={vision}
