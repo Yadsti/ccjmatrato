@@ -1,109 +1,109 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-const title = "Comisiones"
-const description = "Conozca las comisiones del concejo municipal de medio atrato"
+import { fetchGraphQL } from "../../lib/wp.ts";
+import { InformacionConcejales } from "../../lib/queries/concejales.ts";
+
+const title = "Comisiones";
+const description = "Conozca las comisiones del concejo de Medio Atrato";
+
+const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
+
+// Consultar datos desde WordPress
+const concejalesData = await fetchGraphQL(InformacionConcejales);
+
+// Procesar la respuesta
+const concejalesList = concejalesData?.concejales?.edges?.map((edge) => {
+    const concejalData = edge.node.datosDeConcejales;
+    const photoUri = concejalData.fotoDelConcejal?.node?.uri;
+    const photoUrl = photoUri? `${WP_BASE_URL}${photoUri}`: "/concejales/default.jpg";
+    return {
+        name: concejalData.nombreDeConcejal,
+        partido: concejalData.partidoPolitico,
+        comisiones: concejalData.comision || [],
+        cargo: concejalData.cargoDelConcejal,
+        comunidad: concejalData.comunidad,
+        correo: concejalData.correoElectronico,
+        photoUrl,
+    };
+}) || [];
+
+// Agrupar concejales por comisión
+const comisionesMap = concejalesList.reduce((acc, concejal) => {
+    concejal.comisiones.forEach((comision) => {
+        if (!acc[comision]) acc[comision] = [];
+        acc[comision].push(concejal);
+    });
+    return acc;
+}, {});
+
+console.log("Comisiones agrupadas:", comisionesMap);
 ---
 
 <Layout title={title} description={description}>
-    <div class="h-16"></div>
-
     <main class="container mx-auto px-4 py-8 font-sans">
-        <h1 class="text-4xl font-bold text-center text-concejo-verde-principal mb-8">Comisiones del concejo</h1>
+        <h1
+        class="text-4xl font-bold text-center text-concejo-verde-principal mb-8"
+        >
+        Comisiones Permanentes
+        </h1>
+
         <p class="text-lg text-gray-700 text-center mb-10 max-w-4xl mx-auto">
-            El Concejo Municipal del Medio Atrato opera a través de comisiones permanentes encargadas del estudio y debate de proyectos de acuerdo en áreas específicas.
+        El Concejo Municipal del Medio Atrato opera a través de comisiones
+        permanentes encargadas del estudio y debate de proyectos de acuerdo en
+        áreas específicas.
         </p>
 
         <div class="grid grid-cols-1 gap-6 max-w-4xl mx-auto">
-            
-            <details class="bg-gray-50 rounded-xl shadow-lg border-t-4 border-concejo-azul-principal open:shadow-2xl transition-all duration-300">
-                <summary class="flex justify-between items-center p-6 cursor-pointer text-xl font-bold text-concejo-negro hover:bg-white rounded-t-xl">
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-money-check-alt text-2xl text-concejo-azul-principal"></i>
-                        Comisión Primera: Hacienda y Presupuesto
-                    </div>
-                    <span class="text-concejo-verde-principal text-2xl group-open:rotate-180 transition-transform duration-300">+</span>
+        {
+            Object.entries(comisionesMap).map(([nombreComision, miembros]) => (
+            <details class="bg-white rounded-xl shadow-lg border border-gray-200 open:shadow-xl transition-all duration-300">
+                <summary class="flex justify-between items-center p-4 cursor-pointer text-xl font-bold text-concejo-negro hover:bg-gray-50 border-l-4 border-concejo-azul-principal">
+                {nombreComision}
+                <span class="text-concejo-verde-principal text-2xl group-open:rotate-180 transition-transform duration-300">
+                    +
+                </span>
                 </summary>
-                
-                <div class="p-6 border-t border-gray-200">
-                    <p class="text-lg font-semibold text-concejo-negro mb-3">Miembros Actuales:</p>
-                    <div class="space-y-3">
-                        <p class="text-gray-700"><span class="font-bold">Yeiber Asprilla:</span> Presidente</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Cuatro:</span> Miembro</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Nueve:</span> Miembro</p>
-                    </div>
-                </div>
-            </details>
-            
-            <details class="bg-gray-50 rounded-xl shadow-lg border-t-4 border-concejo-azul-principal open:shadow-2xl transition-all duration-300">
-                <summary class="flex justify-between items-center p-6 cursor-pointer text-xl font-bold text-concejo-negro hover:bg-white rounded-t-xl">
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-city text-2xl text-concejo-azul-principal"></i>
-                        Comisión Segunda: Desarrollo y Medio Ambiente
-                    </div>
-                    <span class="text-concejo-verde-principal text-2xl group-open:rotate-180 transition-transform duration-300">+</span>
-                </summary>
-                <div class="p-6 border-t border-gray-200">
-                    <p class="text-lg font-semibold text-concejo-negro mb-3">Miembros Actuales:</p>
-                    <div class="space-y-3">
-                        <p class="text-gray-700"><span class="font-bold">Carlos Murillo Córdoba:</span> Presidente</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Cinco:</span> Miembro</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Diez:</span> Miembro</p>
-                    </div>
-                </div>
-            </details>
-            
-            <details class="bg-gray-50 rounded-xl shadow-lg border-t-4 border-concejo-azul-principal open:shadow-2xl transition-all duration-300">
-                <summary class="flex justify-between items-center p-6 cursor-pointer text-xl font-bold text-concejo-negro hover:bg-white rounded-t-xl">
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-hands-helping text-2xl text-concejo-azul-principal"></i>
-                        Comisión Tercera: Asuntos Sociales
-                    </div>
-                    <span class="text-concejo-verde-principal text-2xl group-open:rotate-180 transition-transform duration-300">+</span>
-                </summary>
-                <div class="p-6 border-t border-gray-200">
-                    <p class="text-lg font-semibold text-concejo-negro mb-3">Miembros Actuales:</p>
-                    <div class="space-y-3">
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Tres:</span> Presidente</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Seis:</span> Miembro</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Once:</span> Miembro</p>
-                    </div>
-                </div>
-            </details>
 
-            <details class="bg-gray-50 rounded-xl shadow-lg border-t-4 border-concejo-azul-principal open:shadow-2xl transition-all duration-300">
-                <summary class="flex justify-between items-center p-6 cursor-pointer text-xl font-bold text-concejo-negro hover:bg-white rounded-t-xl">
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-users-cog text-2xl text-concejo-azul-principal"></i>
-                        Comisión Cuarta: Administración y Ética
+                <div class="p-6 border-t border-gray-200 space-y-4">
+                <p class="text-gray-700 text-sm">
+                    {nombreComision} se encarga de tratar temas específicos según
+                    las funciones del Concejo Municipal.
+                </p>
+
+                <h3 class="text-lg font-bold text-concejo-negro pt-2">
+                    Miembros de la Comisión:
+                </h3>
+
+                {miembros.length > 0 ? (
+                    <div class="flex overflow-x-auto space-x-4 pb-2 snap-x snap-mandatory scrollbar-hide">
+                    {miembros.map((concejal) => (
+                        <div class="flex-shrink-0 snap-start text-center p-3 bg-gray-50 rounded-lg shadow-inner w-44 transform hover:scale-[1.05] transition-transform duration-300">
+                        <img
+                            src={concejal.photoUrl}
+                            alt={concejal.name}
+                            class="w-20 h-20 mx-auto rounded-full object-cover mb-2 border-2 border-concejo-azul-principal"
+                        />
+                        <p class="font-bold text-concejo-negro text-sm">
+                            {concejal.name}
+                        </p>
+                        <p class="text-concejo-verde-principal text-xs">
+                            {concejal.cargo ?? "Miembro"}
+                        </p>
+                        <p class="text-xs text-gray-500">
+                            {concejal.partido || ""}
+                        </p>
+                        </div>
+                    ))}
                     </div>
-                    <span class="text-concejo-verde-principal text-2xl group-open:rotate-180 transition-transform duration-300">+</span>
-                </summary>
-                <div class="p-6 border-t border-gray-200">
-                    <p class="text-lg font-semibold text-concejo-negro mb-3">Miembros Actuales:</p>
-                    <div class="space-y-3">
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Siete:</span> Presidente</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Ocho:</span> Miembro</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Doce:</span> Miembro</p>
-                    </div>
+                ) : (
+                    <p class="text-gray-500 text-sm italic">
+                    No hay miembros registrados para esta comisión.
+                    </p>
+                )}
                 </div>
             </details>
-            <details class="bg-gray-50 rounded-xl shadow-lg border-t-4 border-concejo-azul-principal open:shadow-2xl transition-all duration-300">
-                <summary class="flex justify-between items-center p-6 cursor-pointer text-xl font-bold text-concejo-negro hover:bg-white rounded-t-xl">
-                    <div class="flex items-center space-x-4">
-                        <i class="fas fa-users-cog text-2xl text-concejo-azul-principal"></i>
-                        Comisión Quinta: De la Mujer
-                    </div>
-                    <span class="text-concejo-verde-principal text-2xl group-open:rotate-180 transition-transform duration-300">+</span>
-                </summary>
-                <div class="p-6 border-t border-gray-200">
-                    <p class="text-lg font-semibold text-concejo-negro mb-3">Miembros Actuales:</p>
-                    <div class="space-y-3">
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Siete:</span> Presidente</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Ocho:</span> Miembro</p>
-                        <p class="text-gray-700"><span class="font-bold">Concejal Número Doce:</span> Miembro</p>
-                    </div>
-                </div>
-            </details>
+            ))
+        }
         </div>
     </main>
 </Layout>

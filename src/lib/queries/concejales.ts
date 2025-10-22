@@ -9,6 +9,7 @@ export const InformacionConcejales = `
                         cargoDelConcejal
                         correoElectronico
                         comunidad
+                        comision
                         fotoDelConcejal {
                             node {
                                 uri
