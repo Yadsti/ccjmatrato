@@ -12,6 +12,7 @@ import { InformacionNoticias } from "../lib/queries/noticias";
 const WP_BASE_URL = import.meta.env.WORDPRESS_API_URL.replace("/graphql", "");
 const concejalesData = await fetchGraphQL(InformacionConcejales);
 const noticiasData = await fetchGraphQL(InformacionNoticias);
+
 const concejalesList = concejalesData?.concejales?.edges?.map((edge) => {
     const concejalData = edge.node.datosDeConcejales;
     const photoUri = concejalData.fotoDelConcejal?.node?.uri;
@@ -56,7 +57,7 @@ const description = "Sitio web oficial del Concejo Municipal del Medio Atrato, C
 ---
 
 <Layout title={title} description={description}>
-    <Hero />
+    <Hero client:idle/>
     <Noticias noticiasList={noticiasHome}/>
     <MisionVision 
         mision={mision}
